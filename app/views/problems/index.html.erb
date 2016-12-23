@@ -1,8 +1,8 @@
-<div id="container">
-	<% @servers.each do |s| -%>
-		<p><%= s.name -%></p>
-		<% s.problems.each do |p| -%>
-			<p><%= p.name -%></p>
-		<% end -%>
+<h1>Problems overview</h1>
+<% @servers.each do |s| -%>
+	<h2><%= s.name -%></h2>
+	<% s.problems.each do |p| -%>
+		<p><%= p.name -%></p>
 	<% end -%>
-</div>
+<% end -%>
+</h1>
