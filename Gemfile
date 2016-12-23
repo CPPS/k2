@@ -54,3 +54,6 @@ gem 'sidekiq'
 
 # use clockwork fork for cron stuff
 gem 'clockwork', :git => 'https://github.com/Rykian/clockwork.git', :tag => 'v2.0.1'
+
+# use bootstrap for front-end layout
+gem 'bootstrap-sass', '~> 3.3.6'
