@@ -15,7 +15,7 @@
 			<table class="table">
 				<% @server.problems.each do |p| -%>
 					<tr>
-						<td><%= p.short_name -%></td>
+						<td><%= link_to p.short_name, kaas_path(@server.id, p.short_name) -%></td>
 						<td><%= p.name -%></td>
 					</tr>
 				<% end -%>

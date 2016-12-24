@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 	delete	'/logout',	to: 'sessions#destroy'
 	get	'/signup',	to: 'users#new'
 
+	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas #Only way that works for some reason
+
 	resources :servers, 	only: [:index, :show]
 	resources :problems, 	only: [:index]
 	resources :users, 	only: [:index, :show, :create]
