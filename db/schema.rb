@@ -18,9 +18,11 @@ ActiveRecord::Schema.define(version: 20161223065745) do
   create_table "problems", force: :cascade do |t|
     t.integer  "server_id"
     t.string   "problem_id"
+    t.string   "short_name"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["server_id", "short_name"], name: "index_problems_on_server_id_and_short_name", unique: true, using: :btree
     t.index ["server_id"], name: "index_problems_on_server_id", using: :btree
   end
 

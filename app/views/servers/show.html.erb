@@ -1,4 +1,25 @@
 <div id="container">
-	<a href=<%= @server.url -%>><p><%= @server.name -%></p></a>
+	<h1><%= link_to @server.name, @server.url -%></h1>
 
+	<ul id="server-tabs" class="nav nav-tabs" role="tablist">
+		<li class="active" role="presentation"><a href="#scoreboard" aria-controls="scoreboard" role="tab" data-toggle="tab">Scoreboard</a></li>
+		<li role="presentation"><a href="#problems" aria-controls="problems" role="tab" data-toggle="tab">Problems</a></li>
+	</ul>
+
+	<div class="tab-content">
+		<div role="tabpanel" id="scoreboard" class="tab-pane active">
+			<p>TODO</p>
+		</div>
+
+		<div role="tabpanel" id="problems" class="tab-pane">
+			<table class="table">
+				<% @server.problems.each do |p| -%>
+					<tr>
+						<td><%= p.short_name -%></td>
+						<td><%= p.name -%></td>
+					</tr>
+				<% end -%>
+			</table>
+		</div>
+	</div>
 </div>

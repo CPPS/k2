@@ -18,8 +18,12 @@ class ProblemUpdateJob < ApplicationJob
 				data = JSON.parse(f.read)
 			end
 			data.each do |p|
-				problem = Problem.find_or_initialize_by(problem_id: p["id"], server_id: s.id)
-				problem.name = p["shortname"] + ": " + p["name"]
+				problem = Problem.find_or_initialize_by(
+					problem_id: p["id"], 
+					server_id: s.id, 
+					short_name: p["shortname"], 
+					name: p["name"]
+				)
 				problem.save
 			end
 		end

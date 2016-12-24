@@ -5,10 +5,11 @@ Rails.application.routes.draw do
 	get	'/login',	to: 'sessions#new'
 	post	'/login',	to: 'sessions#create'
 	delete	'/logout',	to: 'sessions#destroy'
-	
+	get	'/signup',	to: 'users#new'
+
 	resources :servers, 	only: [:index, :show]
 	resources :problems, 	only: [:index]
-	resources :users, 	only: [:index, :show, :new, :create]
+	resources :users, 	only: [:index, :show, :create]
 
 	#Sidekiq ui
 	mount Sidekiq::Web => '/sidekiq'
