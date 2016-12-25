@@ -1,3 +1,8 @@
 // Main application CSS file, include everything in here using SASS's @import function
+
+// Include Bootstrap
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// Include all my CSS files
+@import "*"

@@ -1,7 +1,5 @@
 class Server < ApplicationRecord
-	
-	def problems
-		return Problem.where(server_id: self.id)
-	end
-
+	has_many :problems
+	has_many :accounts
+	has_many :servers, through: :account
 end

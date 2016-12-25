@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+	has_many :accounts
+	has_many :servers, through: :account
+
 	before_save { self.email.downcase! }
 	
 	validates :name, 

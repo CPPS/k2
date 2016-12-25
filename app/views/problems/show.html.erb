@@ -1,6 +1,6 @@
-<h1><%= @problem.short_name -%>: <%= @problem.name -%></h1>
-
-<object data="<%= statement_url @problem, @server %>" width="100%" height="375" type="application/pdf">
+<%- title @problem.short_name %>
+<%- sub_header @problem.name %>
+<object data="<%= statement_url @problem, @server %>" id="problem-pdf" type="application/pdf">
 	<p>The problem statement can be found <%= link_to "here", statement_url(@problem, @server)%>. Your browser does not support embedding PDF files..
 </object>
 	

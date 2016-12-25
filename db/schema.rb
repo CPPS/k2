@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223065745) do
+ActiveRecord::Schema.define(version: 20161225183842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.integer  "server_id"
+    t.integer  "solvedProblems"
+    t.integer  "score"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["server_id"], name: "index_accounts_on_server_id", using: :btree
+    t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
+  end
 
   create_table "problems", force: :cascade do |t|
     t.integer  "server_id"
@@ -33,6 +45,17 @@ ActiveRecord::Schema.define(version: 20161223065745) do
     t.string   "api_endpoint"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer  "problem_id"
+    t.integer  "account_id"
+    t.boolean  "accepted"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_submissions_on_account_id", using: :btree
+    t.index ["problem_id"], name: "index_submissions_on_problem_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
