@@ -10,5 +10,6 @@ class CreateProblems < ActiveRecord::Migration[5.0]
     end
 
     add_index :problems, [:server_id, :short_name], unique: true
+    add_index :problems, [:server_id, :problem_id], unique: true
   end
 end

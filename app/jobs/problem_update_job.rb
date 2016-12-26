@@ -3,13 +3,13 @@ require 'json'
 
 class ProblemUpdateJob < ApplicationJob
 	queue_as :default
-
+	
+	# Update all problems know to k2
 	def perform(*args)
-		# Do something later
 		servers = Server.all
 		for s in servers
 			if(s.api_type != "domjudge")
-				puts "Unsupported Judge Type: " + s.type
+				puts "Unsupported Judge Type: " + s.api_type
 				next
 			end
 			
@@ -24,7 +24,7 @@ class ProblemUpdateJob < ApplicationJob
 					short_name: p["shortname"], 
 					name: p["name"]
 				)
-				problem.save
+				problem.save!
 			end
 		end
 	end

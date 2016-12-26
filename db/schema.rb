@@ -19,11 +19,14 @@ ActiveRecord::Schema.define(version: 20161225183842) do
     t.string   "name"
     t.integer  "user_id"
     t.integer  "server_id"
+    t.integer  "account_id"
     t.integer  "solvedProblems"
     t.integer  "score"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.index ["account_id", "server_id"], name: "index_accounts_on_account_id_and_server_id", unique: true, using: :btree
     t.index ["server_id"], name: "index_accounts_on_server_id", using: :btree
+    t.index ["user_id", "server_id"], name: "index_accounts_on_user_id_and_server_id", unique: true, using: :btree
     t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
@@ -34,6 +37,7 @@ ActiveRecord::Schema.define(version: 20161225183842) do
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["server_id", "problem_id"], name: "index_problems_on_server_id_and_problem_id", unique: true, using: :btree
     t.index ["server_id", "short_name"], name: "index_problems_on_server_id_and_short_name", unique: true, using: :btree
     t.index ["server_id"], name: "index_problems_on_server_id", using: :btree
   end
@@ -50,11 +54,13 @@ ActiveRecord::Schema.define(version: 20161225183842) do
   create_table "submissions", force: :cascade do |t|
     t.integer  "problem_id"
     t.integer  "account_id"
+    t.integer  "submission_id"
     t.boolean  "accepted"
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.index ["account_id"], name: "index_submissions_on_account_id", using: :btree
+    t.index ["problem_id", "submission_id"], name: "index_submissions_on_problem_id_and_submission_id", unique: true, using: :btree
     t.index ["problem_id"], name: "index_submissions_on_problem_id", using: :btree
   end
 
