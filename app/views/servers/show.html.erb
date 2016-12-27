@@ -4,6 +4,7 @@
 	<ul id="server-tabs" class="nav nav-tabs" role="tablist">
 		<li class="active" role="presentation"><a href="#scoreboard" aria-controls="scoreboard" role="tab" data-toggle="tab">Scoreboard</a></li>
 		<li role="presentation"><a href="#problems" aria-controls="problems" role="tab" data-toggle="tab">Problems</a></li>
+		<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -17,6 +18,18 @@
 					<tr>
 						<td><%= link_to p.short_name, kaas_path(@server.id, p.short_name) -%></td>
 						<td><%= p.name -%></td>
+					</tr>
+				<% end -%>
+			</table>
+		</div>
+
+		<div role="tabpanel" id="users" class="tab-pane">
+			<table class="table">
+				<% @server.accounts.each do |a| -%>
+					<tr>
+						<td><%= a.name -%></td>
+						<td><%= a.solvedProblems -%></td>
+						<td><%= a.score -%></td>
 					</tr>
 				<% end -%>
 			</table>

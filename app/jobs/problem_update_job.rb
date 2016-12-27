@@ -21,9 +21,10 @@ class ProblemUpdateJob < ApplicationJob
 				problem = Problem.find_or_initialize_by(
 					problem_id: p["id"], 
 					server_id: s.id, 
-					short_name: p["shortname"], 
-					name: p["name"]
+
 				)
+				problem.short_name = p["shortname"] 
+				problem.name = p["name"]
 				problem.save!
 			end
 		end
