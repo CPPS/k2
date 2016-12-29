@@ -4,6 +4,7 @@ class SubmissionUpdateJob < ApplicationJob
 	# Update submissions
 	def perform(*args)
 		servers = Server.all
+		stale_accounts = []
 		for s in servers
 			if(s.api_type != "domjudge")
 				puts "Unsupported Judge Type"
@@ -41,16 +42,23 @@ class SubmissionUpdateJob < ApplicationJob
 					submission.accepted = false
 					submission.status = "Problem unknown"
 				else
-					break if scoreboard[sub["team"]][sub["problem"]]["num_pending"] == 0 #Prevent Race condition where DJ sends the submission but has not scored it yet
-					accepted = scoreboard[sub["team"]][sub["problem"]]["is_correct"]
+					sbEntry = scoreboard[sub["team"]][sub["problem"]]
+					break if sbEntry["num_pending"] == 0 #Prevent Race condition where DJ sends the submission but has not scored it yet
+					accepted = sbEntry["is_correct"]
 					submission.accepted = accepted
 					submission.status = accepted ? "Accepted" : "Not accepted"
+					if accepted
+						stale_accounts.push(submission.account)
+						submission.score = sbEntry["time"].to_i + sbEntry["penalty"]
+					end
 				end
 				s.last_submission = sub["id"]
 				submission.save!
 			end
 
 			s.save!
+
+			ScoreUpdateJob.perform_later(*stale_accounts)
 		end
 	end
 end
