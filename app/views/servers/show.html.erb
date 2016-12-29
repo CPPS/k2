@@ -14,7 +14,7 @@
 
 		<div role="tabpanel" id="problems" class="tab-pane">
 			<table class="table">
-				<% @server.problems.each do |p| -%>
+				<% @server.problems.order(short_name: :asc).each do |p| -%>
 					<tr>
 						<td><%= link_to p.short_name, kaas_path(@server.id, p.short_name) -%></td>
 						<td><%= p.name -%></td>
@@ -25,7 +25,7 @@
 
 		<div role="tabpanel" id="users" class="tab-pane">
 			<table class="table">
-				<% @server.accounts.each do |a| -%>
+				<% @server.accounts.order(solvedProblems: :desc, score: :asc).each do |a| -%>
 					<tr>
 						<td><%= a.name -%></td>
 						<td><%= a.solvedProblems -%></td>
