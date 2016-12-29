@@ -4,5 +4,12 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+// Include Bootstrap forms
+@import "rails_bootstrap_forms";
+
+// Include Font Awesome
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 // Include all my CSS files
 @import "*"

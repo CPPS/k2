@@ -1,7 +1,7 @@
-<h1>Server overview</h1>
+<%- title "Server overview" -%>
 
 <% @servers.each do |s| -%>
 	<h2><%= link_to s.name, s -%></h2>
-	<p><%= pluralize(s.problems.count, 'problem') -%></p>
+	<p><%= pluralize(s.problems.count, 'problem') -%>, <%= pluralize(s.accounts.count, 'account') -%></p>
 	<%= link_to "Go to website", s.url -%>
 <% end -%>

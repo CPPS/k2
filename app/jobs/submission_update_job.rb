@@ -29,11 +29,26 @@ class SubmissionUpdateJob < ApplicationJob
 			for sub in data
 				#submission = Submission.new
 				problem = Problem.where(server_id: s.id, problem_id: sub["problem"]).first
+				account = Account.where(server_id: s.id, account_id: sub["team"]).first
+
 				submission = Submission.find_or_initialize_by(
 					problem: problem,
 					submission_id: sub["id"]
 				)
-				submission.account = Account.where(server_id: s.id, account_id: sub["team"]).first
+				submission.account = account
+				submission.created_at = Time.at(sub["time"].to_i).to_s(:db)
+				submission.save!
+				
+				s.last_submission = sub["id"].to_i + 1
+			end
+
+			for sub in data.reverse
+				problem = Problem.where(server_id: s.id, problem_id: sub["problem"]).first
+				account = Account.where(server_id: s.id, account_id: sub["team"]).first
+				submission = Submission.find_or_initialize_by(
+					problem: problem,
+					submission_id: sub["id"]
+				)
 				#submission.submission_id = sub["id"]
 				if scoreboard[sub["team"]] == nil
 					submission.accepted = false
@@ -44,7 +59,7 @@ class SubmissionUpdateJob < ApplicationJob
 				else
 					sbEntry = scoreboard[sub["team"]][sub["problem"]]
 					break if sbEntry["num_pending"] == 0 #Prevent Race condition where DJ sends the submission but has not scored it yet
-					accepted = sbEntry["is_correct"]
+					accepted = sbEntry["is_correct"] && !Submission.where(problem: problem, account: account, accepted: true).where.not(submission_id: sub["id"]).exists?
 					submission.accepted = accepted
 					submission.status = accepted ? "Accepted" : "Not accepted"
 					if accepted
@@ -52,7 +67,7 @@ class SubmissionUpdateJob < ApplicationJob
 						submission.score = sbEntry["time"].to_i + sbEntry["penalty"]
 					end
 				end
-				s.last_submission = sub["id"]
+
 				submission.save!
 			end
 

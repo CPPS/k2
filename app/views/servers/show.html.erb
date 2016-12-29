@@ -1,38 +1,56 @@
-<div id="container">
-	<h1><%= link_to @server.name, @server.url -%></h1>
+<% title @server.name -%>
 
-	<ul id="server-tabs" class="nav nav-tabs" role="tablist">
-		<li class="active" role="presentation"><a href="#scoreboard" aria-controls="scoreboard" role="tab" data-toggle="tab">Scoreboard</a></li>
-		<li role="presentation"><a href="#problems" aria-controls="problems" role="tab" data-toggle="tab">Problems</a></li>
-		<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
-	</ul>
+<!--<%= link_to "Go to scoreboard", @server.url -%>-->
 
-	<div class="tab-content">
-		<div role="tabpanel" id="scoreboard" class="tab-pane active">
-			<p>TODO</p>
-		</div>
+<ul id="server-tabs" class="nav nav-tabs" role="tablist">
+	<li class="active" role="presentation"><a href="#feed" aria-controls="scoreboard" role="tab" data-toggle="tab">Feed</a></li>
+	<li role="presentation"><a href="#problems" aria-controls="problems" role="tab" data-toggle="tab">Problems</a></li>
+	<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+</ul>
 
-		<div role="tabpanel" id="problems" class="tab-pane">
-			<table class="table">
-				<% @server.problems.order(short_name: :asc).each do |p| -%>
-					<tr>
-						<td><%= link_to p.short_name, kaas_path(@server.id, p.short_name) -%></td>
-						<td><%= p.name -%></td>
-					</tr>
-				<% end -%>
-			</table>
-		</div>
+<div class="tab-content">
+	<div role="tabpanel" id="feed" class="tab-pane active">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Accepted?</th>
+					<th>Problem</th>
+					<th>User</th>
+					<th>Submitted</th>
+				</tr>
+			</thead>
+			<% @feed.each do |f| -%>
+				<tr>
+					<td><span class="fa fa-<%= f.accepted ? "check":"times" -%>"></span></td>
+					<td><%= link_to f.problem.short_name + ': ' + f.problem.name, kaas_path(@server.id, f.problem.short_name) -%></td>
+					<td><%= f.account.name -%></td>
+					<td><%= distance_of_time_in_words Time.now, f.created_at -%> ago</td>
+				</tr>
+			<% end -%>
+		</table>
+		<!--<p><%= @feed.inspect -%></p>-->
+	</div>
 
-		<div role="tabpanel" id="users" class="tab-pane">
-			<table class="table">
-				<% @server.accounts.order(solvedProblems: :desc, score: :asc).each do |a| -%>
-					<tr>
-						<td><%= a.name -%></td>
-						<td><%= a.solvedProblems -%></td>
-						<td><%= a.score -%></td>
-					</tr>
-				<% end -%>
-			</table>
-		</div>
+	<div role="tabpanel" id="problems" class="tab-pane">
+		<table class="table">
+			<% @problems.each do |p| -%>
+				<tr>
+					<td><%= link_to p.short_name, kaas_path(@server.id, p.short_name) -%></td>
+					<td><%= p.name -%></td>
+				</tr>
+			<% end -%>
+		</table>
+	</div>
+
+	<div role="tabpanel" id="users" class="tab-pane">
+		<table class="table">
+			<% @accounts.each do |a| -%>
+				<tr>
+					<td><%= a.name -%></td>
+					<td><%= a.solvedProblems -%></td>
+					<td><%= a.score -%></td>
+				</tr>
+			<% end -%>
+		</table>
 	</div>
 </div>

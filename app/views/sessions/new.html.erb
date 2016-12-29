@@ -1,11 +1,12 @@
-<h1>Log in</h1>
+<%- title "Log in" -%>
 
-<%= form_for(:session, url: login_path) do |f| -%>
-	<%= f.label :user %>
+<p>Don't have an account yet? <%= link_to "Sign up", signup_path -%></p>
+
+<%= bootstrap_form_for(:session, url: login_path) do |f| -%>
+	<!--< %= f.label :user %>-->
 	<%= f.text_field :user %>
-
-	<%= f.label :password %>
+	<!--< %= f.label :password %>-->
 	<%= f.password_field :password %>
-
 	<%= f.submit "Log in", class: "btn btn-primary" %>
 <% end -%>
+
