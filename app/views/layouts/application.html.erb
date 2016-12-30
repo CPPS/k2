@@ -31,7 +31,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<%- if logged_in? -%>
-							<%= menu_link_to "Profile", current_user, "users" -%>
+							<%= menu_link_to current_user.name, current_user, "users" -%>
 							<li><%= link_to "Log out", logout_path, method: :delete -%></li>
 						<%- else -%>
 							<%= menu_link_to "Sign up", signup_path, "users" -%>
