@@ -1,0 +1,35 @@
+<% title @account.name -%>
+
+<ul id="account-tabs" class="nav nav-tabs" role="tablist">
+	<li class="active" role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recently solved</a></li>
+	<li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All solved</a></li>
+</ul>
+
+<!--<p>Solved problems: <%= @account.solvedProblems -%></p>-->
+<div class="tab-content">
+	<div id="recent" class="tab-pane active" role="tabpanel">
+		<table class="table">
+			<% @submissions.each do |s| %>
+				<tr>
+					<td><%= link_to s.problem.short_name, kaas_path(s.problem.server_id, s.problem.short_name) %></td>
+					<td><%= s.problem.name %></td>
+					<td><%= distance_of_time_in_words Time.now, s.created_at -%> ago</td>
+
+				</tr>
+
+			<% end %>
+		</table>
+	</div>
+
+	<div id="all" class="tab-pane" role="tabpanel">
+		<table class="table">
+			<% @problems.each do |p| %>
+				<tr>
+					<td><%= link_to p.short_name, kaas_path(p.server_id, p.short_name) -%></td>
+					<td><%= p.name -%></td>
+					<td><%= distance_of_time_in_words Time.now, p.submissions.last.created_at -%> ago</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

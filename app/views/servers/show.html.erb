@@ -3,7 +3,7 @@
 <!--<%= link_to "Go to scoreboard", @server.url -%>-->
 
 <ul id="server-tabs" class="nav nav-tabs" role="tablist">
-	<li class="active" role="presentation"><a href="#feed" aria-controls="scoreboard" role="tab" data-toggle="tab">Feed</a></li>
+	<li class="active" role="presentation"><a href="#feed" aria-controls="feed" role="tab" data-toggle="tab">Feed</a></li>
 	<li role="presentation"><a href="#problems" aria-controls="problems" role="tab" data-toggle="tab">Problems</a></li>
 	<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
 </ul>
@@ -28,7 +28,6 @@
 				</tr>
 			<% end -%>
 		</table>
-		<!--<p><%= @feed.inspect -%></p>-->
 	</div>
 
 	<div role="tabpanel" id="problems" class="tab-pane">
@@ -46,7 +45,7 @@
 		<table class="table">
 			<% @accounts.each do |a| -%>
 				<tr>
-					<td><%= a.name -%></td>
+					<td><%= link_to a.name, a -%></td>
 					<td><%= a.solvedProblems -%></td>
 					<td><%= a.score -%></td>
 				</tr>
