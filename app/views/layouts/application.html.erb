@@ -29,6 +29,15 @@
 						<%= menu_link_to "Problems", problems_path, "problems" -%>
 						<%= menu_link_to "Servers", servers_path, "servers" -%>
 					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<%- if logged_in? -%>
+							<%= menu_link_to "Profile", current_user, "users" -%>
+							<li><%= link_to "Log out", logout_path, method: :delete -%></li>
+						<%- else -%>
+							<%= menu_link_to "Sign up", signup_path, "users" -%>
+							<%= menu_link_to "Log in", login_path, "sessions" -%>
+						<%- end -%>
+					</ul>
 				</div>
 
 			</div>

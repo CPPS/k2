@@ -1,1 +1,15 @@
-<%= @user.username -%>
+<% title @user.name -%>
+
+<% if @user.accounts.length == 0 %>
+	<% if @user == current_user %>
+		<p>You are not linked to any server yet!</p>
+	<% else %>
+		<p>This user is not linked to any servers yet</p>
+	<% end %>
+<% else %>
+	<p>Active on:</p>
+	<% @user.accounts.each do |a| -%>
+		<p><%= a.server.name -%></p>
+	<% end -%>
+<% end %>
+

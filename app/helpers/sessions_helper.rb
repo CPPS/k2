@@ -5,7 +5,7 @@ module SessionsHelper
 	end
 
 	def log_out
-		session.delee(:user_id)
+		session.delete(:user_id)
 	end
 
 	def current_user

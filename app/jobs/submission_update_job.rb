@@ -39,7 +39,7 @@ class SubmissionUpdateJob < ApplicationJob
 				submission.created_at = Time.at(sub["time"].to_i).to_s(:db)
 				submission.save!
 				
-				s.last_submission = sub["id"].to_i + 1
+				s.last_submission = sub["id"].to_i
 			end
 
 			for sub in data.reverse

@@ -6,7 +6,6 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			byebug
 			flash[:success] = "You have been registered succesfully!"
 			log_in @user
 			redirect_to @user
