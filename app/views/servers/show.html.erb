@@ -23,7 +23,7 @@
 				<tr>
 					<td><span class="fa fa-<%= f.accepted ? "check":"times" -%>"></span></td>
 					<td><%= link_to f.problem.short_name + ': ' + f.problem.name, kaas_path(@server.id, f.problem.short_name) -%></td>
-					<td><%= f.account.name -%></td>
+					<td><%= link_to f.account.name, f.account -%></td>
 					<td><%= distance_of_time_in_words Time.now, f.created_at -%> ago</td>
 				</tr>
 			<% end -%>
@@ -31,20 +31,22 @@
 	</div>
 
 	<div role="tabpanel" id="problems" class="tab-pane">
-		<table class="table">
-			<% @problems.each do |p| -%>
-				<tr>
-					<td><%= link_to p.short_name, kaas_path(@server.id, p.short_name) -%></td>
-					<td><%= p.name -%></td>
-				</tr>
-			<% end -%>
-		</table>
+		<%= render partial: "shared/problems", locals: {problems: @problems, server: @server} %>
 	</div>
 
 	<div role="tabpanel" id="users" class="tab-pane">
 		<table class="table">
-			<% @accounts.each do |a| -%>
+			<thead>
 				<tr>
+					<th>Rank</th>
+					<th>Name</th>
+					<th>Solved Problems</th>
+					<th>Score</th>
+				</tr>
+			</thead>
+			<% @accounts.each.with_index(1) do |a, i| -%>
+				<tr>
+					<td><%= i %></td>
 					<td><%= link_to a.name, a -%></td>
 					<td><%= a.solvedProblems -%></td>
 					<td><%= a.score -%></td>

@@ -1,8 +1,6 @@
 <h1>Problems overview</h1>
-<% @servers.each do |s| -%>
-	<h2><%= s.name -%></h2>
-	<% s.problems.each do |p| -%>
-		<p><%= p.name -%></p>
-	<% end -%>
+<% @servers.each do |server| -%>
+	<h2><%= server.name -%></h2>
+	<%= render partial: 'shared/problems', locals: {server: server, problems: server.problems} %>
 <% end -%>
 </h1>

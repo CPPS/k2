@@ -1,0 +1,11 @@
+<tr>
+	<td><%= link_to problem.short_name, kaas_path(problem.server, problem.short_name) %></td>
+	<td><%= problem.name %></td>
+	<% if logged_in? %>
+		<td>
+			<% unless attempted[problem.id].nil? %> 
+				<span class="fa fa-<%= attempted[problem.id] ? "check" : "times" %>"></span>
+			<% end %>
+		</td>
+	<% end %>
+</tr>

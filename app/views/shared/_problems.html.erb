@@ -1,0 +1,12 @@
+<table class="table table-condensed">
+	<thead>
+		<tr>
+			<th>Short name</th>
+			<th>Name</th>
+			<% if logged_in? %>
+				<th>Solved?</th>
+			<% end %>
+		</tr>
+	</thead>
+	<%= render partial: problems, locals: { attempted: get_attempted(problems, server) } %>
+</table>
