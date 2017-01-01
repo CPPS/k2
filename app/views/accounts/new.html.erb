@@ -1,0 +1,33 @@
+<% title "Link with account" %>
+<table id="account-link-table" class="table table-hover">
+	<% @available.each do |a| %>
+		<tr data-accid="<%= a.id %>" data-accname="<%= a.name %>" data-server="<%=a.server.name%>">
+			<td><%= a.name %></td>
+			<td><%= a.server.name %></td>
+		</tr>
+	<% end %>
+</table>
+
+<div id="account-link-confirm" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmLink">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close fa fa-lg fa-times" data-dismiss="modal" aria-label="Cancel"></button>
+				<h4 id="account-link-confirm-title" class="modal-title">Confirm account link</h4>
+			</div>
+			<div class="modal-body">
+				<p id="account-link-confirm-text"></p>	
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+				<button id="account-link-confirm-button" type="button" class="btn btn-primary">Link accounts</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="account-link-form">
+<%= form_tag('/accounts') do %>
+	<%= hidden_field_tag 'id' %>
+<% end %>
+</div>

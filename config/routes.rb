@@ -1,17 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  get 'accounts/list'
-
-  get 'accounts/show'
-
-  get 'accounts/create'
-
-  get 'accounts/delete'
-
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root	'sessions#new'
-	
+
 	get	'/login',	to: 'sessions#new'
 	post	'/login',	to: 'sessions#create'
 	delete	'/logout',	to: 'sessions#destroy'
@@ -22,7 +14,7 @@ Rails.application.routes.draw do
 	resources :servers, 	only: [:index, :show]
 	resources :problems, 	only: [:index]
 	resources :users, 	only: [:index, :show, :create]
-	resources :accounts,	only: [:list, :show, :create, :delete]
+	resources :accounts,	only: [:list, :show, :new, :create, :destroy]
 
 	#Sidekiq ui
 	mount Sidekiq::Web => '/sidekiq'
