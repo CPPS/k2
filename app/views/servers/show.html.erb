@@ -24,14 +24,14 @@
 					<td><span class="fa fa-<%= f.accepted ? "check":"times" -%>"></span></td>
 					<td><%= link_to f.problem.short_name + ': ' + f.problem.name, kaas_path(@server.id, f.problem.short_name) -%></td>
 					<td><%= link_to f.account.name, f.account -%></td>
-					<td><%= distance_of_time_in_words Time.now, f.created_at -%> ago</td>
+					<td><%= distance_of_time_in_words Time.now.getutc, f.created_at -%> ago</td>
 				</tr>
 			<% end -%>
 		</table>
 	</div>
 
 	<div role="tabpanel" id="problems" class="tab-pane">
-		<%= render partial: "shared/problems", locals: {problems: @problems, server: @server} %>
+		<%= render partial: "shared/problems", locals: {problems: @problems, server: @server, subs: @problem_subs, acsubs: @problem_acsubs} %>
 	</div>
 
 	<div role="tabpanel" id="users" class="tab-pane">

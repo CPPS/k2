@@ -6,7 +6,8 @@
 			<% if logged_in? %>
 				<th>Solved?</th>
 			<% end %>
+			<th>Solved/Attempted by</th>
 		</tr>
 	</thead>
-	<%= render partial: problems, locals: { attempted: get_attempted(problems, server) } %>
+	<%= render partial: problems, locals: { attempted: get_attempted(problems, server), acsubs: acsubs, subs: subs } %>
 </table>
