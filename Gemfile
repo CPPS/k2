@@ -50,6 +50,11 @@ group :development do
   gem 'memory_profiler'
   gem 'flamegraph'
   gem 'stackprof'
+
+  # Capistrano stuff
+  gem 'capistrano-rails'
+  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
+  gem 'capistrano-sidekiq'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -62,6 +67,7 @@ gem 'sidekiq'
 
 # use clockwork fork for cron stuff
 gem 'clockwork', :git => 'https://github.com/Rykian/clockwork.git', :tag => 'v2.0.1'
+gem 'daemons' # For daemonization support
 
 # use bootstrap for front-end layout
 gem 'bootstrap-sass', '~> 3.3.6'
