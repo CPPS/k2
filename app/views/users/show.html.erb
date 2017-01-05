@@ -15,7 +15,7 @@
 				<th>Username</th>
 				<th>Solved problems</th>
 				<th>Score</th>
-				<% if logged_in? %>
+				<% if logged_in? and @user == current_user %>
 					<th></th>
 				<% end %>
 			</tr>
@@ -26,14 +26,14 @@
 				<td><%= a.name %></td>
 				<td><%= a.solvedProblems %></td>
 				<td><%= a.score %></td><!-- TODO: replace with rank -->
-				<% if logged_in? %>
-					<td><%= link_to account_path, method: :delete, confirm: "Are you sure?" do %> <span class="fa fa-times"></span><% end %></td>
+				<% if logged_in? and @user == current_user %>
+					<td><%= link_to a, method: :delete, data: {confirm: "Are you sure?"} do %> <span class="fa fa-times"></span><% end %></td>
 				<% end %>
 			</tr>
 		<% end -%>
 	</table>
 
-	<% if @user == current_user %>
+	<% if false and @user == current_user %> <!-- TODO: remove for multi-server support -->
 		<%= link_to new_account_path do %>
 			<button class="btn btn-default">Add account</button>
 		<% end %>
