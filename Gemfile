@@ -77,3 +77,7 @@ gem 'bootstrap_form'
 
 # use font awesome for nice icons
 gem 'font-awesome-sass', '~> 4.7.0'
+
+### API STUFF
+gem 'rabl-rails'
+

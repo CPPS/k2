@@ -18,4 +18,16 @@ Rails.application.routes.draw do
 
 	#Sidekiq ui
 	mount Sidekiq::Web => '/sidekiq'
+
+	namespace :api do
+		namespace :v1 do
+			get 'servers/:id/problems',	to: 'servers#problems'
+			get 'servers/:id/submissions',	to: 'servers#submissions'
+			get 'servers/:id/accounts',	to: 'servers#accounts'
+			resources :servers,	only: [:index, :show]
+			resources :problems,	only: [:index, :show]
+			resources :submissions,	only: [:index, :show]
+			resources :accounts,	only: [:index, :show]
+		end
+	end
 end
