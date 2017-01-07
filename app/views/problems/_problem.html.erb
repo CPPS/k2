@@ -4,7 +4,7 @@
 	<% if logged_in? %>
 		<td>
 			<% unless attempted[problem.id].nil? %> 
-				<span class="fa fa-<%= attempted[problem.id] ? "check" : "times" %>"></span>
+				<span class="fa fa-<%= attempted[problem.id] ? "check" : "times" %>" data-toggle="tooltip" data-placement="left" title="You have <%= attempted[problem.id] ? "solved" : "attempted" %> this problem"></span>
 			<% end %>
 		</td>
 	<% end %>

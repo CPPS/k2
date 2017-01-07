@@ -1,6 +1,40 @@
 <%- title @problem.short_name %>
 <%- sub_header @problem.name %>
-<object data="<%= statement_url @problem, @server %>" id="problem-pdf" type="application/pdf">
-	<p>The problem statement can be found <%= link_to "here", statement_url(@problem, @server)%>. Your browser does not support embedding PDF files..
-</object>
-	
+
+<ul id="problem-tabs" class="nav nav-tabs" role="tablist">
+	<li class="active" role="presentation"><a href="#statement" aria-controls="statement" role="tab" data-toggle="tab">Problem Statement</a></li>
+	<% if @accepted.empty? %>
+		<li class="disabled"><a>Nobody has solved this problem yet</a></li>
+	<% else %>
+		<li role="presentation"><a href="#users" aria-controls="statement" role="tab" data-toggle="tab">Users who solved this problem (<%= @accepted.count %>)</a></li>
+	<% end %>
+</ul>
+<div class="tab-content">
+	<div id="statement" class="tab-pane active">
+		<object data="<%= statement_url @problem, @server %>" id="problem-pdf" type="application/pdf">
+			<p>The problem statement can be found <%= link_to "here", statement_url(@problem, @server)%>. Your browser does not support embedding PDF files..
+		</object>
+
+	</div>
+	<div id="users" class="tab-pane">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>#Attempts</th>
+					<th>When</th>
+				</tr>
+			</thead>
+			<% @accepted.each do |a| %>
+				<tr>
+					<td><%= a.account.name %></td>
+					<td><%= @sub_count[a.account.id] %></td>
+					<td><%= a.created_at %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>
+
+
+
