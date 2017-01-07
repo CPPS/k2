@@ -23,7 +23,7 @@
 		<% @user.accounts.each do |a| -%>
 			<tr>
 				<td><%= link_to a.server.name, a.server %></td>
-				<td><%= a.name %></td>
+				<td><%= link_to a.name, a %></td>
 				<td><%= a.solvedProblems %></td>
 				<td><%= a.score %></td><!-- TODO: replace with rank -->
 				<% if logged_in? and @user == current_user %>

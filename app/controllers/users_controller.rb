@@ -15,7 +15,12 @@ class UsersController < ApplicationController
 	end
 
 	def index
-		@users = User.all
+#		@users = User.all
+		if logged_in?
+			redirect_to current_user
+		else
+			redirect_to login_path
+		end
 	end
 
 	def show

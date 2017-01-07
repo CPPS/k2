@@ -1,5 +1,14 @@
 <%- title @problem.short_name %>
-<%- sub_header @problem.name %>
+<%- content_for(:sub_header) do %>
+	<%= @problem.name %>
+	<%if logged_in? %>
+		<% if @solved %>
+			<span class="fa fa-check"></span>
+		<% elsif @attempted %>	
+			<span class="fa fa-times"></span>
+		<% end %>
+	<% end %>
+<% end %>
 
 <ul id="problem-tabs" class="nav nav-tabs" role="tablist">
 	<li class="active" role="presentation"><a href="#statement" aria-controls="statement" role="tab" data-toggle="tab">Problem Statement</a></li>
@@ -31,9 +40,9 @@
 			</thead>
 			<% @accepted.each do |a| %>
 				<tr>
-					<td><%= a.account.name %></td>
+					<td><%= link_to a.account.name, a.account %></td>
 					<td><%= @sub_count[a.account.id] %></td>
-					<td><%= a.created_at %></td>
+					<td><%= distance_of_time_in_words Time.now, a.created_at %> ago</td>
 				</tr>
 			<% end %>
 		</table>
