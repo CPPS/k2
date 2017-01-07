@@ -12,7 +12,11 @@
 <div class="tab-content">
 	<div id="statement" class="tab-pane active">
 		<object data="<%= statement_url @problem, @server %>" id="problem-pdf" type="application/pdf">
-			<p>The problem statement can be found <%= link_to "here", statement_url(@problem, @server)%>. Your browser does not support embedding PDF files..
+			<p>Your browser does not support embedding PDF files..</p>
+
+			<%= link_to statement_url(@problem, @server) do %> 
+				<button class="btn btn-primary">Open problem statement</button>
+			<% end%>
 		</object>
 
 	</div>
