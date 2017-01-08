@@ -16,4 +16,8 @@ module SessionsHelper
 	def logged_in?
 		!current_user.nil?
 	end
+
+	def is_admin?
+		logged_in? && current_user.id == 1
+	end
 end

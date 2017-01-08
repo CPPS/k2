@@ -44,12 +44,6 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   ## ADDED BY ME
-  # MiniProfiler
-  gem 'rack-mini-profiler'
-  # Addons: 
-  gem 'memory_profiler'
-  gem 'flamegraph'
-  gem 'stackprof'
 
   # Capistrano stuff
   gem 'capistrano-rails'
@@ -80,4 +74,11 @@ gem 'font-awesome-sass', '~> 4.7.0'
 
 ### API STUFF
 gem 'rabl-rails'
+
+### MiniProfiler
+gem 'rack-mini-profiler'
+# Addons: 
+gem 'memory_profiler'
+gem 'flamegraph'
+gem 'stackprof'
 

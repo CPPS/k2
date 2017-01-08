@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'admin_constraint'
 
 Rails.application.routes.draw do
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -16,9 +17,6 @@ Rails.application.routes.draw do
 	resources :users, 	only: [:index, :show, :create]
 	resources :accounts,	only: [:list, :show, :new, :create, :destroy]
 
-	#Sidekiq ui
-	mount Sidekiq::Web => '/sidekiq'
-
 	namespace :api do
 		namespace :v1 do
 			get 'servers/:id/problems',	to: 'servers#problems'
@@ -30,4 +28,7 @@ Rails.application.routes.draw do
 			resources :accounts,	only: [:index, :show]
 		end
 	end
+	
+	#Sidekiq ui: only accessible if logged in
+	mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 end
