@@ -7,7 +7,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-
+server "henkvdlaan.ga", user: "k2_webtech", roles: %w{app db web}
 
 # role-based syntax
 # ==================
@@ -31,7 +31,12 @@
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
+set :deploy_to, "/home/k2_webtech/"
+set :rails_env, "production"
 
+# Do not start Sidekiq and Clockwork for staging: it will interfere with production
+Rake::Task["clockwork:start"].clear_actions
+Rake::Task["sidekiq:start"].clear_actions
 
 # Custom SSH Options
 # ==================
