@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 	resources :servers, 	only: [:index, :show]
 	resources :problems, 	only: [:index]
 	resources :users, 	only: [:index, :show, :create]
+	delete	'/accounts',	to: 'accounts#destroy' #oops
 	resources :accounts,	only: [:list, :show, :new, :create, :destroy]
 
 	namespace :api do

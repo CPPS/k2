@@ -27,7 +27,7 @@
 				<td><%= a.solvedProblems %></td>
 				<td><%= a.score %></td><!-- TODO: replace with rank -->
 				<% if logged_in? and @user == current_user %>
-					<td><%= link_to a, method: :delete, data: {confirm: "Are you sure?"} do %> <span class="fa fa-times"></span><% end %></td>
+					<td class="unlink-account-start" data-accid="<%= a.id %>" data-accname="<%= a.name %>" data-server="<%=a.server.name %>"><span class="fa fa-times"></span></td>
 				<% end %>
 			</tr>
 		<% end -%>
@@ -37,6 +37,35 @@
 		<%= link_to new_account_path do %>
 			<button class="btn btn-default">Add account</button>
 		<% end %>
+	<% end %>
+
+	<% if current_user == @user %>
+		<div id="account-unlink-confirm" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmUnlink">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content" role="document">
+					<div class="modal-header">
+						<button class="close fa fa-lg fa-times" data-dismiss="modal" aria-label="Cancel"></button>
+						<h4 id="account-unlink-confirm-title" class="modal-title">Confirm unlinking accounts</h4>
+					</div>
+					<div class="modal-body">
+						<p id="account-unlink-confirm-text">
+						
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-default" data-dismiss="modal" aria-label="Cancel">Cancel</button>
+						<button id="account-unlink-confirm-button" class="btn btn-primary">Unlink accounts</button>
+					</div>
+				</div>
+			</div>
+		
+		</div>
+
+		<div id="account-unlink-form">
+			<%= form_tag '/accounts', method: :delete do %>
+				<%= hidden_field_tag 'id' %>
+			<% end %>
+		</div>
 	<% end %>
 <% end %>
 
