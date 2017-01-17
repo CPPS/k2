@@ -5,3 +5,19 @@
 	width:100%;
 	height:80vh;
 }
+
+
+table.sorted thead tr {
+	th::after {
+		@extend .fa;
+		width: 14px;
+		float: right;
+		content: "";
+	}
+	th.sorting-asc::after {
+		content: $fa-var-caret-down;
+	}
+	th.sorting-desc::after {
+		content: $fa-var-caret-up;
+	}
+}
