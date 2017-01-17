@@ -2,11 +2,18 @@
 	<td><%= link_to problem.short_name, kaas_path(problem.server, problem.short_name) %></td>
 	<td><%= problem.name %></td>
 	<% if logged_in? %>
-		<td>
-			<% unless attempted[problem.id].nil? %> 
-				<span class="fa fa-<%= attempted[problem.id] ? "check" : "times" %>" data-toggle="tooltip" data-placement="left" title="You have <%= attempted[problem.id] ? "solved" : "attempted" %> this problem"></span>
-			<% end %>
-		</td>
+		<% if attempted[problem.id] %>
+			<td data-sort-value="0">
+				<span class="fa fa-check" data-toggle="tooltip" data-placement="left" title="You have solved this problem"></span>
+			</td>
+		<% elsif attempted[problem.id] == false %>
+			<td data-sort-value="1">
+				<span class="fa fa-times" data-toggle="tooltip" data-placement="left" title="You have attempted this problem"></span>
+			</td>
+		<% else %>
+			<td data-sort-value="2"></td>
+		<% end %>
 	<% end %>
-	<td><%= acsubs[problem.id] or 0 %>/<%= subs[problem.id] or 0 %></td>
+	<td><%= acsubs[problem.id] or 0 %></td>
+	<td><%= subs[problem.id] or 0 %></td>
 </tr>

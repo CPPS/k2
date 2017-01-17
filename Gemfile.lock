@@ -18,6 +18,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: https://rails-assets.org/
   specs:
     actioncable (5.0.0.1)
       actionpack (= 5.0.0.1)
@@ -157,6 +158,9 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 5.0.0.1)
       sprockets-rails (>= 2.0.0)
+    rails-assets-jquery (3.1.1)
+    rails-assets-jquery-stupid-table (1.0.2)
+      rails-assets-jquery (>= 1.7.0)
     rails-dom-testing (2.0.1)
       activesupport (>= 4.2.0, < 6.0)
       nokogiri (~> 1.6.0)
@@ -245,6 +249,7 @@ DEPENDENCIES
   rabl-rails
   rack-mini-profiler
   rails (~> 5.0.0, >= 5.0.0.1)
+  rails-assets-jquery-stupid-table!
   sass-rails (~> 5.0)
   sidekiq
   spring

@@ -82,3 +82,6 @@ gem 'memory_profiler'
 gem 'flamegraph'
 gem 'stackprof'
 
+### FRONT END
+gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
+
