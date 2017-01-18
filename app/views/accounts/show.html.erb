@@ -4,6 +4,9 @@
 <ul id="account-tabs" class="nav nav-tabs" role="tablist">
 	<li class="active" role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recently solved</a></li>
 	<li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All solved</a></li>
+	<% if @show_compare %>
+		<li role="presentation"><a href="#compare" aria-controls="all" role="tab" data-toggle="tab">Compare solved problems</a></li>
+	<% end %>
 </ul>
 
 <!--<p>Solved problems: <%= @account.solvedProblems -%></p>-->
@@ -33,4 +36,39 @@
 			<% end %>
 		</table>
 	</div>
+
+	<% if @show_compare %>
+		<div id="compare" class="tab-pane row">
+			<div class="col-sm-6">
+				<h4>Problems only <%= @account.name %> has solved</h4>
+				<% if @their_exclusive_problems.empty? %>
+					<p>There are none</p>
+				<% else %>
+					<table class="table">
+						<% @their_exclusive_problems.each do |p| %>
+							<tr>
+								<td><%= link_to p.short_name, kaas_path(p.server_id, p.short_name) -%></td>
+								<td><%= p.name -%></td>
+							</tr>
+						<% end %>
+					</table>
+				<% end %>
+			</div>
+			<div class="col-sm-6">
+				<h4>Problems only <%= @current_user_account.name %> has solved</h4>
+				<% if @my_exclusive_problems.empty? %>
+					<p>There are none. Get to work!</p>
+				<% else %>
+					<table class="table">
+						<% @my_exclusive_problems.each do |p| %>
+							<tr>
+								<td><%= link_to p.short_name, kaas_path(p.server_id, p.short_name) -%></td>
+								<td><%= p.name -%></td>
+							</tr>
+						<% end %>
+					</table>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
 </div>
