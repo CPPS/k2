@@ -65,6 +65,7 @@ class SubmissionUpdateJob < ApplicationJob
 					if accepted
 						stale_accounts.push(submission.account)
 						submission.score = sbEntry["time"].to_i + sbEntry["penalty"]
+						update_solved_set(account, problem)
 					end
 				end
 
@@ -75,5 +76,9 @@ class SubmissionUpdateJob < ApplicationJob
 
 			ScoreUpdateJob.perform_later(*stale_accounts)
 		end
+	end
+
+	def update_solved_set(account, problem)
+		RedisPool.with { |r| r.sadd "account-#{account.id}", problem.id }
 	end
 end

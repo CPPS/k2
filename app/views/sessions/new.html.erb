@@ -1,5 +1,7 @@
 <%- title "Log in" -%>
 
+<div class="alert alert-info" role="alert">Please note that K2 accounts are not linked to the TU/e. <b>DO NOT</b> use your s-number to log in here.</div>
+
 <p>Don't have an account yet? <%= link_to "Sign up", signup_path -%></p>
 
 <%= bootstrap_form_for(:session, url: login_path) do |f| -%>
