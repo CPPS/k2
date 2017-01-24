@@ -2,7 +2,7 @@
 lock "3.7.1"
 
 set :application, "k2"
-set :repo_url, "gogs@henkvdlaan.ga:henk/k2.git"
+set :repo_url, "git@github.com:cpps/k2.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

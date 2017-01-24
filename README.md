@@ -4,6 +4,7 @@ Welcome to the K2 source code repository! K2 is an application designed to
 help people find the problems they like best in an overcrowded instance of 
 DomJudge. For instructions on how to deploy K2, please continue reading.
 
+The instance run by Henk, linked against the CPPS server, can be found [here](https://k2.henkvdlaan.ga)
 
 # System dependencies
 

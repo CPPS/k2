@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  url: MyString
-  url_problem_base: MyString
-
-two:
-  name: MyString
-  url: MyString
-  url_problem_base: MyString
+  id: 1
+  name: Test1
+  url: http://localhost:1234
+  api_type: domjudge
+  api_endpoint: http://localhost:1234/api/
+  last_submission: 1
