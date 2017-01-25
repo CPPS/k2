@@ -9,7 +9,7 @@ class ProblemsController < ApplicationController
 		@accepted = @problem.submissions.where(submissions: { accepted: true }).includes(:account).order(created_at: :asc)
 		@sub_count = @problem.submissions.group(:account_id).count
 		if logged_in?
-			@attempted = @problem.submissions.where(account: get_account(@server)).exists?
+			@attempted = @problem.submissions.where(account: user_account(@server)).exists?
 			@solved = @attempted && @problem.submissions.where(account: get_account(@server), accepted: true).exists?
 		end
 

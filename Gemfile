@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
@@ -31,29 +30,31 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+	# Call 'byebug' anywhere in the code to stop execution and get a
+	# debugger console
+	gem 'byebug', platform: :mri
 
-  ### ADDED BY ME
-  # Style stuff
-  gem 'rubocop', require: false
-  gem 'simplecov', require: false
+	### ADDED BY ME
+	# Style stuff
+	gem 'rubocop', require: false
+	gem 'simplecov', require: false
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
+	# Capistrano stuff: used for deploying
+	gem 'capistrano-rails'
+	gem 'capistrano-sidekiq'
+	gem 'capistrano3-puma', git: 'https://github.com/seuros/capistrano-puma'
 
-  ## ADDED BY ME
+	gem 'listen', '~> 3.0.5'
+	# Spring speeds up development by keeping your application running in the
+	# background. Read more: https://github.com/rails/spring
+	gem 'spring'
+	gem 'spring-watcher-listen', '~> 2.0.0'
 
-  # Capistrano stuff
-  gem 'capistrano-rails'
-  gem 'capistrano3-puma', github: 'seuros/capistrano-puma'
-  gem 'capistrano-sidekiq'
+	# Access an IRB console on exception pages or by using <%= console %> anywhere
+	# in the code.
+	gem 'web-console'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -65,7 +66,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'sidekiq'
 
 # use clockwork fork for cron stuff
-gem 'clockwork', :git => 'https://github.com/Rykian/clockwork.git', :tag => 'v2.0.1'
+gem 'clockwork', git: 'https://github.com/Rykian/clockwork.git', tag: 'v2.0.1'
 gem 'daemons' # For daemonization support
 
 # use bootstrap for front-end layout
@@ -82,11 +83,10 @@ gem 'rabl-rails'
 
 ### MiniProfiler
 gem 'rack-mini-profiler'
-# Addons: 
-gem 'memory_profiler'
+# Addons:
 gem 'flamegraph'
+gem 'memory_profiler'
 gem 'stackprof'
 
 ### FRONT END
 gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
-
