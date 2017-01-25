@@ -11,6 +11,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%= render partial: problems, locals: { attempted: get_attempted(problems, server), acsubs: get_all_accepted_submission_counts, subs: get_all_submission_counts } %>
+		<%= render partial: problems, locals: { attempted: get_attempted(server), acsubs: count_accepted_submissions, subs: count_submissions } %>
 	</tbody>
 </table>

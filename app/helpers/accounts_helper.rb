@@ -1,22 +1,19 @@
 module AccountsHelper
-	def has_account?(server)
-		!get_account(server).nil?
-	end
-
-	def get_account(server)
+	def user_account(server)
 		@account ||= []
 		@account[server.id] ||= Account.find_by(user: current_user, server: server)
 	end
 
-	def get_attempted(problems, server)
-		return @user_attempted unless @user_attempted.nil?
+	def get_attempted(server)
+		return @user_attempted if @user_attempted
 		@user_attempted = {}
-		if has_account? server
-			attempted = problems.includes(:submissions).where(submissions: { account: get_account(server), accepted: false}).references(:submissions)
-			solved = problems.includes(:submissions).where(submissions: { account: get_account(server), accepted: true}).references(:submissions)
-			attempted.each { |p| @user_attempted[p.id] = false }
-			solved.each { |p| @user_attempted[p.id] = true }
+		account = user_account(server)
+		if account
+			attempted = Submission.attempted.where(account: account).pluck(:problem_id)
+			solved = Submission.accepted.where(account: account).pluck(:problem_id)
+			attempted.each { |p| @user_attempted[p] = false }
+			solved.each { |p| @user_attempted[p] = true }
 		end
-		return @user_attempted
+		@user_attempted
 	end
 end
