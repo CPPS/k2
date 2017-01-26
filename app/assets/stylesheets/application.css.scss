@@ -12,4 +12,25 @@
 @import "font-awesome";
 
 // Include all my CSS files
-@import "*"
+@import "*";
+
+// GENERAL STYLING
+// from: http://getbootstrap.com/examples/sticky-footer/
+.footer {
+	bottom: 0;
+	width: 100%;
+	height: 60px;
+	background-color: #f5f5f5;
+
+	.container div {
+	//	width: auto;
+		padding: 0 15px;
+		//.text-muted {
+			margin: 20px 0;
+		//}
+		.icons {
+			text-align: right;
+		}
+	}
+
+}
