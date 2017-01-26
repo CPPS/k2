@@ -15,7 +15,12 @@
 @import "*";
 
 // GENERAL STYLING
-// from: http://getbootstrap.com/examples/sticky-footer/
+
+#main-content {
+	min-height: calc(100vh - 132px);
+}
+
+// Footer shown on all pages
 .footer {
 	bottom: 0;
 	width: 100%;
@@ -23,11 +28,8 @@
 	background-color: #f5f5f5;
 
 	.container div {
-	//	width: auto;
 		padding: 0 15px;
-		//.text-muted {
-			margin: 20px 0;
-		//}
+		margin-top: 20px;
 		.icons {
 			text-align: right;
 		}
