@@ -1,6 +1,6 @@
 <tr>
 	<td><%= link_to problem.short_name, kaas_path(problem.server, problem.short_name) %></td>
-	<td><%= problem.name %></td>
+	<td><%= problem.name unless problem.name == problem.short_name %></td>
 	<% if logged_in? %>
 		<% if attempted[problem.id] %>
 			<td data-sort-value="0">

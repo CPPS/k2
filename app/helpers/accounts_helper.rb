@@ -1,7 +1,8 @@
 module AccountsHelper
-	def user_account(server)
+	def user_account(server_id)
 		@account ||= []
-		@account[server.id] ||= Account.find_by(user: current_user, server: server)
+		@account[server_id] ||= Account
+		                        .find_by(user: current_user, server_id: server_id)
 	end
 
 	def get_attempted(server)

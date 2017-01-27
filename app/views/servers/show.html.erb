@@ -10,24 +10,7 @@
 
 <div class="tab-content">
 	<div role="tabpanel" id="feed" class="tab-pane active">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Accepted?</th>
-					<th>Problem</th>
-					<th>User</th>
-					<th>Submitted</th>
-				</tr>
-			</thead>
-			<% @feed.each do |f| -%>
-				<tr>
-					<td><span class="fa fa-<%= f.accepted ? "check":"times" -%>"></span></td>
-					<td><%= link_to f.problem.short_name + ': ' + f.problem.name, kaas_path(@server.id, f.problem.short_name) -%></td>
-					<td><%= link_to f.account.name, f.account -%></td>
-					<td><%= distance_of_time_in_words Time.now.getutc, f.created_at -%> ago</td>
-				</tr>
-			<% end -%>
-		</table>
+		<%= render partial: 'shared/submissions', object: @feed %>
 	</div>
 
 	<div role="tabpanel" id="problems" class="tab-pane">

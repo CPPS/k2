@@ -6,7 +6,6 @@
 #
 one: 
   id: 1
-# column: value
-#
-two: {}
-# column: value
+  account_id: 1
+  problem_id: 1
+  accepted: true
