@@ -8,12 +8,13 @@ class AccountsController < ApplicationController
 
 	def show
 		@account = Account.find(params[:id])
-		@submissions = Submission.includes(:problem)
-		                         .where(account: @account, accepted: true)
+		@submissions = Submission.accepted
+		                         .includes(:problem)
+		                         .where(account: @account)
 		                         .order(created_at: :desc)
 		@problems = Problem.joins(:submissions)
 		                   .includes(:submissions)
-		                   .where(submissions: { account: @account, accepted: true })
+		                   .where(submissions: { account: @account, status: [:correct, :first_correct] })
 		                   .order(short_name: :asc)
 
 		# Only show the compare part if you are logged in

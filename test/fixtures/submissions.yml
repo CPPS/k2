@@ -8,4 +8,4 @@ one:
   id: 1
   account_id: 1
   problem_id: 1
-  accepted: true
+  status: 1

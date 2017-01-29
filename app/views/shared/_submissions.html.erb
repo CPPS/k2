@@ -10,7 +10,7 @@
 	<tbody>
 		<% submissions.each do |submission| %>
 			<tr class="<%= 'active' if user_account(submission.problem.server_id) == submission.account %>" >
-				<td><span class="fa fa-<%= submission.accepted ? 'check' : 'times' %>"></span></td>
+				<td><span class="fa <%= submission.icon %>"></span></td>
 				<td><%= link_to submission.problem.display_name, kaas_path(submission.problem.server_id, submission.problem.short_name) %></td>
 				<td><%= link_to submission.account.name, submission.account -%></td>
 				<td><%= distance_of_time_in_words Time.current, submission.created_at -%> ago</td>

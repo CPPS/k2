@@ -6,11 +6,11 @@ class ProblemsController < ApplicationController
 	def show
 		@problem = Problem.find_by_server_id_and_short_name(params[:server_id], params[:short_name])
 		@server = Server.find_by_id(params[:server_id])
-		@accepted = @problem.submissions.where(submissions: { accepted: true }).includes(:account).order(created_at: :asc)
+		@accepted = @problem.submissions.accepted.includes(:account).order(created_at: :asc)
 		@sub_count = @problem.submissions.group(:account_id).count
 		if logged_in?
 			@attempted = @problem.submissions.where(account: user_account(@server.id)).exists?
-			@solved = @attempted && @problem.submissions.where(account: user_account(@server.id), accepted: true).exists?
+			@solved = @attempted && @problem.submissions.accepted.where(account: user_account(@server.id)).exists?
 		end
 
 	end

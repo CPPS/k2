@@ -51,21 +51,20 @@ class SubmissionUpdateJob < ApplicationJob
 				)
 				#submission.submission_id = sub["id"]
 				if scoreboard[sub["team"]] == nil
-					submission.accepted = false
-					submission.status = "Team unknown"
+					submission.account_hidden!
 				elsif scoreboard[sub["team"]][sub["problem"]] == nil
-					submission.accepted = false
-					submission.status = "Problem unknown"
+					submission.problem_hidden!
 				else
 					sbEntry = scoreboard[sub["team"]][sub["problem"]]
 					break if sbEntry["num_pending"] == 0 #Prevent Race condition where DJ sends the submission but has not scored it yet
-					accepted = sbEntry["is_correct"] && !Submission.where(problem: problem, account: account, accepted: true).where.not(submission_id: sub["id"]).exists?
-					submission.accepted = accepted
-					submission.status = accepted ? "Accepted" : "Not accepted"
+					accepted = sbEntry["is_correct"] && !Submission.accepted.where(problem: problem, account: account).where.not(submission_id: sub["id"]).exists?
 					if accepted
+						submission.correct!
 						stale_accounts.push(submission.account)
 						submission.score = sbEntry["time"].to_i + sbEntry["penalty"]
 						update_solved_set(account, problem)
+					else
+						submission.wrong!
 					end
 				end
 
