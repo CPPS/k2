@@ -88,5 +88,9 @@ gem 'flamegraph'
 gem 'memory_profiler'
 gem 'stackprof'
 
+### Sentry error reporting
+# Disabled by default, add an API key in secrets.yml to activate
+gem 'sentry-raven', require: false
+
 ### FRONT END
 gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
