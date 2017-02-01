@@ -41,4 +41,16 @@ class Submission < ApplicationRecord
 		else 'fa-question'
 		end
 	end
+
+	def status_text
+		case status
+		when 'pending' then 'Pending Judgement'
+		when 'correct' then 'Correct'
+		when 'wrong' then 'Wrong'
+		when 'overcomplete' then 'Overcomplete: Solved earlier'
+		when 'account_hidden' then 'Account not visible on scoreboard'
+		when 'problem_hidden' then 'Problem not visible on scoreboard'
+		when 'first_correct' then 'First correct'
+		end
+	end
 end

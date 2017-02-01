@@ -9,12 +9,14 @@
 	</thead>
 	<tbody>
 		<% submissions.each do |submission| %>
+			<% if submission.problem_id %>
 			<tr class="<%= 'active' if user_account(submission.problem.server_id) == submission.account %>" >
-				<td><span class="fa <%= submission.icon %>"></span></td>
+				<td><span class="fa <%= submission.icon %>" data-toggle="tooltip" data-placement="left" title="<%= submission.status_text %>"></span></td>
 				<td><%= link_to submission.problem.display_name, kaas_path(submission.problem.server_id, submission.problem.short_name) %></td>
 				<td><%= link_to submission.account.name, submission.account -%></td>
 				<td><%= distance_of_time_in_words Time.current, submission.created_at -%> ago</td>
 			</tr>
+			<% end %>
 		<% end %>
 	</tbody>
 </table>
