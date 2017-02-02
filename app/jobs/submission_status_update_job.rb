@@ -29,6 +29,8 @@ class SubmissionStatusUpdateJob < ApplicationJob
 		if entry['is_correct']
 			if close_to(submission.created_at.getutc.to_i, score_time)
 				submission.score = entry['time'].to_i + entry['penalty'].to_i
+				# Prevent duplicate messages when regrading
+				send_notification(submission) unless submission.correct?
 				submission.correct!
 				RedisPool.with { |redis| redis.sadd "account-#{account_id}", problem.id }
 				ScoreUpdateJob.perform_later(submission.account.id)
@@ -63,5 +65,12 @@ class SubmissionStatusUpdateJob < ApplicationJob
 		SubmissionStatusUpdateJob
 			.set(wait: 5.minutes)
 			.perform_later(submission_id, retries_left - 1)
+	end
+
+	# Prepares the webhook notification
+	def send_notification(submission)
+		data = { 'account_name' => submission.account.name,
+		         'problem_name' => submission.problem.display_name }
+		Webhook.trigger('submission', data)
 	end
 end
