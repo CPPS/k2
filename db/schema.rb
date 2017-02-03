@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170201203245) do
+ActiveRecord::Schema.define(version: 20170203195103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20170201203245) do
     t.datetime "updated_at",                null: false
     t.integer  "score"
     t.integer  "status",        default: 0
+    t.string   "language"
     t.index ["account_id"], name: "index_submissions_on_account_id", using: :btree
     t.index ["problem_id", "submission_id"], name: "index_submissions_on_problem_id_and_submission_id", unique: true, using: :btree
     t.index ["problem_id"], name: "index_submissions_on_problem_id", using: :btree

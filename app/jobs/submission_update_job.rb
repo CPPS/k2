@@ -37,6 +37,7 @@ class SubmissionUpdateJob < ApplicationJob
 					submission_id: sub["id"]
 				)
 				submission.account = account
+				submission.language = sub["language"]
 				submission.created_at = Time.at(sub['time'].to_i).getutc.to_s(:db)
 				submission.save!
 				SubmissionStatusUpdateJob.perform_later(submission.id)
