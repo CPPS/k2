@@ -32,7 +32,9 @@ class SubmissionStatusUpdateJob < ApplicationJob
 				# Prevent duplicate messages when regrading
 				send_notification(submission, entry) unless submission.correct?
 				submission.correct!
-				RedisPool.with { |redis| redis.sadd "account-#{account_id}", problem.id }
+				RedisPool.with do |redis|
+					redis.sadd "account-#{submission.account.id}", problem.id
+				end
 				ScoreUpdateJob.perform_later(submission.account.id)
 			elsif submission.created_at.to_i < score_time
 				submission.wrong!
