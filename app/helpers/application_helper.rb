@@ -22,4 +22,32 @@ module ApplicationHelper
 			content_tag(:li, link_to(text, path))
 		end
 	end
+
+	def motd
+		fetch_motd unless @motd_type
+		@motd
+	end
+
+	def motd_type
+		fetch_motd unless @motd_type
+		@motd_type
+	end
+
+
+	private
+
+	def fetch_motd
+		motd = nil
+		motd_type = nil
+		RedisPool.with do |redis|
+			redis.pipelined do
+				motd = redis.get 'k2motd'
+				motd_type = redis.get 'k2motd-type'
+			end
+		end
+		@motd = motd.value
+		@motd_type = motd_type.value
+		@motd_type ||= 'info'
+	end
+
 end

@@ -55,6 +55,10 @@
 				</div>
 			</noscript>
 
+			<% if flash.empty? and motd %>
+				<div class="alert alert-<%= motd_type %>"><%= motd %></div>
+			<% end %>
+
 			<!-- Header -->
 			<%- if content_for?(:header) %>
 				<div class="page-header">
@@ -83,10 +87,8 @@
 				<div class="col-xs-8">
 					<p class="text-muted">K2, find problems the easy way. © Henk van der Laan 2017</p>
 				</div>
-				<div class="col-xs-4 icons">
-					<p class="text-muted">Currently taking suggestions -&gt;
+				<div class="col-xs-4 footer-icons text-muted">
 					<a href="https://github.com/cpps/k2"><i class="fa fa-lg fa-github text-muted"></i></a>
-					</p>
 				</div>
 			</div>
 		</footer>
