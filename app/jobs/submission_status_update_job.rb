@@ -12,21 +12,23 @@ class SubmissionStatusUpdateJob < ApplicationJob
 			return
 		end
 		account_id = submission.account.account_id
-		account_scoreboard = submission.server.api_scoreboard[account_id.to_s]
+		account_scoreboard = submission.server.api_scoreboard.select do |account|
+			account['team'] == account_id
+		end
 
-		unless account_scoreboard
+		if account_scoreboard.empty?
 			submission.account_hidden!
 			return
 		end
 
-		entry = account_scoreboard[problem.problem_id]
-		if entry['num_submissions'].to_i.zero?
+		entry = account_scoreboard.first['problems'].select { |e| e['label'] == problem.label }.first
+		if entry['num_judged'].to_i.zero?
 			requeue(submission_id, retries_left)
 			return
 		end
 
 		score_time = submission.server.started_at + entry['time'].to_i * 60
-		if entry['is_correct']
+		if entry['solved']
 			if close_to(submission.created_at.getutc.to_i, score_time)
 				submission.score = entry['time'].to_i + entry['penalty'].to_i
 				# Prevent duplicate messages when regrading

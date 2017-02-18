@@ -14,7 +14,7 @@ class ProblemUpdateJob < ApplicationJob
 			end
 			
 			data = ""
-			open(s.api_endpoint + "problems") do |f|
+			open(s.api_endpoint + "problems?cid=#{s.contest_id}") do |f|
 				data = JSON.parse(f.read)
 			end
 			data.each do |p|
@@ -25,6 +25,7 @@ class ProblemUpdateJob < ApplicationJob
 				)
 				problem.short_name = p["shortname"] 
 				problem.name = p["name"]
+				problem.label = p['label']
 				problem.save!
 			end
 		end

@@ -21,7 +21,6 @@ class AccountUpdateJob < ApplicationJob
 				account = Account.find_or_initialize_by(
 					account_id: a["id"],
 					server_id: s.id,
-					name: a["name"],
 				)
 				if(account.id == nil)
 					account.score = 0
