@@ -76,7 +76,8 @@ class SubmissionStatusUpdateJob < ApplicationJob
 		data = { 'account_name' => submission.account.name,
 		         'problem_name' => submission.problem.display_name,
 		         'submissions_count' => entry['num_judged'],
-		         'language' => submission.language }
+		         'language' => submission.language,
+		         'problem_url' => Rails.application.routes.url_helpers.kaas_url(submission.server, submission.problem.short_name, host: "k2.henkvdlaan.ga") } # TODO: FIX
 		Webhook.trigger('submission', data)
 	end
 end
