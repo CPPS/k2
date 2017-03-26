@@ -1,7 +1,8 @@
+# Responsible for showing an overview of a server
 class ServersController < ApplicationController
-
 	def index
 		@servers = Server.all
+		redirect_to @servers.first if @servers.length == 1
 	end
 
 	def show
