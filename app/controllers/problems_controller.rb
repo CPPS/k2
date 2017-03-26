@@ -4,8 +4,9 @@ class ProblemsController < ApplicationController
 	end
 
 	def show
-		@problem = Problem.find_by_server_id_and_short_name(params[:server_id], params[:short_name])
-		@server = Server.find_by_id(params[:server_id])
+		@server = Server.find_by_id!(params[:server_id])
+		@problem = Problem.find_by!(server: @server, short_name: params[:short_name])
+
 		@accepted = @problem.submissions.accepted.includes(:account).order(created_at: :asc)
 		@sub_count = @problem.submissions.group(:account_id).count
 		if logged_in?
