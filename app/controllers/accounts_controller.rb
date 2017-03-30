@@ -40,7 +40,7 @@ class AccountsController < ApplicationController
 	end
 
 	def new
-		@available = Account.where(user_id: nil).order(:name).includes(:server)
+		@available = Account.where(user_id: nil).order(:server_id, :name).includes(:server)
 	end
 
 	def create

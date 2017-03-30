@@ -33,7 +33,7 @@
 		<% end -%>
 	</table>
 
-	<% if false and @user == current_user %> <!-- TODO: remove for multi-server support -->
+	<% if @user == current_user and @user.accounts.length < Server.all.size %> <!-- TODO: remove for multi-server support -->
 		<%= link_to new_account_path do %>
 			<button class="btn btn-default">Add account</button>
 		<% end %>
