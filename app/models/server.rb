@@ -1,7 +1,7 @@
 # Contains a server endpoint K2 will poll against.
 class Server < ApplicationRecord
-	has_many :problems
-	has_many :accounts
+	has_many :problems, dependent: :destroy
+	has_many :accounts, dependent: :destroy
 	has_many :submissions, through: :problems
 
 	def api_scoreboard

@@ -2,7 +2,7 @@
 # against this problem and users who have made these submissions.
 class Problem < ApplicationRecord
 	belongs_to :server
-	has_many :submissions
+	has_many :submissions, dependent: :destroy
 	has_many :accounts, through: :submissions
 
 	def solved_by(account_id)
