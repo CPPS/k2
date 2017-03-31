@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 	post	'/login',	to: 'sessions#create'
 	delete	'/logout',	to: 'sessions#destroy'
 	get	'/signup',	to: 'users#new'
+	get	'/random',	to: 'exploration#random'
 
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas #Only way that works for some reason
 
