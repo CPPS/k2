@@ -12,7 +12,7 @@ class SubmissionUpdateJob < ApplicationJob
 			end
 
 			data = ""
-			open(s.api_endpoint + "submissions?cid=#{s.contest_id}&fromid=" + s.last_submission.to_s) do |f|
+			open(s.api_endpoint + "submissions?cid=#{s.contest_id}&fromid=#{s.last_submission.to_s}&limit=100") do |f|
 				data = JSON.parse(f.read)
 			end
 
@@ -25,10 +25,7 @@ class SubmissionUpdateJob < ApplicationJob
 			open(s.api_endpoint + "scoreboard?cid=#{s.contest_id}") do |f|
 				scoreboard = JSON.parse(f.read)
 			end
-			processed_submissions = 0
 			data.each do |sub|
-				break if processed_submissions >= 100
-				processed_submissions += 1
 				problem = Problem.where(server_id: s.id, problem_id: sub["problem"]).first
 				account = Account.where(server_id: s.id, account_id: sub["team"]).first
 
