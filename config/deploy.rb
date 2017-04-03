@@ -1,5 +1,5 @@
 # config valid only for current version of Capistrano
-lock "3.7.1"
+lock "3.8.0"
 
 set :application, "k2"
 set :repo_url, "git@github.com:cpps/k2.git"
