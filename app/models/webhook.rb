@@ -9,7 +9,7 @@ class Webhook < ApplicationRecord
 	def perform(data)
 		uri = URI(url)
 		request = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
-		request.body = data
+		request.body = data.encode('utf-8')
 		response = Net::HTTP.start(uri.hostname, uri.port) do |http|
 			http.request(request)
 		end
