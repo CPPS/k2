@@ -22,7 +22,7 @@ class AccountUpdateJob < ApplicationJob
 					account_id: a["id"],
 					server_id: s.id,
 				)
-				if(account.id == nil)
+				if account.score.nil?
 					account.score = 0
 					account.solvedProblems = 0
 				end
