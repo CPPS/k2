@@ -35,6 +35,7 @@ class SubmissionUpdateJob < ApplicationJob
 					account.account_id = sub['team']
 					account.name = "Unknown User #{sub['team']}"
 					account.save!
+					AccountUpdateJob.perform_now # Check if it is a real user or a system one
 				end
 
 				submission = Submission.find_or_initialize_by(
