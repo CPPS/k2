@@ -63,7 +63,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ## ADDED BY ME
 
 # use sidekiq for async job processing
-gem 'sidekiq'
+gem 'sidekiq', '< 6'
 
 # use clockwork fork for cron stuff
 gem 'clockwork', git: 'https://github.com/Rykian/clockwork.git', tag: 'v2.0.1'
