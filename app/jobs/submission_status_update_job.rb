@@ -74,7 +74,8 @@ class SubmissionStatusUpdateJob < ApplicationJob
 	# Prepares the webhook notification
 	def send_notification(submission, entry)
 		data = { 'account_name' => submission.account.name,
-		         'solved_problems' => submission.account.solvedProblems,
+		         # Increment by 1 because the message is sent before the total is updated
+		         'solved_problems' => submission.account.solvedProblems + 1,
 		         'problem_name' => submission.problem.display_name,
 		         'submissions_count' => entry['num_judged'],
 		         'language' => submission.language,
