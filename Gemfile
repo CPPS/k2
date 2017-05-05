@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '~> 5.1.0'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
@@ -46,7 +46,7 @@ group :development do
 	gem 'capistrano-sidekiq'
 	gem 'capistrano3-puma', git: 'https://github.com/seuros/capistrano-puma'
 
-	gem 'listen', '~> 3.0.5'
+	gem 'listen', '~> 3.1'
 	# Spring speeds up development by keeping your application running in the
 	# background. Read more: https://github.com/rails/spring
 	gem 'spring'
