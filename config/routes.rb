@@ -11,26 +11,27 @@ Rails.application.routes.draw do
 	get	'/signup',	to: 'users#new'
 	get	'/random',	to: 'exploration#random'
 
-	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas #Only way that works for some reason
+	# Only way that works for some reason
+	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas
 
-	resources :servers, 	only: [:index, :show]
-	resources :problems, 	only: [:index]
-	resources :users, 	only: [:index, :show, :create]
-	delete	'/accounts',	to: 'accounts#destroy' #oops
-	resources :accounts,	only: [:show, :new, :create, :destroy]
+	resources :servers,	only: %i[index show]
+	resources :problems,	only: %i[index]
+	resources :users,	only: %i[index show create]
+	delete	'/accounts',	to: 'accounts#destroy' # oops
+	resources :accounts,	only: %i[show new create destroy]
 
 	namespace :api do
 		namespace :v1 do
 			get 'servers/:id/problems',	to: 'servers#problems'
 			get 'servers/:id/submissions',	to: 'servers#submissions'
 			get 'servers/:id/accounts',	to: 'servers#accounts'
-			resources :servers,	only: [:index, :show]
-			resources :problems,	only: [:index, :show]
-			resources :submissions,	only: [:index, :show]
-			resources :accounts,	only: [:index, :show]
+			resources :servers,	only: %i[index show]
+			resources :problems,	only: %i[index show]
+			resources :submissions,	only: %i[index show]
+			resources :accounts,	only: %i[index show]
 		end
 	end
-	
-	#Sidekiq ui: only accessible if logged in
+
+	# Sidekiq ui: only accessible if logged in
 	mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
 end
