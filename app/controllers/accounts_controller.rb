@@ -1,6 +1,6 @@
 # Show user pages and handle (un)linking to users
 class AccountsController < ApplicationController
-	before_action :enforce_login, only: [:create, :destroy]
+	before_action :enforce_login, only: %i[new create destroy]
 
 	def index
 		@accounts = Account.all
