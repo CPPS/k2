@@ -15,9 +15,10 @@ pickle-email-*.html
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 
-# Remove for Capistrano
+# Remove configuration filesfor Capistrano
 config/database.yml
 config/secrets.yml
+config/thinking_sphinx.yml
 
 # dotenv
 # TODO Comment out this rule if environment variables can be committed
@@ -43,3 +44,8 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# Don't check in Sphinx generated files
+config/development.sphinx.conf
+db/sphinx/
+

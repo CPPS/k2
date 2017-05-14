@@ -1,0 +1,6 @@
+# Copied from http://freelancing-gods.com/thinking-sphinx/deployment.html
+production:
+  pid_file: /path/to/app/shared/tmp/searchd.pid
+  indices_location: /path/to/app/shared/db/sphinx
+  configuration_file: /path/to/app/shared/production.sphinx.conf
+  binlog_path: /path/to/app/shared/binlog

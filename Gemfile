@@ -94,3 +94,8 @@ gem 'sentry-raven', require: false
 
 ### FRONT END
 gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
+
+### SEARCH
+# Sphinx
+gem 'mysql2' # Required by thinking-sphinx, as Sphinx uses the MySQL protocol.
+gem 'thinking-sphinx', '~> 3.2.0'

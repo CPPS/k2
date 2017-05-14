@@ -9,4 +9,11 @@ class ExplorationController < ApplicationController
 		end
 		redirect_to kaas_path(problem.server_id, problem.short_name)
 	end
+
+	def search
+		@results = Problem.search(
+			ThinkingSphinx::Query.escape(params[:query]),
+			star: true
+		)
+	end
 end

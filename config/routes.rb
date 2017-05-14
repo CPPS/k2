@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 	delete	'/logout',	to: 'sessions#destroy'
 	get	'/signup',	to: 'users#new'
 	get	'/random',	to: 'exploration#random'
+	get	'/search/:query',	to: 'exploration#search'
 
 	# Only way that works for some reason
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas

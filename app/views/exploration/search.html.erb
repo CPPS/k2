@@ -1,0 +1,3 @@
+<h1><%= @results.total_entries %> matches for "<%= params[:query] %>"<% if @results.total_entries > 20 %>, showing the best 20<% end %></h1>
+
+<%= render partial: 'shared/problems', locals: {server: Server.first, problems: @results} %>
