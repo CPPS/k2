@@ -30,6 +30,11 @@
 						<%= menu_link_to "Problems", problems_path, "problems" -%>
 						<%= menu_link_to "Servers", servers_path, "servers" -%>
 					</ul>
+<!--					<form id="search-form" class="navbar-form navbar-left">
+<div class="form-group">-->
+							<input id="search" class="navbar-form navbar-left form-control" type="text" placeholder="Search K2">
+							<!--			</div>
+</form>-->
 					<ul class="nav navbar-nav navbar-right">
 						<%- if logged_in? -%>
 							<%= menu_link_to current_user.name, current_user, "users" -%>
