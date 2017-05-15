@@ -9,6 +9,7 @@ AllCops:
     - 'config/puma.rb'
     - 'config/spring.rb'
     - 'bin/*'
+    - 'vendor/**/*'
 Style/Tab:
   Enabled: false
 Style/IndentationWidth:
