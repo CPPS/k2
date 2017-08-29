@@ -21,6 +21,11 @@ class SessionsController < ApplicationController
 	end
 
 	def destroy
+		if logged_in?
+			flash[:info] = 'Succesfully logged out'
+		else
+			flash[:warning] = 'Could not log out: already logged out'
+		end
 		log_out
 		redirect_to root_url
 	end

@@ -10,80 +10,81 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170218140821) do
+ActiveRecord::Schema.define(version: 20170828154029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "user_id"
-    t.integer  "server_id"
-    t.integer  "account_id"
-    t.integer  "solvedProblems"
-    t.integer  "score"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["account_id", "server_id"], name: "index_accounts_on_account_id_and_server_id", unique: true, using: :btree
-    t.index ["server_id"], name: "index_accounts_on_server_id", using: :btree
-    t.index ["user_id", "server_id"], name: "index_accounts_on_user_id_and_server_id", unique: true, using: :btree
-    t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
-  end
-
-  create_table "problems", force: :cascade do |t|
-    t.integer  "server_id"
-    t.string   "problem_id"
-    t.string   "short_name"
-    t.string   "name"
+  create_table "accounts", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.integer "user_id"
+    t.integer "server_id"
+    t.integer "account_id"
+    t.integer "solvedProblems"
+    t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "label"
-    t.index ["server_id", "problem_id"], name: "index_problems_on_server_id_and_problem_id", unique: true, using: :btree
-    t.index ["server_id", "short_name"], name: "index_problems_on_server_id_and_short_name", unique: true, using: :btree
-    t.index ["server_id"], name: "index_problems_on_server_id", using: :btree
+    t.index ["account_id", "server_id"], name: "index_accounts_on_account_id_and_server_id", unique: true
+    t.index ["server_id"], name: "index_accounts_on_server_id"
+    t.index ["user_id", "server_id"], name: "index_accounts_on_user_id_and_server_id", unique: true
+    t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
-  create_table "servers", force: :cascade do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "api_type"
-    t.string   "api_endpoint"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.integer  "last_submission"
-    t.integer  "started_at"
-    t.integer  "contest_id"
+  create_table "problems", id: :serial, force: :cascade do |t|
+    t.integer "server_id"
+    t.string "problem_id"
+    t.string "short_name"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "label"
+    t.index ["server_id", "problem_id"], name: "index_problems_on_server_id_and_problem_id", unique: true
+    t.index ["server_id", "short_name"], name: "index_problems_on_server_id_and_short_name", unique: true
+    t.index ["server_id"], name: "index_problems_on_server_id"
   end
 
-  create_table "submissions", force: :cascade do |t|
-    t.integer  "problem_id"
-    t.integer  "account_id"
-    t.integer  "submission_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "score"
-    t.integer  "status",        default: 0
-    t.string   "language"
-    t.index ["account_id"], name: "index_submissions_on_account_id", using: :btree
-    t.index ["problem_id", "submission_id"], name: "index_submissions_on_problem_id_and_submission_id", unique: true, using: :btree
-    t.index ["problem_id"], name: "index_submissions_on_problem_id", using: :btree
+  create_table "servers", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "api_type"
+    t.string "api_endpoint"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "last_submission"
+    t.integer "started_at"
+    t.integer "contest_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "username"
-    t.string   "email"
-    t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
-    t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
+  create_table "submissions", id: :serial, force: :cascade do |t|
+    t.integer "problem_id"
+    t.integer "account_id"
+    t.integer "submission_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "score"
+    t.integer "status", default: 0
+    t.string "language"
+    t.index ["account_id"], name: "index_submissions_on_account_id"
+    t.index ["problem_id", "submission_id"], name: "index_submissions_on_problem_id_and_submission_id", unique: true
+    t.index ["problem_id"], name: "index_submissions_on_problem_id"
   end
 
-  create_table "webhooks", force: :cascade do |t|
-    t.string   "name"
-    t.string   "url"
-    t.string   "hook_type"
+  create_table "users", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "session_token_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "webhooks", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "hook_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
