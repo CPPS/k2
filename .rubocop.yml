@@ -10,7 +10,7 @@ AllCops:
     - 'config/spring.rb'
     - 'bin/*'
     - 'vendor/**/*'
-Style/Tab:
+Layout/Tab:
   Enabled: false
-Style/IndentationWidth:
+Layout/IndentationWidth:
   Width: 1 #tab

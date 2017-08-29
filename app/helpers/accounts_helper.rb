@@ -1,3 +1,5 @@
+# This module contains helpers related to retrieving the user accounts and
+# attempted problems from user accounts.
 module AccountsHelper
 	def user_account(server_id)
 		@account ||= []

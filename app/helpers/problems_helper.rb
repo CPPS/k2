@@ -1,10 +1,9 @@
+# Contains various helpers for dealing with problem objects.
 module ProblemsHelper
-
 	def statement_url(problem, server)
-		if(server.api_type != 'domjudge')
-		   puts "Other server than domjudge unsupported in ProblemsHelper#statement_url"
-		end
-		server.url + "problem.php?id=" + problem.problem_id
+		# This method only supports Domjudge problems
+		raise NotImplementedError if server.api_type != 'domjudge'
+		"#{server.url}problem.php?id=#{problem.problem_id}"
 	end
 
 	def count_submissions

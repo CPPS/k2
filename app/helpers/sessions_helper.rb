@@ -1,5 +1,6 @@
+# Contains various helpers related to signing in/out or retrieving the
+# currently logged in user.
 module SessionsHelper
-
 	def log_in(user)
 		user.create_session
 		session[:user_id] = user.id
@@ -32,7 +33,7 @@ module SessionsHelper
 		!current_user.nil?
 	end
 
-	def is_admin?
+	def admin?
 		logged_in? && current_user.id == 1
 	end
 
