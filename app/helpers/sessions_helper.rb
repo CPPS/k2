@@ -10,14 +10,21 @@ module SessionsHelper
 		current_user.destroy_session if logged_in?
 		session.delete :user_id
 		session.delete :session_token
+		cookies.delete :user_id
+		cookies.delete :session_token
+	end
+
+	def remember
+		cookies.permanent.signed[:user_id] = session[:user_id]
+		cookies.permanent.signed[:session_token] = session[:session_token]
 	end
 
 	def current_user
 		return @current_user if @current_user_checked
 		@current_user_checked = true
-		return nil if session[:user_id].nil? || session[:session_token].nil?
-		user = User.find_by(id: session[:user_id])
-		@current_user = user if user && user.authenticated?(session[:session_token])
+		return nil if user_id.nil? || session_token.nil?
+		user = User.find_by(id: user_id)
+		@current_user = user if user && user.authenticated?(session_token)
 		@current_user
 	end
 
@@ -30,6 +37,16 @@ module SessionsHelper
 	end
 
 	def session_invalid?
-		current_user.nil? && !session[:user_id].nil?
+		current_user.nil? && !user_id.nil?
+	end
+
+	private
+
+	def user_id
+		@user_id ||= session[:user_id] || cookies.signed[:user_id]
+	end
+
+	def session_token
+		@session_token ||= session[:session_token] || cookies.signed[:session_token]
 	end
 end
