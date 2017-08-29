@@ -53,3 +53,5 @@ set :sidekiq_queue, ["default"]
 ### CLOCKWORK
 after "deploy:published", "clockwork:restart"
 
+### THINKING SPHINX
+after 'deploy:published', 'thinking_sphinx:restart'
