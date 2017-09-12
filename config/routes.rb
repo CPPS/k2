@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
 	# Only way that works for some reason
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas
+	get	'/scoreboard/:problem_names/:account_ids',	to: 'scoreboard#show'
 
 	resources :servers,	only: %i[index show]
 	resources :problems,	only: %i[index]

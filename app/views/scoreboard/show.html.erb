@@ -1,0 +1,31 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>User</th>
+		<% @problems.each do |problem| %>
+			<th><%= problem.short_name %></th>
+		<% end %>
+		</tr>
+	</thead>
+	<tbody>
+		<% @accounts.each do |account| %>
+			<tr>
+				<td><%= account.name %></td>
+				<% @problems.each do |problem| %>
+					<% if account.solved_problem_ids.include? problem.id.to_s %>
+						<td class="success"><%= Submission.find_by(account: account, problem: problem).created_at %></td>
+					<% else %>
+						<td></td>
+					<% end %>
+				<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+	<script>
+var reload = setTimeout( function() {
+	Turbolinks.visit(location.toString(), {action: 'replace'});
+	clearTimeout(reload);
+}, 30000);
+	</script>
