@@ -49,3 +49,6 @@ bower.json
 config/development.sphinx.conf
 db/sphinx/
 
+# Don't check in the Drone-ver version, as it is deploy specific
+version
+
