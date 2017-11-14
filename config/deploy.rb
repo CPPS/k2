@@ -57,4 +57,4 @@ after "deploy:published", "clockwork:restart"
 after 'deploy:published', 'thinking_sphinx:restart'
 
 ### DRONE-VER
-after 'deploy:updated', 'drone-ver:version'
+before 'deploy:updating', 'drone-ver:version'

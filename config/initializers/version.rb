@@ -1,1 +1,5 @@
-Rails.application.config.version = File.read('version')
+Rails.application.config.version = if File.exist? 'version'
+                                    File.read('version')
+                                   else
+                                    'UNVERSIONED'
+                                   end
