@@ -1,3 +1,5 @@
+require 'open-uri'
+
 # Contains a server endpoint K2 will poll against.
 class Server < ApplicationRecord
 	has_many :problems, dependent: :destroy
