@@ -6,11 +6,12 @@ class ApplicationController < ActionController::Base
 
 	# Check if the user is an admin before allowing MiniProfiler access
 	before_action do
-		if admin?
-			Rack::MiniProfiler.authorize_request
-		elsif session_invalid?
-			flash.now[:danger] = 'You have been logged out automatically due to logging in on a different system'
-			log_out
-		end
+		# TODO: replace once the admin flag is implemented
+#		if admin?
+#			Rack::MiniProfiler.authorize_request
+#		elsif session_invalid?
+#			flash.now[:danger] = 'You have been logged out automatically due to logging in on a different system'
+#			log_out
+#		end
 	end
 end

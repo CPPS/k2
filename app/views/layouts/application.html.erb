@@ -36,12 +36,12 @@
 							<!--			</div>
 </form>-->
 					<ul class="nav navbar-nav navbar-right">
-						<%- if logged_in? -%>
-							<%= menu_link_to current_user.name, current_user, "users" -%>
-							<li><%= link_to "Log out", logout_path, method: :delete -%></li>
+						<%- if signed_in? -%>
+							<%= menu_link_to current_user.email, edit_user_registration_path, "registrations" -%>
+							<li><%= link_to "Log out", destroy_user_session_path, method: :delete -%></li>
 						<%- else -%>
-							<%= menu_link_to "Sign up", signup_path, "users" -%>
-							<%= menu_link_to "Log in", login_path, "sessions" -%>
+							<%= menu_link_to "Sign up", new_user_registration_path, "registrations" -%>
+							<%= menu_link_to "Log in", new_user_session_path, "sessions" -%>
 						<%- end -%>
 					</ul>
 				</div>
@@ -75,10 +75,10 @@
 				</div>
 			<%- end %>
 
+			<%# HACK: The if/else is for devise flashes %>
 			<% flash.each do |message_type, message| %>
-				<div class="alert alert-<%= message_type -%>"><%= message %></div>
+				<div class="alert alert-<% if message_type == 'notice'%>info<% elsif message_type == 'alert' %>danger<% else %><%= message_type -%><% end %>"><%= message %></div>
 			<% end %>
-			
 			<%= yield %>
 
 			<% if Rails.env.development? %>

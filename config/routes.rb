@@ -2,13 +2,15 @@ require 'sidekiq/web'
 require 'admin_constraint'
 
 Rails.application.routes.draw do
+	# Add devise routes
+	devise_for :users
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root	'dashboard#index'
 
-	get	'/login',	to: 'sessions#new'
-	post	'/login',	to: 'sessions#create'
-	delete	'/logout',	to: 'sessions#destroy'
-	get	'/signup',	to: 'users#new'
+	#get	'/login',	to: 'sessions#new'
+	#post	'/login',	to: 'sessions#create'
+	#delete	'/logout',	to: 'sessions#destroy'
+	#get	'/signup',	to: 'users#new'
 	get	'/random',	to: 'exploration#random'
 	get	'/search/:query',	to: 'exploration#search'
 
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
 
 	resources :servers,	only: %i[index show]
 	resources :problems,	only: %i[index]
-	resources :users,	only: %i[index show create]
+	#resources :users,	only: %i[index show create]
 	delete	'/accounts',	to: 'accounts#destroy' # oops
 	resources :accounts,	only: %i[show new create destroy]
 
