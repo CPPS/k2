@@ -13,4 +13,11 @@ class ServersController < ApplicationController
 			'"accounts"."solvedProblems" DESC NULLS LAST', '"accounts"."score" ASC'
 		)
 	end
+
+	def auth
+#		@account = Account.find(user: current_user, server_id:
+#					params[:id])
+		response.headers['X-Auth-Account'] = current_user.username
+		render plain: 'your privileges have been checked'
+	end
 end

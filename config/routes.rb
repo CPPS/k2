@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 	get	'/scoreboard/:problem_names/:account_ids',	to: 'scoreboard#show'
 
 	resources :servers,	only: %i[index show]
+	get '/auth', to: 'servers#auth'
 	resources :problems,	only: %i[index]
 	#resources :users,	only: %i[index show create]
 	delete	'/accounts',	to: 'accounts#destroy' # oops
