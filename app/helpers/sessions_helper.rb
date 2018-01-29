@@ -31,9 +31,9 @@ module SessionsHelper
 #		@current_user
 #	end
 
-#	def logged_in?
-#		!current_user.nil?
-#	end
+	def logged_in?
+		!current_user.nil?
+	end
 
 #	def admin?
 #		logged_in? && current_user.id == 1
