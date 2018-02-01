@@ -15,6 +15,18 @@ class User < ApplicationRecord
 	devise :database_authenticatable, :registerable,
 	       :recoverable, :rememberable, :trackable, :validatable
 
+	# Validation rules:
+	# Username, name, email, password must be present
+	# Username, email must be unique when lowercased (BANANA == banana)
+	# Emails must and Usernames must not contain the @-sign
+	validates :username,
+	          presence: true,
+	          uniqueness: { case_sensitive: false },
+	          format: { without: /@/, message: "can't use @" }
+
+	validates :name,
+	          presence: true
+
 	# This method allows ActiveRecord to retrieve a user from the database
 	# using either the username or the email.
 	def self.find_for_database_authentication(warden_conditions)
