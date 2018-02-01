@@ -15,9 +15,7 @@ class ServersController < ApplicationController
 	end
 
 	def auth
-#		@account = Account.find(user: current_user, server_id:
-#					params[:id])
-		response.headers['X-Auth-Account'] = current_user.username
+		response.headers['X-Auth-Account'] = current_user.username if user_signed_in?
 		render plain: 'your privileges have been checked'
 	end
 end
