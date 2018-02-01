@@ -3,7 +3,11 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.0'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.18'
+group :postgres do
+	gem 'pg', '~> 0.18'
+end
+
+gem 'mysql2' # Required by thinking-sphinx, as Sphinx uses the MySQL protocol.
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -43,6 +47,11 @@ group :development do
 	gem 'capistrano-rails'
 	gem 'capistrano-sidekiq'
 	gem 'capistrano3-puma', git: 'https://github.com/seuros/capistrano-puma'
+
+	# net-ssh requires some gems for ed25519 keys support
+	# See https://github.com/net-ssh/net-ssh/issues/478
+	gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+	gem 'rbnacl', '>= 3.2', '< 5.0'
 
 	gem 'listen', '~> 3.1'
 	# Spring speeds up development by keeping your application running in the
@@ -98,5 +107,4 @@ gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
 
 ### SEARCH
 # Sphinx
-gem 'mysql2' # Required by thinking-sphinx, as Sphinx uses the MySQL protocol.
 gem 'thinking-sphinx', '~> 3.4'

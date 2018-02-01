@@ -64,6 +64,7 @@ GEM
     autoprefixer-rails (7.1.6)
       execjs
     bcrypt (3.1.11)
+    bcrypt_pbkdf (1.0.0)
     bindex (0.5.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -200,6 +201,8 @@ GEM
     rb-fsevent (0.10.2)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    rbnacl (4.0.2)
+      ffi
     redis (4.0.1)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
@@ -286,6 +289,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bcrypt_pbkdf (>= 1.0, < 2.0)
   bootstrap-sass (~> 3.3.6)
   bootstrap_form
   byebug
@@ -309,6 +313,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (~> 5.1.0)
   rails-assets-jquery-stupid-table!
+  rbnacl (>= 3.2, < 5.0)
   rubocop
   sass-rails (~> 5.0)
   sentry-raven
