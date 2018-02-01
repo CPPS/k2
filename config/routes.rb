@@ -1,5 +1,4 @@
 require 'sidekiq/web'
-require 'admin_constraint'
 
 Rails.application.routes.draw do
 	# Add devise routes
@@ -38,5 +37,7 @@ Rails.application.routes.draw do
 	end
 
 	# Sidekiq ui: only accessible if logged in
-	mount Sidekiq::Web => '/sidekiq', constraints: AdminConstraint.new
+	authenticate :user, ->(u) { u.admin? } do
+		mount Sidekiq::Web => '/sidekiq'
+	end
 end
