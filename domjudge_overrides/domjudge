@@ -1,0 +1,112 @@
+# Nginx configuration file
+# Its goal is to serve K2 and Domjudge from the default domain.
+# This file is based on the default nginx config shipped with Domjudge 5:
+# https://github.com/DOMjudge/domjudge/blob/5.3/etc/nginx-conf.in
+
+# Author: Henk van der Laan <henk@henkvdlaan.com>
+
+# This upstream should point to an PHP-FPM socket
+upstream domjudge {
+	server unix:/run/php/php7.1-fpm.sock;
+}
+
+# TODO k2 upstream
+upstream k2 {
+	server localhost:5000;
+}
+
+server {
+
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	# Note that we listen to dev by default, but since we use
+	# default_server, this server file will answer UNLESS we have a more
+	# specific file. This file is called production_canary and prevents
+	# this server from being exposed in production if this is development.
+	server_name compprogdev.win.tue.nl;
+	
+	# Do not expose the nginx version, which is good security practice.	
+	server_tokens off;
+
+	# TODO configure good ciphers
+
+	root /var/www/html;
+
+	index index.php;
+
+	# We use symlinks to make sure domjudge is present at /domjudge.
+	# ln -s /opt/domjudge/domserver/www/ /var/www/html/domjudge
+	# By default nginx refuses to follow symlinks, so we need to change
+	# that.
+	disable_symlinks off;
+	
+	# This block passes all main traffic to K2
+	location / {
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_pass http://k2;
+	}
+
+	# /auth is the authentication endpoint, which is used to get the
+	# username for Domjudge. It needs some special settings, as detailed in
+	# https://www.nginx.com/resources/admin-guide/restricting-access-auth-request/
+	location = /auth {
+		internal; # Cannot be accessed for other purposes
+		proxy_pass_request_body off;
+		proxy_set_header Content-Length "";
+		proxy_set_header X-Original-URI $request_uri;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header Host $http_host;
+		proxy_redirect off;
+		proxy_pass http://k2;
+	}
+
+	# This directive specifies in which order the php files should be tried.
+	location /domjudge {
+		try_files $uri $uri/ /domjudge/index.php;
+	}
+
+	# The Domjudge API requires an extra config block to pass everything
+	# through api/index.php
+	location ~ ^/domjudge/api/(.+)$ {
+		include fastcgi_params;
+		# k2 auth staple
+		auth_request /auth;
+		auth_request_set $dj_remote_user $upstream_http_x_auth_account;
+		fastcgi_param REMOTE_USER $dj_remote_user;
+
+		fastcgi_param SCRIPT_FILENAME $realpath_root/domjudge/api/index.php;
+		set $path_info $1;
+		if ($path_info = index.php) {
+			set $path_info "";
+		}
+		fastcgi_param PATH_INFO $path_info;
+		fastcgi_pass domjudge;
+	}
+
+	location = /domjudge/api/register.php { 
+		include fastcgi_params; 
+
+		fastcgi_param SCRIPT_FILENAME $realpath_root/domjudge/api/register.php;
+		fastcgi_pass domjudge; 
+
+	}
+
+	# PHP file handler. All files that end on PHP will be sent through this
+	# handler.
+	location ~ ^(.+?\.php)(/.*)?$ {
+		include fastcgi_params;
+		# k2 auth staple
+		auth_request /auth;
+		auth_request_set $dj_remote_user $upstream_http_x_auth_account;
+		fastcgi_param REMOTE_USER $dj_remote_user;
+		
+		fastcgi_param SCRIPT_FILENAME $realpath_root$1;
+		fastcgi_param PATH_INFO $2;
+		fastcgi_pass domjudge;
+	}
+}

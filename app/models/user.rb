@@ -1,3 +1,7 @@
+require 'net/http'
+require 'uri'
+require 'json'
+
 # Model for the users of our application
 # A user can log in and can be linked to server accounts.
 class User < ApplicationRecord
@@ -26,6 +30,13 @@ class User < ApplicationRecord
 
 	validates :name,
 	          presence: true
+
+	# Creates an account on the domjudge server 
+	after_create do |user|
+		domserver = Server.find_by api_type: 'domjudge'		
+		uri = URI.parse(domserver.api_endpoint + "register.php")
+		response = Net::HTTP.post_form(uri, {"username" => user.username})		
+	end
 
 	# This method allows ActiveRecord to retrieve a user from the database
 	# using either the username or the email.

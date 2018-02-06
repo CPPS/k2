@@ -1,0 +1,2 @@
+domjudge:		NGINX config file, location: /var/nginx/sites-enabled
+register.php:	File for automatically creating new domjudge accounts, location: domjudge/domserver/www/api
