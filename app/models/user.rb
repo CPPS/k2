@@ -40,7 +40,6 @@ class User < ApplicationRecord
 
 			a = Account.new({'name' => user.name, 'user_id' => user.id, 'account_id' => account_id, 'server_id' => domserver.id})
 			a.save
-			debugger
 		end
 	end
 
