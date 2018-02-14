@@ -52,3 +52,6 @@ db/sphinx/
 # Don't check in the Drone-ver version, as it is deploy specific
 version
 
+# Don't check in capistrano deploy files, as they are different per person
+config/deploy/
+
