@@ -9,10 +9,10 @@ require('init.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $login = $_POST['username'];
+    $login = $_POST['username'];    
 
     $mail = "a@a.a";
-    $name = $login;
+    $name = $_POST['name'];
 
     $sql = "INSERT INTO team SET %S";
     $data = array(
@@ -40,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );
     $DB->q($sql, $data);
 
-    echo "User created";   
+    //$response['request'] = array('account_id' => $tid);
+    //exit(json_encode($response));
+    exit((string)$tid);
 }
 yolo:
 ?>
@@ -64,12 +66,12 @@ Register yourself with your TU/e credentials (s-number and password).
 <form action="/domjudge/api/register.php" method="post">
 <table>
     <tr>
-        <td><label for="username">Login:</label></td>
+        <td><label for="username">Username:</label></td>
         <td><input type="text" name="username" size="15" maxlength="15" accesskey="l" autofocus /></td>
     </tr>
     <tr>
-        <td><label for="passwd">Password:</label></td>
-        <td><input type="password" name="passwd" value="" size="15" maxlength="255" accesskey="p" /></td>
+        <td><label for="name">Name:</label></td>
+        <td><input type="text" name="name" value="" size="15" maxlength="255" accesskey="p" /></td>
     </tr>
     <tr>
         <td></td>

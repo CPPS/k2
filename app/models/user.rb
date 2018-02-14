@@ -33,9 +33,15 @@ class User < ApplicationRecord
 
 	# Creates an account on the domjudge server 
 	after_create do |user|
-		domserver = Server.find_by api_type: 'domjudge'		
-		uri = URI.parse(domserver.api_endpoint + "register.php")
-		response = Net::HTTP.post_form(uri, {"username" => user.username})		
+		Server.where(api_type: 'domjudge').each do |domserver|
+			uri = URI.parse(domserver.api_endpoint + "register.php")
+			response = Net::HTTP.post_form(uri, {"username" => user.username, "name" => user.name})		
+			account_id = response.body.to_i #domserver sends back team/account id as string
+
+			a = Account.new({'name' => user.name, 'user_id' => user.id, 'account_id' => account_id, 'server_id' => domserver.id})
+			a.save
+			debugger
+		end
 	end
 
 	# This method allows ActiveRecord to retrieve a user from the database
