@@ -76,6 +76,9 @@ gem 'sidekiq', '< 6'
 gem 'clockwork', git: 'https://github.com/Rykian/clockwork.git', tag: 'v2.0.1'
 gem 'daemons' # For daemonization support
 
+# use bootstrap for nice layouts
+gem 'bootstrap', '~> 4.0.0'
+
 # use bootstrap for front-end layout
 gem 'bootstrap-sass', '~> 3.3.6'
 
