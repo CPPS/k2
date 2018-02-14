@@ -1,0 +1,14 @@
+[Unit]
+Description=My judgehost Service
+After=network.target
+
+[Service]
+Type=simple
+User=domjudge
+WorkingDirectory=/home/student/domjudge/judgehost
+ExecStart=/home/student/domjudge/judgehost/bin/judgedaemon
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

@@ -1,2 +1,3 @@
-domjudge:		NGINX config file, location: /var/nginx/sites-enabled
-register.php:	File for automatically creating new domjudge accounts, location: domjudge/domserver/www/api
+domjudge:					NGINX config file, location: /var/nginx/sites-enabled/domjudge
+register.php:				File for automatically creating new domjudge accounts, location: domjudge/domserver/www/api/register.php
+domjudge_daemon.service:	Systemd file for automatically starting judgehost, location: /etc/systemd/system/domjudge_daemon.service
