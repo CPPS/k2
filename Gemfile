@@ -106,7 +106,7 @@ gem 'stackprof'
 gem 'sentry-raven', require: false
 
 ### FRONT END
-gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
+gem 'jquery-datatables'
 
 ### SEARCH
 # Sphinx

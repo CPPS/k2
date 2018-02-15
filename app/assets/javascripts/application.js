@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap-sprockets
-//
-//= require jquery-stupid-table
+//= require datatables
 //
 //= require_tree .

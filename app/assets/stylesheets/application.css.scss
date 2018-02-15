@@ -10,6 +10,10 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
+// Include DataTables
+@import 'datatables';
+@import "datatables";
+
 // Include all my CSS files
 @import "*";
 
@@ -40,6 +44,16 @@ padding-bottom: 0;
 border-top: 0;
 border-bottom: 0;
 }
+
+#targetTable{
+display: inline-table;
+width: 100%;
+}
+#targetTable_wrapper{
+display: inline-table;
+width: 100%;
+}
+
 
 .menuitem {
 padding-left: 1em;
