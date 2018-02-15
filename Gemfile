@@ -80,7 +80,7 @@ gem 'daemons' # For daemonization support
 gem 'bootstrap', '~> 4.0.0'
 
 # use bootstrap for front-end layout
-gem 'bootstrap-sass', '~> 3.3.6'
+#gem 'bootstrap-sass', '~> 3.3.6'
 
 # use bootstrap styling for layout
 gem 'bootstrap_form'

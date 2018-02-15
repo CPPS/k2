@@ -66,9 +66,10 @@ GEM
     bcrypt (3.1.11)
     bcrypt_pbkdf (1.0.0)
     bindex (0.5.0)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
+    bootstrap (4.0.0)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
     bootstrap_form (2.7.0)
     builder (3.2.3)
     byebug (9.1.0)
@@ -156,6 +157,7 @@ GEM
     parser (2.4.0.2)
       ast (~> 2.3)
     pg (0.21.0)
+    popper_js (1.12.9)
     powerpack (0.1.1)
     puma (3.10.0)
     rabl-rails (0.5.2)
@@ -290,7 +292,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt_pbkdf (>= 1.0, < 2.0)
-  bootstrap-sass (~> 3.3.6)
+  bootstrap (~> 4.0.0)
   bootstrap_form
   byebug
   capistrano-rails
@@ -329,4 +331,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.13.6
+   1.15.1

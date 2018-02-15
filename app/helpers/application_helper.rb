@@ -25,6 +25,15 @@ module ApplicationHelper
 		end
 	end
 
+	def menu_link_to_div(text, path, controllername)
+		if controller.controller_name == controllername
+			content_tag(:div, link_to(text, path) +
+				content_tag(:span, '(current)', class: 'sr-only'), class: 'active')
+		else
+			content_tag(:div, link_to(text, path))
+		end
+	end
+
 	def motd
 		fetch_motd unless @motd_type
 		@motd

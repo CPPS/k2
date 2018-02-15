@@ -1,7 +1,6 @@
 // Main application CSS file, include everything in here using SASS's @import function
 
 // Include Bootstrap
-@import "bootstrap-sprockets";
 @import "bootstrap";
 
 // Include Bootstrap forms
@@ -18,6 +17,53 @@
 
 #main-content {
 	min-height: calc(100vh - 132px);
+}
+
+#logo {
+float: left;
+margin-right: 15px;
+font-size: 2.0em;
+color:#eee;
+text-transform: uppercase;
+letter-spacing: -1px;
+font-weight: bold;
+}
+
+#logo:hover{
+color: #fff;
+text-decoration: none;
+}
+
+.nopad{
+padding-top: 0;
+padding-bottom: 0;
+border-top: 0;
+border-bottom: 0;
+}
+
+.menuitem {
+padding-left: 1em;
+padding-right: 0em;
+float: left;
+font-size: 1.4em;
+color:#55f;
+letter-spacing: -1px;
+padding-top:0px;
+font-weight: bold;
+}
+
+.menuitem:hover{
+color: #ccf;
+text-decoration: none;
+}
+
+body {
+padding-top: 85px;
+}
+@media (max-width: 979px) {
+body{
+padding-top: 0px;
+}
 }
 
 // Footer shown on all pages
