@@ -20,13 +20,16 @@
     <a id="logo" href="/">K2</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="menuitem nav-item">
-        <%= link_to "Leaderboard", {controller: "leaderboard", action: "show"}, class: "nav-link" -%>
+        <%= link_to "Leaderboard", {controller: "/leaderboard", action: "show"}, class: "nav-link" -%>
       </li>
       <li class="menuitem nav-item">
-        <%= link_to "Feed", {controller: "dashboard", action: "index"}, class:"nav-link" -%>
+        <%= link_to "Feed", {controller: "/dashboard", action: "index"}, class:"nav-link" -%>
       </li>
       <li class="menuitem nav-item">
         <%= link_to "Problems", problems_path, class:"nav-link" -%>
+      </li>
+	<li class="menuitem nav-item">
+        <%= link_to "Submissions", {controller: "/submissions", action: "show"}, class:"nav-link" -%>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
@@ -90,17 +93,15 @@
 			<% end %>
 		</div>
 		<!-- End of Main Content -->
-		<footer class="footer">
-			<div class="container">
-				<div class="col-xs-8">
+		<footer class="footer row pad-top">
+				<div class="col-8">
 					<p class="text-muted">K2, find problems the easy way. © Henk van der Laan 2017
 						<small class="text-muted"><%= Rails.application.config.version %></small>
 					</p>
 				</div>
-				<div class="col-xs-4 footer-icons text-muted">
+				<div class="col-4 footer-icons text-muted">
 					<a href="https://github.com/cpps/k2"><i class="fa fa-lg fa-github text-muted"></i></a>
 				</div>
-			</div>
 		</footer>
 	</body>
 </html>
