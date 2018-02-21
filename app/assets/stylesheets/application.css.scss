@@ -54,14 +54,21 @@ display: inline-table;
 width: 100%;
 }
 
+.no-ver-pad{
+padding-top:0px;
+padding-bottom:0px;
+}
+
+#problem-tabs{
+padding-bottom:0.5em;
+}
 
 .menuitem {
-padding-left: 1em;
+padding-left: 0.3em;
 padding-right: 0em;
 float: left;
 font-size: 1.4em;
 color:#55f;
-letter-spacing: -1px;
 padding-top:0px;
 font-weight: bold;
 }

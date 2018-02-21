@@ -19,34 +19,36 @@
   <div class="collapse navbar-collapse" id="targetToggler">
     <a id="logo" href="/">K2</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li>
-        <div class="menuitem"><%= link_to "Leaderboard", controller: "leaderboard", action: "show" -%></div>
+      <li class="menuitem nav-item">
+        <%= link_to "Leaderboard", {controller: "leaderboard", action: "show"}, class: "nav-link" -%>
       </li>
-      <li >
-        <div class="menuitem"><%= link_to "Feed", controller: "dashboard", action: "index" -%></div>
+      <li class="menuitem nav-item">
+        <%= link_to "Feed", {controller: "dashboard", action: "index"}, class:"nav-link" -%>
       </li>
-      <li >
-        <div class="menuitem"><%= link_to "Problems", problems_path -%></div>
+      <li class="menuitem nav-item">
+        <%= link_to "Problems", problems_path, class:"nav-link" -%>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search K2">
       <button class="btn my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <div class="my-2 my-lg-0">
+    <ul class="navbar-nav">
+      <li class="menuitem nav-item my-2 my-lg-0">
+	  <%- if signed_in? -%>
+		<%= link_to current_user.name, edit_user_registration_path, class:"nav-link" -%>
+	  <%- else -%>
+		<%= link_to "Sign up", new_user_registration_path, class:"nav-link" -%>
+          <%- end -%>
+      </li>
+      <li class="menuitem nav-item my-2 my-sm-0">
 	<%- if signed_in? -%>
-		<div class="menuitem"><%= menu_link_to_div current_user.name, edit_user_registration_path, "registrations" -%></div>
+		<%= link_to "Log out", destroy_user_session_path, method: :delete, class:"nav-link" -%>
 	<%- else -%>
-		<div class="menuitem"><%= menu_link_to_div "Sign up", new_user_registration_path, "registrations" -%></div>
+		<%= link_to "Log in", new_user_session_path, class:"nav-link" -%>
 	<%- end -%>
-    </div>
-    <div class="my-2 my-sm-0">
-	<%- if signed_in? -%>
-		<div class="menuitem"><%= link_to "Log out", destroy_user_session_path, method: :delete -%></div>
-	<%- else -%>
-		<div class="menuitem"><%= menu_link_to_div "Log in", new_user_session_path, "sessions" -%></div>
-	<%- end -%>
-    </div>
+      </li>
+    </ul>
   </div>
 </nav>
 		<!-- End of Navigation bar -->

@@ -13,11 +13,11 @@
 <ul id="problem-tabs" class="nav nav-tabs" role="tablist">
 	<li class="active" role="presentation"><a href="#statement" aria-controls="statement" role="tab" data-toggle="tab">Problem Statement</a></li>
 	<% if @accepted.empty? %>
-		<div class="px-4"><li class="disabled"><a>Nobody has solved this problem yet</a></li></div>
+		<li class="disabled px-4"><a>Nobody has solved this problem yet</a></li>
 	<% else %>
-		<div class="px-4"><li role="presentation"><a href="#users" aria-controls="statement" role="tab" data-toggle="tab">Users who solved this problem (<%= @accepted.count %>)</a></li></div>
+		<li role="presentation" class="px-4"><a href="#users" aria-controls="statement" role="tab" data-toggle="tab">Users who solved this problem (<%= @accepted.count %>)</a></li>
 	<% end %>
-		<div class="px-4"><li class="tabright"><a href="<%= random_path %>" data-turbolinks="false" style="border-color: transparent; background-color: transparent;"><button class="btn btn-default btn-sm">I'm feeling lucky</button></a></li></div>
+		<li><a href="<%= random_path %>" data-turbolinks="false" style="border-color: transparent; background-color: transparent;"><button class="btn btn-default btn-sm no-ver-pad">I'm feeling lucky</button></a></li>
 </ul>
 
 <div class="tab-content">
