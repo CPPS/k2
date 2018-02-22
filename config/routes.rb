@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'help/show'
+
   get 'submissions/show'
 
 	# Add devise routes
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
 	get	'/leaderboard',	to: 'leaderboard#show'
 	get	'/dashboard',	to: 'dashboard#index'
 	get	'/submissions',	to:'submission#show'
+	get	'/help',	to:'help#show'
 
 	# Only way that works for some reason
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas

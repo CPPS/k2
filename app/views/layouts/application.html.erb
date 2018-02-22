@@ -31,6 +31,10 @@
 	<li class="menuitem nav-item">
         <%= link_to "Submissions", {controller: "/submissions", action: "show"}, class:"nav-link" -%>
       </li>
+      </li>
+	<li class="menuitem nav-item">
+        <%= link_to "Help", {controller: "/help", action: "show"}, class:"nav-link" -%>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search K2">
@@ -87,10 +91,10 @@
 			<% end %>
 			<%= yield %>
 
-			<% if Rails.env.development? %>
+			<!-- <% if Rails.env.development? %>
 				<%= debug(params) %>
 				<%= console %>
-			<% end %>
+			<% end %> -->
 		</div>
 		<!-- End of Main Content -->
 		<footer class="footer row pad-top">
