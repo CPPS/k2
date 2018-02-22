@@ -20,8 +20,9 @@
 // GENERAL STYLING
 
 #main-content {
-padding-top: 1em;
-padding-bottom: 2em;
+padding: 1em;
+min-height:50vh;
+background-color: rgba(255,255,255,0.97);
 }
 
 #logo {
@@ -85,6 +86,11 @@ padding-bottom: 2em;
 position: relative;
 margin: 0;
 min-height: 100vh;
+background-image: url("bg.jpg");
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: bottom;
+background-size: 100% 50%;
 }
 @media (max-width: 979px) {
 body{
@@ -112,6 +118,10 @@ padding-top: 0px;
 padding-top: 0.5em;
 }
 
+.pad-bottom{
+padding-bottom: 2em;
+}
+
 .text-muted{
 margin: 0;
 }
@@ -123,5 +133,5 @@ min-width: 100%;
 }
 
 .navbar {
-	box-shadow: 0 5px 10px 5px #888888;
+	box-shadow: 0 -5px 20px 10px #353535;
 }
