@@ -88,6 +88,9 @@ gem 'font-awesome-sass', '~> 4.7.0'
 # use Devise for authentication
 gem 'devise'
 
+# use Net::LDAP for ldap authentication
+gem 'net-ldap'
+
 ### API STUFF
 gem 'rabl-rails'
 
