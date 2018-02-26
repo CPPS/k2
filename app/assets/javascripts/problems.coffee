@@ -3,4 +3,3 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', ->
 	$('[data-toggle="tooltip"]').tooltip()
-	$('.problems-table').stupidtable()
