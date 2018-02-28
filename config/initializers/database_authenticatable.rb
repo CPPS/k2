@@ -6,6 +6,7 @@ module Devise
 		# to prevent it from activating on LDAP users.
 		class DatabaseAuthenticatable < Authenticatable
 			def valid?
+				request.headers['PATHINFO'] == '/auth' ||
 				params[:user] && params[:user][:login] &&
 					User.where(
 						username: params[:user][:login],
