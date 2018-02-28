@@ -1,4 +1,5 @@
-
+<h1 class="page-title">Submissions</h1>
+<div class = "ver-pad">
 <%= form_tag("/search", method: "get", id: "form", remote:true, multipart:true) do |f|%>
   <%= label_tag(:file, "File:") %>
   <%= file_field_tag(:file) %>
@@ -6,3 +7,4 @@
   <%= select_tag(:problem_name, options_for_select(get_shortnames)) %>
   <%= submit_tag("Search", id: "test") %>
 <% end %>
+</div>

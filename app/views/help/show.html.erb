@@ -1,2 +1,22 @@
-<h1>Help#show</h1>
-<p>Find me in app/views/help/show.html.erb</p>
+<h1 class="page-title">Welcome to K2</h1>
+<p>
+K2 is a central hub for your Competitive Programming and Problem Solving (CPPS) practice. <br/> Is this your first time here? Then start by <a href="/signup">signing up</a>.
+</p>
+<p>
+What does K2 offer?
+<ul>
+<li>Track your progress and see how others are doing on the <a href="/leaderboard">Leaderboard</a>.</li>
+<li>Keep up-to-date with your peers' activity by checking the <a href="/dashboard">Feed</a>.</li>
+<li>Find a new challenge and see what others have tried by browsing through the  <%= link_to "Problems", problems_path-%>.</li>
+<li>Submit new solutions and get helpful feedback by navigating to your 
+<%- if signed_in? -%>
+<a href="/submissions">Submissions</a>.</li>
+<%- else -%>
+<%= link_to "Submissions", new_user_session_path -%>
+<%- end -%>
+
+
+<li>Catch up with your rivals and see what they have been up to by clicking on their name.</li>
+</ul>
+Closely integrated with <a href="/domjudge">DOMJudge</a>, K2 aims to providee a friendlier interface for its functionality.
+</p>

@@ -28,11 +28,16 @@
       <li class="menuitem nav-item">
         <%= link_to "Problems", problems_path, class:"nav-link" -%>
       </li>
+	<%- if signed_in? -%>
 	<li class="menuitem nav-item">
         <%= link_to "Submissions", {controller: "/submissions", action: "show"}, class:"nav-link" -%>
       </li>
+	<%- end -%>
+      <!-- Temporary DOMJudge link -->
+      <li class="menuitem nav-item">
+        <%= link_to "DOMJudge", "/domjudge", class:"nav-link" -%>
       </li>
-	<li class="menuitem nav-item">
+      <li class="menuitem nav-item">
         <%= link_to "Help", {controller: "/help", action: "show"}, class:"nav-link" -%>
       </li>
     </ul>
