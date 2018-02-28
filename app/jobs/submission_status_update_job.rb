@@ -44,7 +44,7 @@ class SubmissionStatusUpdateJob < ApplicationJob
 				submission.overcomplete!
 			end
 		else
-			submission.wrong_asnwer!
+			submission.wrong_answer!
 			# We requeue because it is possible that this is a second submission which
 			# is currently being graded. This only needs to be done once more.
 			retries_left = 1 if retries_left > 1

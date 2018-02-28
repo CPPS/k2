@@ -48,6 +48,9 @@ class Submission < ApplicationRecord
 		when 'correct' then 'fa-check'
 		when 'wrong_answer' then 'fa-times'
 		when 'first_correct' then 'fa-trophy'
+		when 'timelimit' then 'fa-clock-o'
+		when 'run_error' then 'fa-bug'
+		when 'compiler_error' then 'fa-gear'
 		else 'fa-question'
 		end
 	end
@@ -61,7 +64,10 @@ class Submission < ApplicationRecord
 		when 'account_hidden' then 'Account not visible on scoreboard'
 		when 'problem_hidden' then 'Problem not visible on scoreboard'
 		when 'first_correct' then 'First correct'
-		when 'timelimit' then 'The submission hit a timelimit'
+		when 'timelimit' then 'Time limit: The submission was too slow'
+		when 'run_error' then 'Run error: The submission crashed while running'
+		when 'compiler_error' then "Compile error: The submission didn't compile"
+		when 'no_output' then 'No output: The program did not return output'
 		else "Unknown status: #{status}"
 		end
 	end
@@ -75,6 +81,7 @@ class Submission < ApplicationRecord
 		when 'run-error' then run_error!
 		when 'wrong-answer' then wrong_answer!
 		when 'compiler-error' then compiler_error!
+		when 'no-output' then no_output!
 		else raise "Unknown outcome: #{judging['outcome']}"
 		end
 	end
