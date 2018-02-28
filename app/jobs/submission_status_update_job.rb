@@ -39,12 +39,12 @@ class SubmissionStatusUpdateJob < ApplicationJob
 				end
 				ScoreUpdateJob.perform_later(submission.account.id)
 			elsif submission.created_at.to_i < score_time
-				submission.wrong!
+				submission.wrong_answer!
 			else
 				submission.overcomplete!
 			end
 		else
-			submission.wrong!
+			submission.wrong_asnwer!
 			# We requeue because it is possible that this is a second submission which
 			# is currently being graded. This only needs to be done once more.
 			retries_left = 1 if retries_left > 1

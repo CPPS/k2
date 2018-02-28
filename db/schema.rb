@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221114049) do
+ActiveRecord::Schema.define(version: 20180228183930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 20180221114049) do
     t.integer "last_submission"
     t.integer "started_at"
     t.integer "contest_id"
+    t.string "api_username"
+    t.string "api_password"
+    t.integer "last_judging"
   end
 
   create_table "submissions", id: :serial, force: :cascade do |t|
@@ -64,6 +67,7 @@ ActiveRecord::Schema.define(version: 20180221114049) do
     t.integer "score"
     t.integer "status", default: 0
     t.string "language"
+    t.datetime "judged_at"
     t.index ["account_id"], name: "index_submissions_on_account_id"
     t.index ["problem_id", "submission_id"], name: "index_submissions_on_problem_id_and_submission_id", unique: true
     t.index ["problem_id"], name: "index_submissions_on_problem_id"
