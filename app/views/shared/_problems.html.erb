@@ -14,14 +14,3 @@
 		<%= render partial: problems, locals: { attempted: get_attempted(server.id), acsubs: count_accepted_submissions, subs: count_submissions } %>
 	</tbody>
 </table>
-
-<script>
-$(document).ready(function() {
- $("#targetTable").dataTable({
-"paging":false,
-"searching":false,
-"info":false
-});
-});
-targetTable.classList.remove('form-inline');
-</script>

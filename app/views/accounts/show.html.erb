@@ -56,7 +56,7 @@ targetTable.classList.remove('form-inline');
 </script>
 
 	<% if @show_compare%>
-		<div id="compare" class="tab-pane row pad-top">
+		<div id="compare" class="tab-pane row ver-pad">
 			<div class="col">
 				<h5>Problems only <%= @account.name %> has solved</h5>
 				<% if @their_exclusive_problems.empty? %>
@@ -75,7 +75,7 @@ targetTable.classList.remove('form-inline');
 			<div class="col">
 				<h5>Problems only <%= @current_user_account.name %> has solved</h5>
 				<% if @my_exclusive_problems.empty? %>
-					<p>There are none. Get to work!</p>
+					<p>No problems solved yet.</p>
 				<% else %>
 					<table class="table">
 						<% @my_exclusive_problems.each do |p| %>
