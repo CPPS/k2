@@ -11,8 +11,8 @@
 <!--<p>Solved problems: <%= @account.solvedProblems -%></p>-->
 <div class="tab-content container-fluid">
 	<!-- <div id="recent" class="tab-pane active" role="tabpanel">
-		<table class="table">	
-			<% @submissions.each do |s| %>			
+		<table class="table">
+			<% @submissions.each do |s| %>
 				<tr>
 					<td><%= link_to s.problem.short_name, kaas_path(s.problem.server_id, s.problem.short_name) %></td>
 					<td><%= s.problem.name %></td>
@@ -44,16 +44,6 @@
 			<% end %>
 		</table>
 	</div>
-	<script>$(document).ready(function() {
- $("#targetTable").dataTable({
-"paging":false,
-"searching":false,
-"info":false,
-"order": [[ 3, "desc" ]]
-});
-});
-targetTable.classList.remove('form-inline');
-</script>
 
 	<% if @show_compare%>
 		<div id="compare" class="tab-pane row ver-pad">

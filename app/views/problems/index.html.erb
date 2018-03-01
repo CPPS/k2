@@ -3,19 +3,3 @@
 	<!--<h2><%= link_to server.name, server -%></h2>-->
 	<%= render partial: 'shared/problems', locals: {server: server, problems: server.problems.order(:short_name)} %>
 <% end -%>
-
-<script>
-$(document).ready(function() {
-	$('table').dataTable({
-	"paging":false,
-	"searching":false,
-	"info":false
-	});
-	var t = document.getElementByClass("form-inline");
-	while(t != null) {
-		t.classList.remove('form-inline');
-		t.classList.add('dTable');
-		t = document.getElementByClass("targetTable");
-	}
-});
-</script>
