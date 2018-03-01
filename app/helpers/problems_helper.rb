@@ -24,4 +24,11 @@ module ProblemsHelper
 		accepted_subs.each { |s| @count_accepted_submissions[s.problem_id] = s.total }
 		@count_accepted_submissions
 	end
+
+	def get_shortnames
+		a = Problem.all.map do |problem| 
+			[problem.short_name, problem.short_name] 
+		end
+		return a
+	end
 end

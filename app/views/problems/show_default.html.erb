@@ -1,0 +1,16 @@
+<table class="problems-table table table-condensed sorted">
+	<thead>
+		<tr>
+			<th class="sorting-asc" data-sort="string">Short name</th>
+			<th data-sort="string">Name</th>
+			<% if logged_in? %>
+				<th data-sort="int">Solved?</th>
+			<% end %>
+			<th data-sort="int">Solved by</th>
+			<th data-sort="int">Attempted by</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= render partial: problems, locals: { attempted: get_attempted(server.id), acsubs: count_accepted_submissions, subs: count_submissions } %>
+	</tbody>
+</table>

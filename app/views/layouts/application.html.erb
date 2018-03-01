@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title><%= content_for(:title) + ' | ' if content_for?(:title)%>K2 Scoreboard</title>
+		<title><%= content_for(:title) + ' | ' if content_for?(:title)%>K2 - CPPS Training</title>
 		<%= csrf_meta_tags %>
 		<%= favicon_link_tag 'favicon.png' , type: 'image/png' %>
 		<%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
@@ -10,49 +10,64 @@
 	</head>
 
 	<body>
+
 		<!-- Navigation bar -->
-		<nav class="navbar navbar-default">
-			<div class="container-fluid">
-				<!-- Root link and hamburger toggle -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hamburger" aria-expanded="false">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="/">K2</a>
-				</div>
-
-				<!-- Other menu items -->
-				<div id="hamburger" class="collapse navbar-collapse">
-					<ul class="nav navbar-nav">
-						<%= menu_link_to "Problems", problems_path, "problems" -%>
-						<%= menu_link_to "Servers", servers_path, "servers" -%>
-						<%= menu_link_to 'Domjudge', '/domjudge', "domjudge" -%>
-					</ul>
-<!--					<form id="search-form" class="navbar-form navbar-left">
-<div class="form-group">-->
-							<input id="search" class="navbar-form navbar-left form-control" type="text" placeholder="Search K2">
-							<!--			</div>
-</form>-->
-					<ul class="nav navbar-nav navbar-right">
-						<%- if signed_in? -%>
-							<%= menu_link_to current_user.name, edit_user_registration_path, "registrations" -%>
-							<li><%= link_to "Log out", destroy_user_session_path, method: :delete -%></li>
-						<%- else -%>
-							<%= menu_link_to "Sign up", new_user_registration_path, "registrations" -%>
-							<%= menu_link_to "Log in", new_user_session_path, "sessions" -%>
-						<%- end -%>
-					</ul>
-				</div>
-
-			</div>
-		</nav>
+<nav class="navbar navbar-expand-md navbar-inverse navbar-dark bg-dark fixed-top nopad">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#targetToggler" aria-controls="targetToggler" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="targetToggler">
+    <a id="logo" href="/">K2</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="menuitem nav-item">
+        <%= link_to "Leaderboard", {controller: "/leaderboard", action: "show"}, class: "nav-link" -%>
+      </li>
+      <li class="menuitem nav-item">
+        <%= link_to "Feed", {controller: "/dashboard", action: "index"}, class:"nav-link" -%>
+      </li>
+      <li class="menuitem nav-item">
+        <%= link_to "Problems", problems_path, class:"nav-link" -%>
+      </li>
+	<%- if signed_in? -%>
+	<li class="menuitem nav-item">
+        <%= link_to "Submissions", {controller: "/submissions", action: "show"}, class:"nav-link" -%>
+      </li>
+	<%- end -%>
+      <!-- Temporary DOMJudge link -->
+      <li class="menuitem nav-item">
+        <%= link_to "DOMJudge", "/domjudge", class:"nav-link" -%>
+      </li>
+      <li class="menuitem nav-item">
+        <%= link_to "Help", {controller: "/help", action: "show"}, class:"nav-link" -%>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input id="search" class="form-control mr-sm-2" type="text" placeholder="Search K2">
+      <button class="btn my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav">
+      <li class="menuitem nav-item my-2 my-lg-0">
+	  <%- if signed_in? -%>
+		<%= link_to current_user.name, edit_user_registration_path, class:"nav-link" -%>
+	  <%- else -%>
+		<%= link_to "Sign up", new_user_registration_path, class:"nav-link" -%>
+          <%- end -%>
+      </li>
+      <li class="menuitem nav-item my-2 my-sm-0">
+	<%- if signed_in? -%>
+		<%= link_to "Log out", destroy_user_session_path, method: :delete, class:"nav-link" -%>
+	<%- else -%>
+		<%= link_to "Log in", new_user_session_path, class:"nav-link" -%>
+	<%- end -%>
+      </li>
+    </ul>
+  </div>
+</nav>
 		<!-- End of Navigation bar -->
 
 
 		<!-- Main Content -->
+		<div class="pad-bottom">
 		<div class="container" id="main-content">
 			<!-- JS Disabled warning -->
 			<noscript>
@@ -82,23 +97,18 @@
 			<% end %>
 			<%= yield %>
 
-			<% if Rails.env.development? %>
-				<%= debug(params) %>
-				<%= console %>
-			<% end %>
+		</div>
 		</div>
 		<!-- End of Main Content -->
-		<footer class="footer">
-			<div class="container">
-				<div class="col-xs-8">
-					<p class="text-muted">K2, find problems the easy way. © Henk van der Laan 2017
+		<footer class="footer row pad-top">
+				<div class="col-8">
+					<p class="text-muted">K2, find problems the easy way. © K2 Developers 2018
 						<small class="text-muted"><%= Rails.application.config.version %></small>
 					</p>
 				</div>
-				<div class="col-xs-4 footer-icons text-muted">
+				<div class="col-4 footer-icons text-muted">
 					<a href="https://github.com/cpps/k2"><i class="fa fa-lg fa-github text-muted"></i></a>
 				</div>
-			</div>
 		</footer>
 	</body>
 </html>

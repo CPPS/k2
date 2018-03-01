@@ -76,8 +76,11 @@ gem 'sidekiq', '< 6'
 gem 'clockwork', git: 'https://github.com/Rykian/clockwork.git', tag: 'v2.0.1'
 gem 'daemons' # For daemonization support
 
+# use bootstrap for nice layouts
+gem 'bootstrap', '~> 4.0.0'
+
 # use bootstrap for front-end layout
-gem 'bootstrap-sass', '~> 3.3.6'
+#gem 'bootstrap-sass', '~> 3.3.6'
 
 # use bootstrap styling for layout
 gem 'bootstrap_form'
@@ -106,7 +109,7 @@ gem 'stackprof'
 gem 'sentry-raven', require: false
 
 ### FRONT END
-gem 'rails-assets-jquery-stupid-table', source: 'https://rails-assets.org'
+gem 'jquery-datatables'
 
 ### SEARCH
 # Sphinx

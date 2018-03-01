@@ -1,17 +1,16 @@
 <% title @account.name -%>
-<% sub_header link_to @account.server.name, @account.server %>
 
 <ul id="account-tabs" class="nav nav-tabs" role="tablist">
-	<li class="active" role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab">Recently solved</a></li>
-	<li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All solved</a></li>
+	<!-- <li class="active" role="presentation"><a href="#recent" aria-controls="recent" role="tab" data-toggle="tab" class="px-2">Recently solved</a></li> -->
 	<% if @show_compare %>
-		<li role="presentation"><a href="#compare" aria-controls="all" role="tab" data-toggle="tab">Compare solved problems</a></li>
+		<li class="active" role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab" class="px-2">Solved problems</a></li>
+		<li role="presentation"><a href="#compare" aria-controls="all" role="tab" data-toggle="tab" class="px-2">Compare problems</a></li>
 	<% end %>
 </ul>
 
 <!--<p>Solved problems: <%= @account.solvedProblems -%></p>-->
-<div class="tab-content">
-	<div id="recent" class="tab-pane active" role="tabpanel">
+<div class="tab-content container-fluid">
+	<!-- <div id="recent" class="tab-pane active" role="tabpanel">
 		<table class="table">
 			<% @submissions.each do |s| %>
 				<tr>
@@ -23,24 +22,33 @@
 
 			<% end %>
 		</table>
-	</div>
+	</div> -->
 
-	<div id="all" class="tab-pane" role="tabpanel">
-		<table class="table">
+	<div id="all" class="tab-pane active" role="tabpanel">
+		<table id="targetTable" class="table">
+			<thead>
+				<tr>
+					<th>Short Name</th>
+					<th>Name</th>
+					<th>Time</th>
+					<th style="display:none;">HiddenTimeStamp</th>
+				</tr>
+			</thead>
 			<% @problems.each do |p| %>
 				<tr>
 					<td><%= link_to p.short_name, kaas_path(p.server_id, p.short_name) -%></td>
 					<td><%= p.name -%></td>
 					<td><%= distance_of_time_in_words Time.now, p.submissions.last.created_at -%> ago</td>
+					<td style="display:none;"><%= p.submissions.last.created_at -%> ago</td>
 				</tr>
 			<% end %>
 		</table>
 	</div>
 
-	<% if @show_compare %>
-		<div id="compare" class="tab-pane row">
-			<div class="col-sm-6">
-				<h4>Problems only <%= @account.name %> has solved</h4>
+	<% if @show_compare%>
+		<div id="compare" class="tab-pane row ver-pad">
+			<div class="col">
+				<h5>Problems only <%= @account.name %> has solved</h5>
 				<% if @their_exclusive_problems.empty? %>
 					<p>There are none</p>
 				<% else %>
@@ -54,10 +62,10 @@
 					</table>
 				<% end %>
 			</div>
-			<div class="col-sm-6">
-				<h4>Problems only <%= @current_user_account.name %> has solved</h4>
+			<div class="col">
+				<h5>Problems only <%= @current_user_account.name %> has solved</h5>
 				<% if @my_exclusive_problems.empty? %>
-					<p>There are none. Get to work!</p>
+					<p>No problems solved yet.</p>
 				<% else %>
 					<table class="table">
 						<% @my_exclusive_problems.each do |p| %>

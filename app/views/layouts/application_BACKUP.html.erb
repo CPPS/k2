@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= content_for(:title) + ' | ' if content_for?(:title)%>K2 Scoreboard</title>
+		<%= csrf_meta_tags %>
+		<%= favicon_link_tag 'favicon.png' , type: 'image/png' %>
+		<%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
+		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+	</head>
+
+	<body>
+		<!-- Navigation bar -->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Root link and hamburger toggle -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hamburger" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="/">K2</a>
+				</div>
+
+				<!-- Other menu items -->
+				<div id="hamburger" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<%= menu_link_to "Problems", problems_path, "problems" -%>
+						<%= menu_link_to "Servers", servers_path, "servers" -%>
+						<%= menu_link_to 'Domjudge', '/domjudge', "domjudge" -%>
+					</ul>
+<!--					<form id="search-form" class="navbar-form navbar-left">
+<div class="form-group">-->
+							<input id="search" class="navbar-form navbar-left form-control" type="text" placeholder="Search K2">
+							<!--			</div>
+</form>-->
+					<ul class="nav navbar-nav navbar-right">
+						<%- if signed_in? -%>
+							<%= menu_link_to current_user.name, edit_user_registration_path, "registrations" -%>
+							<li><%= link_to "Log out", destroy_user_session_path, method: :delete -%></li>
+						<%- else -%>
+							<%= menu_link_to "Sign up", new_user_registration_path, "registrations" -%>
+							<%= menu_link_to "Log in", new_user_session_path, "sessions" -%>
+						<%- end -%>
+					</ul>
+				</div>
+
+			</div>
+		</nav>
+		<!-- End of Navigation bar -->
+
+
+		<!-- Main Content -->
+		<div class="container" id="main-content">
+			<!-- JS Disabled warning -->
+			<noscript>
+				<div class="alert alert-danger">
+					You are using an browser without JavaScript support or with JavaScript disabled. Some features on this page need JavaScript. In case of problems, please enable JavaScript.
+				</div>
+			</noscript>
+
+			<% if flash.empty? and motd %>
+				<div class="alert alert-<%= motd_type %>"><%= motd %></div>
+			<% end %>
+
+			<!-- Header -->
+			<%- if content_for?(:header) %>
+				<div class="page-header">
+					<h1><%= content_for :header-%>
+					<% if content_for?(:sub_header) -%>
+						<small><%= content_for :sub_header -%></small>
+					<% end -%>
+					</h1>
+				</div>
+			<%- end %>
+
+			<%# HACK: The if/else is for devise flashes %>
+			<% flash.each do |message_type, message| %>
+				<div class="alert alert-<% if message_type == 'notice'%>info<% elsif message_type == 'alert' %>danger<% else %><%= message_type -%><% end %>"><%= message %></div>
+			<% end %>
+			<%= yield %>
+
+			<% if Rails.env.development? %>
+				<%= debug(params) %>
+				<%= console %>
+			<% end %>
+		</div>
+		<!-- End of Main Content -->
+		<footer class="footer">
+			<div class="container">
+				<div class="col-xs-8">
+					<p class="text-muted">K2, find problems the easy way. © Henk van der Laan 2017
+						<small class="text-muted"><%= Rails.application.config.version %></small>
+					</p>
+				</div>
+				<div class="col-xs-4 footer-icons text-muted">
+					<a href="https://github.com/cpps/k2"><i class="fa fa-lg fa-github text-muted"></i></a>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>

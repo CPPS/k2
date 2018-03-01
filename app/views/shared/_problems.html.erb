@@ -1,13 +1,13 @@
-<table class="problems-table table table-condensed sorted">
+<table id="targetTable" class="table">
 	<thead>
 		<tr>
-			<th class="sorting-asc" data-sort="string">Short name</th>
-			<th data-sort="string">Name</th>
+			<th>Short name</th>
+			<th>Name</th>
 			<% if logged_in? %>
-				<th data-sort="int">Solved?</th>
+				<th>Solved?</th>
 			<% end %>
-			<th data-sort="int">Solved by</th>
-			<th data-sort="int">Attempted by</th>
+			<th>Solved by</th>
+			<th>Attempted by</th>
 		</tr>
 	</thead>
 	<tbody>

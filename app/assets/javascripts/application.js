@@ -13,8 +13,8 @@
 //= require jquery3
 //= require jquery_ujs
 //= require turbolinks
+//= require popper
 //= require bootstrap-sprockets
-//
-//= require jquery-stupid-table
+//= require datatables
 //
 //= require_tree .
