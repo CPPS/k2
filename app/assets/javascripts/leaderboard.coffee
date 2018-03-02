@@ -4,17 +4,18 @@
 
 # Shoudl be in submissions.coffee, but that one does not execute scripts :S
 $(document).on 'turbolinks:load', ->
-	
+
 	$("#form").on "submit", (e) ->
+
 		file = document.getElementById("file").files[0];	
 
 		formData = new FormData();
-		formData.append("shortname", $(problem_name).val());
-		formData.append("langid", "c");
+		formData.append("shortname", $(problem_name).val());		
+		formData.append("langid", $(language).val());
 		formData.append("code[]", file);
 
-		$.ajax({
-			url: 'http://localhost/domjudge/api/submissions',
+		res = $.ajax({		
+			url: 'http://compprogdev.win.tue.nl/domjudge/api/submissions',
 			type: 'POST',
 			data: formData,
 			async: false,
@@ -22,7 +23,7 @@ $(document).on 'turbolinks:load', ->
 			contentType: false,
 			processData: false,
 		});
- 
-  
+		alert(res);
+  		
 		return false;
 	
