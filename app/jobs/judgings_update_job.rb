@@ -9,6 +9,8 @@ class JudgingsUpdateJob < ApplicationJob
 			server.new_judgings.each do |judging|
 				judge(judging)
 			end
+			next unless server.changed?
+			BuildSolvedProblemSets.perform_later
 			server.save!
 		end
 	end
