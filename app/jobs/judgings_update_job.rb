@@ -10,7 +10,7 @@ class JudgingsUpdateJob < ApplicationJob
 				judge(judging)
 			end
 			next unless server.changed?
-			BuildSolvedProblemSets.perform_later
+			BuildSolvedProblemSetsJob.perform_later
 			server.save!
 		end
 	end
