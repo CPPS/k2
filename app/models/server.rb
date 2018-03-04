@@ -23,7 +23,7 @@ class Server < ApplicationRecord
 	def new_judgings(n = 100)
 		result = api_get('judgings', cid: contest_id, limit: n,
 		                             fromid: last_judging)
-		self.last_judging = result.last['id']
+		self.last_judging = result.last['id'] + 1 unless result.empty?
 		result
 	end
 
