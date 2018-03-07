@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #$('#problem_name').select2();
 $(document).on 'turbolinks:load', ->
-	$('#problem_name').select2();
 	$("#form").on "submit", (e) ->
 
 		file = document.getElementById("file").files[0];	
