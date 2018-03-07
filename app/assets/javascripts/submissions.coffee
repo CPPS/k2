@@ -14,7 +14,8 @@ $(document).on 'turbolinks:load', ->
 		formData.append("code[]", file);
 
 		res = $.ajax({		
-			url: 'http://localhost/domjudge/api/submissions',
+			#url: 'http://localhost/domjudge/api/submissions',
+			url: 'http://compprog.win.tue.nl/domjudge/api/submissions',
 			type: 'POST',
 			data: formData,
 			async: false,
