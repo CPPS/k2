@@ -16,7 +16,7 @@ $(document).on 'turbolinks:load', ->
 
 		res = $.ajax({		
 			#url: 'http://localhost/domjudge/api/submissions',
-			url: 'http://compprog.win.tue.nl/domjudge/api/submissions',
+			url: 'http://localhost:1234/domjudge/api/submissions',
 			type: 'POST',
 			data: formData,
 			async: false,
