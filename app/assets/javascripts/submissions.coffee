@@ -12,6 +12,7 @@ $(document).on 'turbolinks:load', ->
 		formData.append("shortname", "boolfind");		
 		formData.append("langid", $(language).val());
 		formData.append("code[]", file);
+		formData.append("cid", 2);
 
 		res = $.ajax({		
 			#url: 'http://localhost/domjudge/api/submissions',
