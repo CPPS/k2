@@ -8,15 +8,15 @@ $(document).on 'turbolinks:load', ->
 		file = document.getElementById("file").files[0];	
 
 		formData = new FormData();
-		#formData.append("shortname", $(problem_name).val());	
-		formData.append("shortname", "boolfind");		
+		formData.append("shortname", $(problem_name).val());	
+		#formData.append("shortname", "boolfind");		
 		formData.append("langid", $(language).val());
 		formData.append("code[]", file);
-		formData.append("cid", 2);
+		#formData.append("cid", 2);
 
 		res = $.ajax({		
-			#url: 'http://localhost/domjudge/api/submissions',
-			url: 'http://localhost:1234/domjudge/api/submissions',
+			url: 'http://localhost/domjudge/api/submissions',
+			#url: 'http://localhost:1234/domjudge/api/submissions',
 			type: 'POST',
 			data: formData,
 			async: false,
