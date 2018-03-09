@@ -3,15 +3,23 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #$('#problem_name').select2();
 $(document).on 'turbolinks:load', ->
-	$("#form").on "submit", (e) ->
 
+	$("#file").on "change", (e) ->
 		file = document.getElementById("file").files[0];	
 
+		reader=new FileReader();
+		reader.onload = (e) ->
+			$("#code").val(reader.result);
+		reader.readAsText(file);
+
+	$("#form").on "submit", (e) ->
+		plain_code = $("#code").val()
+		blob = new Blob([plain_code], {type: "text/plain;charset=utf-8"});
 		formData = new FormData();
 		formData.append("shortname", $(problem_name).val());	
 		#formData.append("shortname", "boolfind");		
 		formData.append("langid", $(language).val());
-		formData.append("code[]", file);
+		formData.append("code[]", blob);
 		#formData.append("cid", 2);
 
 		res = $.ajax({		
@@ -30,4 +38,3 @@ $(document).on 'turbolinks:load', ->
 		})
 		$('#form')[0].reset();
 		return false;
-

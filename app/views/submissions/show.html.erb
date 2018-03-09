@@ -7,6 +7,9 @@
   <%= select_tag(:problem_name, options_for_select(get_shortnames)) %>
   <%= label_tag(:language, "Language:") %>
   <%= select_tag(:language, options_for_select([['c', 'c'], ['java', 'java'], ['c++', 'cpp']])) %>
+  <br>
+  <%= text_area_tag(:code, "Insert or upload your code") %>
+  <br>
   <%= submit_tag("Submit", id: "test") %>
 <% end %>
 </div>
