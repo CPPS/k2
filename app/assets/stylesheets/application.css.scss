@@ -1,5 +1,9 @@
 // Main application CSS file, include everything in here using SASS's @import function
 
+$grid-float-breakpoint: 200px;
+$screen-sm: 200px;
+$navbarCollapseWidth: 200px;
+
 // Include Bootstrap
 @import "bootstrap";
 

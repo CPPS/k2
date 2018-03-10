@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'homepage/show'
+
   get 'help/show'
 
   get 'submissions/show'
@@ -8,8 +10,9 @@ Rails.application.routes.draw do
 	# Add devise routes
 	devise_for :users
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-	root	'leaderboard#show'
+	root	'homepage#show'
 
+	#get	'/homepage'	to: 'homepage/show'
 	#get	'/login',	to: 'sessions#new'
 	#post	'/login',	to: 'sessions#create'
 	#delete	'/logout',	to: 'sessions#destroy'
@@ -22,7 +25,7 @@ Rails.application.routes.draw do
 	get	'/dashboard',	to: 'dashboard#index'
 	get	'/submissions',	to:'submission#show'
 	get	'/help',	to:'help#show'
-	get '/search', to:'submissions#show'
+	get 	'/search', to:'submissions#show'
 
 	# Only way that works for some reason
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas

@@ -12,32 +12,32 @@
 	<body>
 
 		<!-- Navigation bar -->
-<nav class="navbar navbar-expand-xl navbar-inverse navbar-dark bg-dark fixed-top nopad">
-<a id="logo" class="navbar-brand" href="/">K2</a>  
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#targetToggler" aria-controls="targetToggler" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-md navbar-inverse navbar-dark bg-dark fixed-top nopad">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#targetToggler" aria-controls="targetToggler" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="targetToggler">
+    <a id="logo" href="/">K2</a>
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="menuitem ">
+      <li class="menuitem nav-item">
         <%= link_to "Leaderboard", {controller: "/leaderboard", action: "show"}, class: "nav-link" -%>
       </li>
-      <li class="menuitem ">
+      <li class="menuitem nav-item">
         <%= link_to "Feed", {controller: "/dashboard", action: "index"}, class:"nav-link" -%>
       </li>
-      <li class="menuitem ">
+      <li class="menuitem nav-item">
         <%= link_to "Problems", problems_path, class:"nav-link" -%>
       </li>
 	<%- if signed_in? -%>
-	<li class="menuitem">
+	<li class="menuitem nav-item">
         <%= link_to "Submissions", {controller: "/submissions", action: "show"}, class:"nav-link" -%>
       </li>
 	<%- end -%>
       <!-- Temporary DOMJudge link -->
-      <li class="menuitem" data-turbolinks="false">
+      <li class="menuitem nav-item" data-turbolinks="false">
         <%= link_to "DOMJudge", "/domjudge", class:"nav-link" -%>
       </li>
-      <li class="menuitem">
+      <li class="menuitem nav-item">
         <%= link_to "Help", {controller: "/help", action: "show"}, class:"nav-link" -%>
       </li>
     </ul>
@@ -46,14 +46,14 @@
       <button class="btn my-2 my-sm-0" type="submit">Search</button>
     </form>
     <ul class="navbar-nav">
-      <li class="menuitem my-2 my-lg-0">
+      <li class="menuitem nav-item my-2 my-lg-0">
 	  <%- if signed_in? -%>
 		<%= link_to current_user.name, edit_user_registration_path, class:"nav-link" -%>
 	  <%- else -%>
 		<%= link_to "Sign up", new_user_registration_path, class:"nav-link" -%>
           <%- end -%>
       </li>
-      <li class="menuitem my-2 my-sm-0">
+      <li class="menuitem nav-item my-2 my-sm-0">
 	<%- if signed_in? -%>
 		<%= link_to "Log out", destroy_user_session_path, method: :delete, class:"nav-link" -%>
 	<%- else -%>
