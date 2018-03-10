@@ -86,7 +86,7 @@ gem 'bootstrap', '~> 4.0.0'
 gem 'bootstrap_form'
 
 # use font awesome for nice icons
-gem 'font-awesome-sass', '~> 4.7.0'
+gem 'font-awesome-sass', '~> 5.0.6'
 
 # use Devise for authentication
 gem 'devise'
