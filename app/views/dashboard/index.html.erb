@@ -6,11 +6,21 @@
 			<%= render partial: 'shared/submissions', object: @recent_attempts %>
 		</div>
 		</div>
+
+	<%- if signed_in? -%>
+		<div class="col">
+		<div id="recently-solved">
+			<h4>Your Attempts</h4>
+			<%= render partial: 'shared/submissions', object: @user_attempts %>
+		</div>
+		</div>
+	<%- else -%>
 		<div class="col">
 		<div id="recently-solved">
 			<h4>Recently Solved</h4>
 			<%= render partial: 'shared/submissions', object: @recent_solved %>
 		</div>
 		</div>
+	<%- end -%>
 	</div>
 </div>

@@ -16,6 +16,7 @@ $navbarCollapseWidth: 200px;
 
 // Include DataTables
 @import 'datatables';
+
 @import "datatables";
 
 // Include all my CSS files
@@ -139,6 +140,10 @@ padding-top: 0px;
 
 .footer-icons {
 	text-align: right;
+}
+
+.pad-all{
+padding: 0.5em;
 }
 
 .pad-top{

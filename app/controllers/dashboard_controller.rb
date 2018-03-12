@@ -8,6 +8,12 @@ class DashboardController < ApplicationController
 		@recent_solved = Submission
 		                 .accepted
 		                 .includes(:account, :problem)
-		                 .order(created_at: :desc).limit(10)
+		                 .order(created_at: :desc)
+				 .limit(10)
+		return unless logged_in?
+		@user_attempts = Submission.joins(:account)
+				.where( accounts: {user_id: current_user })
+				.order(created_at: :desc)
+				.limit(10)
 	end
 end
