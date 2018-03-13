@@ -3,7 +3,7 @@ module ProblemsHelper
 	def statement_url(problem, server)
 		# This method only supports Domjudge problems
 		raise NotImplementedError if server.api_type != 'domjudge'
-		"#{server.url}problem.php?id=#{problem.problem_id}"
+		"#{server.url}/public/problem.php?id=#{problem.problem_id}"
 	end
 
 	def count_submissions
@@ -26,9 +26,8 @@ module ProblemsHelper
 	end
 
 	def get_shortnames
-		a = Problem.all.map do |problem| 
-			[problem.short_name, problem.short_name] 
+		Problem.all.map do |problem|
+			[problem.display_name, problem.short_name]
 		end
-		return a
 	end
 end
