@@ -48,7 +48,7 @@ class Submission < ApplicationRecord
 		when 'correct' then 'fa-check'
 		when 'wrong_answer' then 'fa-times'
 		when 'first_correct' then 'fa-trophy'
-		when 'timelimit' then 'fa-clock-o'
+		when 'timelimit' then 'fa-clock'
 		when 'run_error' then 'fa-bug'
 		when 'compiler_error' then 'fa-gear'
 		else 'fa-question'
