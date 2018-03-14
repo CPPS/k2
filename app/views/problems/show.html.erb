@@ -51,7 +51,7 @@
 			<% end %>
 		</table>
 	</div>
-	<div id="submit" class="submit">
+	<div id="submit" class="tab-pane">
 		<%= form_tag("/submit", method: "get", id: "form", remote:true, multipart:true) do |f|%>
 		  <%= label_tag(:file, "File:") %>
 		  <%= file_field_tag(:file) %>

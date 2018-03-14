@@ -16,8 +16,7 @@ $(document).on 'turbolinks:load', ->
 		plain_code = $("#code").val()
 		blob = new Blob([plain_code], {type: "text/plain;charset=utf-8"});
 		formData = new FormData();
-		formData.append("shortname", $(problem_name).val());	
-		#formData.append("shortname", "boolfind");		
+		formData.append("shortname", $(problem_name).val());				
 		formData.append("langid", $(language).val());
 		formData.append("code[]", blob);
 		#formData.append("cid", 2);
@@ -37,4 +36,9 @@ $(document).on 'turbolinks:load', ->
 				alert("Succesfully submitted!") 
 		})
 		$('#form')[0].reset();
+
+		res = $.ajax({
+			url: 'http://localhost/new_submission',
+			type: 'POST'
+		})
 		return false;

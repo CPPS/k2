@@ -25,7 +25,8 @@ Rails.application.routes.draw do
 	get	'/dashboard',	to: 'dashboard#index'
 	get	'/submissions',	to:'submission#show'
 	get	'/help',	to:'help#show'
-	get 	'/search', to:'submissions#show'
+	get '/search', to:'submissions#show'
+	post '/new_submission', to:'submissions#process_submit'
 
 	# Only way that works for some reason
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas
