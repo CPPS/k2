@@ -20,6 +20,11 @@
   <br>
 </div>
 <div class="pad-all">
+  <%= label_tag(:server_url, "Server:") %>
+  <%= select_tag(:server_url, options_for_select(get_servers_url)) %>
+  <br>
+</div>
+<div class="pad-all">
   <%= text_area_tag(:code, "Insert or upload your code") %>
   <br>
 </div>
