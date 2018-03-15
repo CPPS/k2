@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228183930) do
+ActiveRecord::Schema.define(version: 20180315193813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20180228183930) do
     t.string "api_endpoint"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "last_submission"
     t.integer "started_at"
     t.integer "contest_id"
     t.string "api_username"

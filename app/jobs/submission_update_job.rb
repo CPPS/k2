@@ -12,7 +12,7 @@ class SubmissionUpdateJob < ApplicationJob
 			end
 
 			data = ""
-			open(s.api_endpoint + "submissions?cid=#{s.contest_id}&fromid=#{s.last_submission.to_s}&limit=100") do |f|
+			open(s.api_endpoint + "submissions?cid=#{s.contest_id}&fromid=#{s.submissions.maximum(:submission_id) + 1}&limit=100") do |f|
 				data = JSON.parse(f.read)
 			end
 
@@ -47,7 +47,6 @@ class SubmissionUpdateJob < ApplicationJob
 				submission.created_at = Time.at(sub['time'].to_i).getutc.to_s(:db)
 				submission.save!
 				#SubmissionStatusUpdateJob.perform_later(submission.id)
-				s.last_submission = sub['id'].to_i + 1
 			end
 
 			s.save!
