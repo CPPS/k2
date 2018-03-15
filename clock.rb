@@ -18,14 +18,13 @@ module Clockwork
 	every(1.day, 'problems.update') { ProblemUpdateJob.perform_later }
 	every(1.day, 'accounts.update') { AccountUpdateJob.perform_later }
 
-	every(1.minute, 'submissions.update') { SubmissionUpdateJob.perform_later }
 	every(1.minute, 'judgings.update') { JudgingsUpdateJob.perform_later }
 
 	# Update Sphinx indices
 	every(1.hour, 'sphinx.index') { `bundle exec rake ts:index` }
 
 	# Database integrity check, technically not needed
-
+#	every(1.day, 'submissions.update') { SubmissionUpdateJob.perform_later }
 	every(1.week, 'solved_problem_sets.check') do
 		BuildSolvedProblemSetsJob.perform_later
 	end

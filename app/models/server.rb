@@ -39,4 +39,19 @@ class Server < ApplicationRecord
 		response = http.request(request)
 		JSON.parse response.body
 	end
+
+	# Create a submission with a certain ID based on server data
+	def create_submission_by_id(submission_id)
+		s = Submission.new
+		response = api_get('submissions',
+		                   cid: contest_id, limit: 1,
+		                   fromid: submission_id)[0]
+		s.created_at = Time.at(response['time'].to_i).utc
+		s.submission_id = submission_id
+		s.account = accounts.find_or_create_by!(account_id: response['team'])
+		s.problem = problems.find_or_create_by!(problem_id: response['problem'])
+		s.language = response['language']
+		s.save!
+		s
+	end
 end
