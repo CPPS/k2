@@ -11,6 +11,7 @@ class JudgingsUpdateJob < ApplicationJob
 			end
 			next unless server.changed?
 			BuildSolvedProblemSetsJob.perform_later
+			ScoreUpdateJob.perform_later
 			server.save!
 		end
 	end
