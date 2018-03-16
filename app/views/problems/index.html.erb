@@ -1,5 +1,5 @@
 <!--<h1>Problems overview</h1>-->
 <% @servers.each do |server| -%>
 	<!--<h2><%= link_to server.name, server -%></h2>-->
-	<%= render partial: 'shared/problems', locals: {server: server, problems: server.problems.order(:short_name)} %>
+	<%= render partial: 'shared/problems', locals: {server: server, problems: server.problems.order(:short_name).where.not(short_name: nil)} %>
 <% end -%>
