@@ -7,7 +7,6 @@ class SubmissionsController < ApplicationController
   end
 
   def process_submit
-  		debugger
   		SubmissionUpdateJob.set(wait: 5.seconds).perform_later
   end
 
