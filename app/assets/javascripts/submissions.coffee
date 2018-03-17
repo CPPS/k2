@@ -20,7 +20,7 @@ $(document).on 'turbolinks:load', ->
 		formData = new FormData();
 		formData.append("shortname", $(problem_name).val());				
 		formData.append("langid", $(language).val());
-		formData.append("code[]", blob);
+		formData.append("code[]", blob, "blob." + $(language).val(););
 		#formData.append("cid", 2);
 
 		res = $.ajax({		
