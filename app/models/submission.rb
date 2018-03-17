@@ -50,7 +50,7 @@ class Submission < ApplicationRecord
 		when 'first_correct' then 'fa-trophy'
 		when 'timelimit' then 'fa-clock'
 		when 'run_error' then 'fa-bug'
-		when 'compiler_error' then 'fa-gear'
+		when 'compiler_error' then 'fa-cog'
 		else 'fa-question'
 		end
 	end

@@ -13,7 +13,7 @@
 
 		<!-- Navigation bar -->
 <nav class="navbar navbar-expand-xl navbar-inverse navbar-dark bg-dark fixed-top nopad">
-<a id="logo" class="navbar-brand" href="/">K2</a>  
+<a id="logo" class="navbar-brand" href="/">K2</a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#targetToggler" aria-controls="targetToggler" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -46,16 +46,9 @@
       <button class="btn my-2 my-sm-0" type="submit">Search</button>
     </form>
     <ul class="navbar-nav">
-      <li class="menuitem my-2 my-lg-0">
-	  <%- if signed_in? -%>
-		<%= link_to current_user.name, edit_user_registration_path, class:"nav-link" -%>
-	  <%- else -%>
-		<%= link_to "Sign up", new_user_registration_path, class:"nav-link" -%>
-          <%- end -%>
-      </li>
       <li class="menuitem my-2 my-sm-0">
 	<%- if signed_in? -%>
-		<%= link_to "Log out", destroy_user_session_path, method: :delete, class:"nav-link" -%>
+		<%= link_to "Log out #{current_user.name}", destroy_user_session_path, method: :delete, class:"nav-link" -%>
 	<%- else -%>
 		<%= link_to "Log in", new_user_session_path, class:"nav-link" -%>
 	<%- end -%>

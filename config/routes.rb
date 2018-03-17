@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   get 'submissions/show'
 
 	# Add devise routes
-	devise_for :users
+	# Registrations and editing is temporarily disabled due to bugs
+	devise_for :users, skip: :registrations
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root	'homepage#show'
 
