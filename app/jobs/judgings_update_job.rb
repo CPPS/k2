@@ -7,18 +7,20 @@ class JudgingsUpdateJob < ApplicationJob
 	def perform
 		Server.where(api_type: 'domjudge').each do |server|
 			server.new_judgings.each do |judging|
-				judge(judging)
+				judge(server, judging)
 			end
 			next unless server.changed?
 			BuildSolvedProblemSetsJob.perform_later
+			ScoreUpdateJob.perform_later
 			server.save!
 		end
 	end
 
-	def judge(judging)
-		s = Submission.find_or_create_by(
+	def judge(server, judging)
+		s = server.submissions.find_by(
 			submission_id: judging['submission']
 		)
+		s ||= server.create_submission_by_id(judging['submission'])
 		s.judge(judging)
 	end
 end

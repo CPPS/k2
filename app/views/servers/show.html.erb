@@ -24,7 +24,6 @@
 					<th>Rank</th>
 					<th>Name</th>
 					<th>Solved Problems</th>
-					<th>Score</th>
 				</tr>
 			</thead>
 			<% @accounts.each.with_index(1) do |a, i| -%>
@@ -32,7 +31,6 @@
 					<td><%= i %></td>
 					<td><%= link_to a.name, a -%></td>
 					<td><%= a.solvedProblems -%></td>
-					<td><%= a.score -%></td>
 				</tr>
 			<% end -%>
 		</table>

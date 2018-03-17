@@ -10,12 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180228183930) do
+ActiveRecord::Schema.define(version: 20180315193813) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
-  create_table "accounts", id: :serial, force: :cascade do |t|
+  create_table "accounts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
     t.integer "user_id"
     t.integer "server_id"
@@ -25,12 +22,13 @@ ActiveRecord::Schema.define(version: 20180228183930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id", "server_id"], name: "index_accounts_on_account_id_and_server_id", unique: true
+    t.index ["id"], name: "id", unique: true
     t.index ["server_id"], name: "index_accounts_on_server_id"
     t.index ["user_id", "server_id"], name: "index_accounts_on_user_id_and_server_id", unique: true
     t.index ["user_id"], name: "index_accounts_on_user_id"
   end
 
-  create_table "problems", id: :serial, force: :cascade do |t|
+  create_table "problems", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer "server_id"
     t.string "problem_id"
     t.string "short_name"
@@ -38,27 +36,28 @@ ActiveRecord::Schema.define(version: 20180228183930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "label"
+    t.index ["id"], name: "id", unique: true
     t.index ["server_id", "problem_id"], name: "index_problems_on_server_id_and_problem_id", unique: true
     t.index ["server_id", "short_name"], name: "index_problems_on_server_id_and_short_name", unique: true
     t.index ["server_id"], name: "index_problems_on_server_id"
   end
 
-  create_table "servers", id: :serial, force: :cascade do |t|
+  create_table "servers", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
     t.string "url"
     t.string "api_type"
     t.string "api_endpoint"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "last_submission"
     t.integer "started_at"
     t.integer "contest_id"
     t.string "api_username"
     t.string "api_password"
     t.integer "last_judging"
+    t.index ["id"], name: "id", unique: true
   end
 
-  create_table "submissions", id: :serial, force: :cascade do |t|
+  create_table "submissions", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.integer "problem_id"
     t.integer "account_id"
     t.integer "submission_id"
@@ -69,11 +68,12 @@ ActiveRecord::Schema.define(version: 20180228183930) do
     t.string "language"
     t.datetime "judged_at"
     t.index ["account_id"], name: "index_submissions_on_account_id"
+    t.index ["id"], name: "id", unique: true
     t.index ["problem_id", "submission_id"], name: "index_submissions_on_problem_id_and_submission_id", unique: true
     t.index ["problem_id"], name: "index_submissions_on_problem_id"
   end
 
-  create_table "users", id: :serial, force: :cascade do |t|
+  create_table "users", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
     t.string "username"
     t.string "email"
@@ -86,21 +86,23 @@ ActiveRecord::Schema.define(version: 20180228183930) do
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet "current_sign_in_ip"
-    t.inet "last_sign_in_ip"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
     t.boolean "admin", default: false
     t.boolean "ldap_user", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["id"], name: "id", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "webhooks", id: :serial, force: :cascade do |t|
+  create_table "webhooks", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
     t.string "url"
     t.string "hook_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "id", unique: true
   end
 
 end
