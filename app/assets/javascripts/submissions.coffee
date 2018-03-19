@@ -3,9 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #$('#problem_name').select2();
 $(document).on 'turbolinks:load', ->
-	
+
 	$("#file").on "change", (e) ->
-		file = document.getElementById("file").files[0];	
+		file = document.getElementById("file").files[0];
 
 		reader=new FileReader();
 		reader.onload = (e) ->
@@ -18,12 +18,12 @@ $(document).on 'turbolinks:load', ->
 		url = $(server_url).val();
 
 		formData = new FormData();
-		formData.append("shortname", $(problem_name).val());				
+		formData.append("shortname", $(problem_name).val());
 		formData.append("langid", $(language).val());
 		formData.append("code[]", blob, "blob." + $(language).val(););
-		#formData.append("cid", 2);
+		formData.append("cid", 4);
 
-		res = $.ajax({		
+		res = $.ajax({
 			url: url + '/api/submissions',
 			type: 'POST',
 			data: formData,
@@ -32,9 +32,9 @@ $(document).on 'turbolinks:load', ->
 			contentType: false,
 			processData: false,
 			error: (xhr, textStatus, errorThrown) ->
-				alert(xhr.responseText);   
+				alert(xhr.responseText);
 			success: () ->
-				alert("Succesfully submitted!") 
+				alert("Succesfully submitted!")
 		})
 		$('#form')[0].reset();
 
