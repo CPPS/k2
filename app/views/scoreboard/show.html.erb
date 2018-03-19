@@ -13,7 +13,8 @@
 				<td><%= account.name %></td>
 				<% @problems.each do |problem| %>
 					<% if account.solved_problem_ids.include? problem.id.to_s %>
-						<td class="success"><%= Submission.find_by(account: account, problem: problem).created_at %></td>
+						<!--<td class="success">< %= Submission.find_by(account: account, problem: problem).created_at % ></td>-->
+						<td class="success"><span class="fas fa-check"></span></td>
 					<% else %>
 						<td></td>
 					<% end %>
