@@ -21,7 +21,7 @@ $(document).on 'turbolinks:load', ->
 		formData.append("shortname", $(problem_name).val());
 		formData.append("langid", $(language).val());
 		formData.append("code[]", blob, "blob." + $(language).val(););
-		formData.append("cid", 4);
+		formData.append("contest", "INTRO2018");
 
 		res = $.ajax({
 			url: url + '/api/submissions',
