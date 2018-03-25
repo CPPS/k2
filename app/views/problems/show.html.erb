@@ -54,8 +54,11 @@
 	<div id="submit" class="tab-pane">
 		<%= form_tag("/submit", method: "get", id: "form", remote:true, multipart:true) do |f|%>
 		  <%= label_tag(:file, "File:") %>
-		  <%= file_field_tag(:file) %>
-		  <%= hidden_field_tag(:server_url, @server.url) %>
+		  <%= file_field_tag(:file) %>  
+		  <select hidden name="server_url" id="server_url">
+		  	<option cid=<%=@server.contest_id%> value=<%=@server.url%>> <%=@server.name%></option>
+		  </select>		  
+		  <%= hidden_field_tag(:server_url, @server.url, selected: "selected", cid: @server.contest_id) %>
 		  <%= hidden_field_tag(:problem_name, @problem.short_name) %>
 		  <%= label_tag(:language, "Language:") %>
 		  <%= select_tag(:language, options_for_select([['c', 'c'], ['java', 'java'], ['c++', 'cpp']])) %>

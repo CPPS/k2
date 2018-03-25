@@ -3,7 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #$('#problem_name').select2();
 $(document).on 'turbolinks:load', ->
-
 	$("#file").on "change", (e) ->
 		file = document.getElementById("file").files[0];
 
@@ -15,31 +14,37 @@ $(document).on 'turbolinks:load', ->
 	$("#form").on "submit", (e) ->
 		plain_code = $("#code").val()
 		blob = new Blob([plain_code], {type: "text/plain;charset=utf-8"});
-		url = $(server_url).val();
+		url = $("#server_url").val();
+		cid = $("#server_url").find("option:selected").attr('cid')
 
 		formData = new FormData();
 		formData.append("shortname", $(problem_name).val());
 		formData.append("langid", $(language).val());
 		formData.append("code[]", blob, "blob." + $(language).val(););
-		formData.append("contest", "INTRO2018");
 
-		res = $.ajax({
-			url: url + '/api/submissions',
-			type: 'POST',
-			data: formData,
-			async: false,
-			cache: false,
-			contentType: false,
-			processData: false,
-			error: (xhr, textStatus, errorThrown) ->
-				alert(xhr.responseText);
-			success: () ->
-				alert("Succesfully submitted!")
-		})
+		$.get(url + '/api/contests', ( data ) ->
+			shortname = data[cid]['shortname'];
+			formData.append("contest", shortname);
+			res = $.ajax({
+				url: url + '/api/submissions',
+				type: 'POST',
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				error: (xhr, textStatus, errorThrown) ->
+					alert(xhr.responseText);
+				success: () ->
+					alert("Succesfully submitted!")
+			})
+		);	
 		$('#form')[0].reset();
 
 		res = $.ajax({
 			url: '/new_submission',
 			type: 'POST'
 		})
+		
+		
 		return false;
