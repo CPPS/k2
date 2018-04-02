@@ -16,8 +16,8 @@ class User < ApplicationRecord
 
 	# Include default devise modules. Others available are:
 	# :confirmable, :lockable, :timeoutable and :omniauthable
-	devise :database_authenticatable, :registerable,
-	       :recoverable, :rememberable, :trackable, :validatable
+	# Disabled for now: :registerable, :recoverable, :trackable
+	devise :database_authenticatable, :rememberable, :validatable
 
 	# Validation rules:
 	# Username, name, email, password must be present
@@ -31,11 +31,11 @@ class User < ApplicationRecord
 	validates :name,
 	          presence: true
 
-	# Creates an account on the domjudge server 
+	# Creates an account on the domjudge server
 	after_create do |user|
 		Server.where(api_type: 'domjudge').each do |domserver|
 			uri = URI.parse(domserver.api_endpoint + "register.php")
-			response = Net::HTTP.post_form(uri, {"username" => user.username, "name" => user.name})		
+			response = Net::HTTP.post_form(uri, {"username" => user.username, "name" => user.name})
 			account_id = response.body.to_i #domserver sends back team/account id as string
 
 			a = Account.new({'name' => user.name, 'user_id' => user.id, 'account_id' => account_id, 'server_id' => domserver.id})

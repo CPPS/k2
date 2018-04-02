@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
 	# Add devise routes
 	# Registrations and editing is temporarily disabled due to bugs
-	devise_for :users, skip: :registrations
+	devise_for :users
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 	root	'homepage#show'
 
