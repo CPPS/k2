@@ -9,9 +9,15 @@ class ProblemsController < ApplicationController
 
 		@accepted = @problem.submissions.accepted.includes(:account).order(created_at: :asc)
 		@sub_count = @problem.submissions.group(:account_id).count
+
 		if logged_in?
 			@attempted = @problem.submissions.where(account: user_account(@server.id)).exists?
 			@solved = @attempted && @problem.submissions.accepted.where(account: user_account(@server.id)).exists?
+			
+			@user_attempts = Submission.joins(:account)
+				.where( account_id: {user_id: current_user }, problem_id: @problem.id)				
+				.order(created_at: :desc)
+				.limit(10)
 		end
 
 	end

@@ -52,21 +52,50 @@
 		</table>
 	</div>
 	<div id="submit" class="tab-pane">
-		<%= form_tag("/submit", method: "get", id: "form", remote:true, multipart:true) do |f|%>
-		  <%= label_tag(:file, "File:") %>
-		  <%= file_field_tag(:file) %>  
-		  <select hidden name="server_url" id="server_url">
-		  	<option cid=<%=@server.contest_id%> value=<%=@server.url%>> <%=@server.name%></option>
-		  </select>		  
-		  <%= hidden_field_tag(:server_url, @server.url, selected: "selected", cid: @server.contest_id) %>
-		  <%= hidden_field_tag(:problem_name, @problem.short_name) %>
-		  <%= label_tag(:language, "Language:") %>
-		  <%= select_tag(:language, options_for_select([['c', 'c'], ['java', 'java'], ['c++', 'cpp']])) %>
-		  <br>
-		  <%= text_area_tag(:code, nil, size: "60x20", placeholder: "Insert your code here") %>
-		  <br>
-		  <%= submit_tag("Submit", id: "test") %>		  
-		<% end %>
+		<ul style="list-style-type: none;">
+		   <li style="float:left"> 
+		   	<%= form_tag("/submit", method: "get", id: "form", remote:true, multipart:true) do |f|%>
+				  <%= label_tag(:file, "File:") %>
+				  <%= file_field_tag(:file) %>  
+				  <select hidden name="server_url" id="server_url">
+				  	<option cid=<%=@server.contest_id%> value=<%=@server.url%>> <%=@server.name%></option>
+				  </select>		  
+				  <%= hidden_field_tag(:server_url, @server.url, selected: "selected", cid: @server.contest_id) %>
+				  <%= hidden_field_tag(:problem_name, @problem.short_name) %>
+				  <%= label_tag(:language, "Language:") %>
+				  <%= select_tag(:language, options_for_select([['c', 'c'], ['java', 'java'], ['c++', 'cpp']])) %>
+				  <br>
+				  <%= text_area_tag(:code, nil, size: "60x20", placeholder: "Insert your code here") %>
+				  <br>
+				  <%= submit_tag("Submit", id: "test") %>		  
+				<% end %>
+			</li>
+		    <li style="float:left"> 
+			   	<% if logged_in? %>
+			   		<div id="recently-solved">
+						<h4>Your Submissions for this problem</h4>
+						<table class="table">
+					        <thead>
+					         	<tr>
+					        		<th>Accepted?</th>
+					        		<th>Submitted</th>
+					          </tr>
+					        </thead>
+					        <tbody>
+					          <% @user_attempts.each do |submission| %>
+					            <% if submission.problem_id %>
+					            <tr class="<%= 'active' if user_account(submission.problem.server_id) == submission.account %>" >
+					              <td><span class="fa <%= submission.icon %>" data-toggle="tooltip" data-placement="left" title="<%= submission.status_text %>"></span></td>              
+					              <td><%= distance_of_time_in_words Time.current, submission.created_at -%> ago</td>
+					            </tr>
+					            <% end %>
+					          <% end %>
+					        </tbody>
+				      </table>
+					</div>
+				<% end %>
+		    </li>
+		</ul>	
 	</div>
 </div>
 

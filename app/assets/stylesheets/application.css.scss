@@ -24,6 +24,14 @@ $navbarCollapseWidth: 200px;
 
 // GENERAL STYLING
 
+.container:after {
+content: ".";
+display: block;
+height: 0;
+clear: both;
+visibility: hidden;
+}
+
 #main-content {
 padding: 1em;
 min-height:50vh;

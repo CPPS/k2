@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 #$('#problem_name').select2();
 $(document).on 'turbolinks:load', ->
+
 	$("#file").on "change", (e) ->
 		file = document.getElementById("file").files[0];
 
