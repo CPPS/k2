@@ -1,0 +1,30 @@
+{
+  "achievement2": {
+    "description": "Good job",
+    "variable": "solvedProblems",
+    "comparison": "greater",
+    "value": 50
+  }, 
+  
+  "achievement5": {
+    "description": "Rule the world",
+    "variable": "ranking",
+    "comparison": "equals",
+    "value": 1
+  },
+
+  "achievement6": {
+    "description": "Still pretty good",
+    "variable": "ranking",
+    "comparison": "smaller",
+    "value": 20
+  },
+
+  "achievement8": {
+    "description": "You completed some nasty problems!",
+    "problems": [
+      "EAPC10C",
+      "BAPC16L"
+    ]
+  }
+}

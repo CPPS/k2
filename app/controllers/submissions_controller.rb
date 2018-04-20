@@ -1,25 +1,27 @@
 class SubmissionsController < ApplicationController
   def show
   		account = Account.find_by(user_id: current_user.id)
-  		submissions = Submission.where(account_id: account.account_id).group('yearweek(created_at)').count 
+  		submissions = account.submissions.group('yearweek(created_at)').count 
+  		achievements = current_user.achievements
 
-  		a = []
+  		data_subs = []  	
   		submissions.each do |s, k|
   			year = s.to_s[0..3].to_i
   			week =  [1, s.to_s[4..5].to_i, 52].sort[1]
-			a.push([Date.commercial(year,week).to_time.to_i*1000, k])
-		end
+			data_subs.push([Date.commercial(year,week).to_time.to_i*1000, k])
 
-		@user_attempts = Submission.joins(:account)
-				.where( accounts: {user_id: current_user })
-				.order(created_at: :desc)
-				.limit(10)
+		end
+		
+		data_achiev = []
+		achievements.each do |a|
+			data_achiev.push({x: a.date_of_completion.to_time.to_i*1000, text: a.descr, title: 'T'})
+		end
 
 		@chart = LazyHighCharts::HighChart.new('graph') do |f|
 		  f.title(text: "Submissions over the years")
 		  f.xAxis(type: 'datetime')
-		  f.series(id: 'test', data: a, name: 'Submissions')
-		  #f.series(type:'flags', onSeries: 'test', data: [{x: Date.commercial(2017,30).to_time.to_i*1000, text: 'Completed all BAPC16 problems!', title: 'T'}])
+		  f.series(id: 'test', data: data_subs, name: 'Submissions')
+		  f.series(type:'flags', onSeries: 'test', data: data_achiev)
 		  f.legend(enabled: false)
 		  
 		  f.yAxis(title: {text: "Number of submissions"})
@@ -29,6 +31,11 @@ class SubmissionsController < ApplicationController
 		@chart_globals = LazyHighCharts::HighChartGlobals.new do |f|
   			f.global(useUTC: true)
 		end
+
+		@user_attempts = Submission.joins(:account)
+				.where( accounts: {user_id: current_user })
+				.order(created_at: :desc)
+				.limit(10)
   end
 
   def test

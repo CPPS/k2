@@ -75,6 +75,12 @@ class Submission < ApplicationRecord
 	def judge(judging)
 		return if judged_at && judged_at >= Time.zone.at(judging['time'])
 		self.judged_at = Time.zone.at(judging['time'])
+
+		if judging['outcome'] == 'correct'
+			a = AchievementUpdateJob.new
+			a.perform(user, judged_at)
+		end
+
 		case judging['outcome']
 		when 'correct' then correct!
 		when 'timelimit' then timelimit!
