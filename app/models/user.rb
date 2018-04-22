@@ -9,6 +9,7 @@ class User < ApplicationRecord
 	# representing an external registration.
 	has_many :accounts
 	has_many :servers, through: :account
+	has_many :achievements
 
 	# The login attribute is used to allow signin with either username or
 	# password.
@@ -33,14 +34,14 @@ class User < ApplicationRecord
 
 	# Creates an account on the domjudge server
 	after_create do |user|
-		Server.where(api_type: 'domjudge').each do |domserver|
-			uri = URI.parse(domserver.api_endpoint + "register.php")
-			response = Net::HTTP.post_form(uri, {"username" => user.username, "name" => user.name})
-			account_id = response.body.to_i #domserver sends back team/account id as string
+		#Server.where(api_type: 'domjudge').each do |domserver|
+		#	uri = URI.parse(domserver.api_endpoint + "register.php")
+		#	response = Net::HTTP.post_form(uri, {"username" => user.username, "name" => user.name})
+		#	account_id = response.body.to_i #domserver sends back team/account id as string
 
-			a = Account.new({'name' => user.name, 'user_id' => user.id, 'account_id' => account_id, 'server_id' => domserver.id})
-			a.save
-		end
+		#	a = Account.new({'name' => user.name, 'user_id' => user.id, 'account_id' => account_id, 'server_id' => domserver.id})
+		#	a.save!
+		#end
 	end
 
 	# This method allows ActiveRecord to retrieve a user from the database

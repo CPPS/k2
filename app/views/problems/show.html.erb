@@ -74,24 +74,7 @@
 			   	<% if logged_in? %>
 			   		<div id="recently-solved">
 						<h4>Your Submissions for this problem</h4>
-						<table class="table">
-					        <thead>
-					         	<tr>
-					        		<th>Accepted?</th>
-					        		<th>Submitted</th>
-					          </tr>
-					        </thead>
-					        <tbody>
-					          <% @user_attempts.each do |submission| %>
-					            <% if submission.problem_id %>
-					            <tr class="<%= 'active' if user_account(submission.problem.server_id) == submission.account %>" >
-					              <td><span class="fa <%= submission.icon %>" data-toggle="tooltip" data-placement="left" title="<%= submission.status_text %>"></span></td>              
-					              <td><%= distance_of_time_in_words Time.current, submission.created_at -%> ago</td>
-					            </tr>
-					            <% end %>
-					          <% end %>
-					        </tbody>
-				      </table>
+						<%= render partial: "shared/submissions_compact", object: @user_attempts %>
 					</div>
 				<% end %>
 		    </li>

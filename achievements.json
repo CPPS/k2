@@ -6,7 +6,7 @@
     "value": 50
   }, 
   
-  "achievement5": {
+  "achievement2": {
     "description": "Rule the world",
     "variable": "ranking",
     "comparison": "equals",

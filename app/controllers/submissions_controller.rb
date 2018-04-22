@@ -14,14 +14,15 @@ class SubmissionsController < ApplicationController
 		
 		data_achiev = []
 		achievements.each do |a|
-			data_achiev.push({x: a.date_of_completion.to_time.to_i*1000, text: a.descr, title: 'T'})
+			data_achiev.push({x: a.date_of_completion.to_time.to_i*1000, text: "#{a.descr}", 
+				title: "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIpKt_ZyFy7nRmZuKKFam6JkMwNX0vZgffBvBRHgXclVbbvLgz' width='20' height='20'>" })
 		end
 
 		@chart = LazyHighCharts::HighChart.new('graph') do |f|
 		  f.title(text: "Submissions over the years")
 		  f.xAxis(type: 'datetime')
 		  f.series(id: 'test', data: data_subs, name: 'Submissions')
-		  f.series(type:'flags', onSeries: 'test', data: data_achiev)
+		  f.series(type:'flags', onSeries: 'test', data: data_achiev, useHTML: true, y: -45)
 		  f.legend(enabled: false)
 		  
 		  f.yAxis(title: {text: "Number of submissions"})
@@ -29,7 +30,7 @@ class SubmissionsController < ApplicationController
 		end		
 
 		@chart_globals = LazyHighCharts::HighChartGlobals.new do |f|
-  			f.global(useUTC: true)
+  			f.global(useUTC: true)  			
 		end
 
 		@user_attempts = Submission.joins(:account)
