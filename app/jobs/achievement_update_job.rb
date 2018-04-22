@@ -3,6 +3,11 @@ require 'json'
 class AchievementUpdateJob < ApplicationJob
  
   def perform(user, judged_at) #user, judged_at)
+
+	if (user.nil? or user.accounts.nil?)
+		return
+	end
+
   	file = File.read('achievements.json')
   	json = JSON.parse file
   
