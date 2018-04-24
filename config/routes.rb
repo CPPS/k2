@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'changelog/index'
+
   get 'homepage/show'
 
   get 'help/show'
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
 	# Navbar paths
 	get	'/leaderboard',	to: 'leaderboard#show'
 	get	'/dashboard',	to: 'dashboard#index'
+	get	'/changelog',	to: 'changelog#index'
 	get	'/submissions',	to:'submission#show'
 	get	'/help',	to:'help#show'
 	get '/search', to:'submissions#show'
