@@ -79,6 +79,8 @@ class Submission < ApplicationRecord
 		if judging['outcome'] == 'correct'
 			a = AchievementUpdateJob.new
 			a.perform(user, judged_at)
+			b = RankChangeUpdateJob.new
+			b.perform()
 		end
 
 		case judging['outcome']
