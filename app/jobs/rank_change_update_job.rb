@@ -1,8 +1,8 @@
 require 'json'
 
-class AchievementUpdateJob < ApplicationJob
+class RankChangeUpdateJob < ApplicationJob
  
-  def perform(user, judged_at) #user, judged_at)
+  def perform() #user, judged_at)
 
 	if (user.nil? or user.accounts.nil?)
 		return
