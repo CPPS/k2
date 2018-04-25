@@ -1,6 +1,6 @@
 class RankChangeUpdateJob < ApplicationJob 
   def perform()
-
+  	# this is vlad's work
 	accounts = Account.all.where.not(score: nil).order(
 		solvedProblems: :desc, score: :asc)
 
