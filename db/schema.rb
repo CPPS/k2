@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315193813) do
+ActiveRecord::Schema.define(version: 20180424195754) do
 
   create_table "accounts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -21,11 +21,24 @@ ActiveRecord::Schema.define(version: 20180315193813) do
     t.integer "score"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "rank_changed_at", default: "1970-01-01 00:00:00"
+    t.integer "prev_rank", default: 2000000000
+    t.integer "rank_delta", default: 0
     t.index ["account_id", "server_id"], name: "index_accounts_on_account_id_and_server_id", unique: true
     t.index ["id"], name: "id", unique: true
     t.index ["server_id"], name: "index_accounts_on_server_id"
     t.index ["user_id", "server_id"], name: "index_accounts_on_user_id_and_server_id", unique: true
     t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
+
+  create_table "achievements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
+    t.string "descr"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.datetime "date_of_completion"
+    t.string "name"
+    t.index ["user_id"], name: "index_achievements_on_user_id"
   end
 
   create_table "problems", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|

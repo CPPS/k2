@@ -5,6 +5,7 @@
 					<th>Rank</th>
 					<th>Name</th>
 					<th>Solved Problems</th>
+					<th>Change</th>
 				</tr>
 			</thead>
 			<% @accounts.each.with_index(1) do |a, i| -%>
@@ -12,6 +13,17 @@
 					<td><%= i %></td>
 					<td><%= link_to a.name, a -%></td>
 					<td><%= a.solvedProblems -%></td>
+					<td>
+						<%- if Time.now() - a.rank_changed_at < 60*60*24*3 and a.rank_delta != 0 # changes visible for 3 days -%>
+							<%- if a.rank_delta < 0 -%>
+								<span class="fas fa-arrow-up" data-toggle="tooltip" data-placement="left" title="User rank recently went up"></span>
+							<%- else -%>
+								<span class="fas fa-arrow-down" data-toggle="tooltip" data-placement="left" title="User rank recently went down"></span>
+							<%- end -%>
+						<%- else -%>
+							<span class="fas fa-minus" data-toggle="tooltip" data-placement="left" title="No recent rank change"></span>
+						<%- end -%>
+					</td>
 				</tr>
 			<% end -%>
 		</table>
