@@ -1,12 +1,5 @@
-require 'json'
-
-class RankChangeUpdateJob < ApplicationJob
- 
-  def perform() #user, judged_at)
-
-	if (user.nil? or user.accounts.nil?)
-		return
-	end
+class RankChangeUpdateJob < ApplicationJob 
+  def perform()
 
 	accounts = Account.all.where.not(score: nil).order(
 		solvedProblems: :desc, score: :asc)
