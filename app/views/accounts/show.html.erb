@@ -6,6 +6,7 @@
 		<li class="active" role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab" class="px-2">Solved problems</a></li>
 		<li role="presentation"><a href="#compare" aria-controls="all" role="tab" data-toggle="tab" class="px-2">Compare problems</a></li>
 	<% end %>
+	<li role="presentation"><a href="#achievements" aria-controls="all" role="tab" data-toggle="tab" class="px-2">Achievements</a></li>
 </ul>
 
 <!--<p>Solved problems: <%= @account.solvedProblems -%></p>-->
@@ -79,4 +80,9 @@
 			</div>
 		</div>
 	<% end %>
+
+	<div id="achievements" class="tab-pane active" role="tabpanel">
+		<%= high_chart_globals(@chart_globals) %>
+		<%= high_chart("some_id", @chart) %>
+	</div>
 </div>
