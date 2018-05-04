@@ -29,7 +29,7 @@ module SubmissionsGraphHelper
 		  f.plotOptions({
 		  		
 		  	})
-		  f.yAxis(title: {text: "Number of submissionsss"})
+		  f.yAxis(title: {text: "Number of submissions"})
 		  f.chart( {
 		  	defaultSeriesType: "column",	
 		  	height: 450	  		
