@@ -25,8 +25,8 @@ class AchievementUpdateJob < ApplicationJob
   	variables['solvedProblems'] = account.solvedProblems
   	
    	recheck_all = false
-  	json.each do |name, achievement|
-  		next if user.achievements.where(name: name).exists?
+  	json['achievements'].each do |achievement|
+  		next if user.achievements.where(name: achievement['id']).exists?
 
   		completed = true
 		achievement['problems'].each do |p|
@@ -47,15 +47,27 @@ class AchievementUpdateJob < ApplicationJob
 			end
 		end
 
-		achievement['achievements'].each do |achiev|
+		achievement['prereqs'].each do |achiev|
 			if not user.achievements.where(name: achiev).exists?
 				completed = false
 				break		
 			end
-		end unless achievement['achievements'].nil?
+		end unless achievement['prereqs'].nil?
 
 		if completed
-			new_achievement = Achievement.new({'descr' => achievement['description'], 'user_id' => user.id, 'date_of_completion' => judged_at, 'name': name })
+			if achievement['img'].nil?
+				filename = json['default_img']
+			else 
+				filename = achievement['img']
+			end
+
+			new_achievement = Achievement.new({
+				'descr' => achievement['description'],
+				 'user_id' => user.id, 
+				 'date_of_completion' => judged_at,
+				 'name' => achievement['id'], 
+				 'filename' => filename,
+				 'title' => achievement['title']})
 			new_achievement.save!			
 
 			recheck_all = true # Check for existing achievements that may depend on this one

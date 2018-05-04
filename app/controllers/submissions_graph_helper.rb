@@ -1,4 +1,4 @@
-module SubmissionGraphHelper
+module SubmissionsGraphHelper
   def create_graph(user)
   		account = Account.find_by(user_id: user.id) # Assume user has only 1 domjudge acc
   		submissions = account.submissions.group('yearweek(created_at)').count 
@@ -14,8 +14,10 @@ module SubmissionGraphHelper
 		
 		data_achiev = []
 		achievements.each do |a|
-			data_achiev.push({x: a.date_of_completion.to_time.to_i*1000, text: "#{a.descr}", 
-				title: "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIpKt_ZyFy7nRmZuKKFam6JkMwNX0vZgffBvBRHgXclVbbvLgz' width='20' height='20'>" })
+			year = a.date_of_completion.year
+			week = a.date_of_completion.to_date.cweek
+			data_achiev.push({x: Date.commercial(year,week).to_time.to_i*1000, text: "#{a.descr}", 
+				title: "<img src='#{a.filename}' width='20' height='20'>" })
 		end
 
 		@chart = LazyHighCharts::HighChart.new('graph') do |f|
@@ -24,9 +26,26 @@ module SubmissionGraphHelper
 		  f.series(id: 'test', data: data_subs, name: 'Submissions')
 		  f.series(type:'flags', onSeries: 'test', data: data_achiev, useHTML: true, y: -45)
 		  f.legend(enabled: false)
+		  f.plotOptions({
+		  		
+		  	})
+		  f.yAxis(title: {text: "Number of submissionsss"})
+		  f.chart( {
+			  	defaultSeriesType: "column"
+			  	})
+		  f.plotOptions({
+			  		column: {
+			  			pointPadding: 0,
+            			groupPadding: 0,
+            			borderWidth: 0,
+            			shadow: false
+			  		},
+			  		flags: {
+            			stackDistance: 26
+			  		}
+			  	}
+		  	)
 		  
-		  f.yAxis(title: {text: "Number of submissions"})
-		  f.chart({defaultSeriesType: "line"})
 		end		
 
 		@chart_globals = LazyHighCharts::HighChartGlobals.new do |f|

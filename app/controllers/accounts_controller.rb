@@ -1,7 +1,7 @@
 # Show user pages and handle (un)linking to users
 class AccountsController < ApplicationController
 	before_action :enforce_login, only: %i[new create destroy]
-	include SubmissionGraphHelper
+	include SubmissionsGraphHelper
 
 	def index
 		@accounts = Account.all
@@ -17,6 +17,7 @@ class AccountsController < ApplicationController
 		                   .includes(:submissions)
 		                   .where(submissions: { account: @account, status: [:correct, :first_correct] })
 		                   .order(short_name: :asc)
+		@achievements = @account.user.achievements
 
 		res = create_graph(@account.user)
 		@chart = res[:chart]

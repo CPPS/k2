@@ -6,23 +6,33 @@ class AchievementReprocess < ApplicationJob
   	file = File.read('achievements.json');
   	json = JSON.parse file;
 
-  	puts "There are #{json.values.count} achievements with unique keys."
+    puts ""
+  	puts "There are #{json['achievements'].length} achievements with unique keys."
+    puts "Default image is stored at #{json['default_img']}"
+    puts ""
 
   	puts "Parsed achievements:"
-  	json.each do |name, achievement|
-  		puts name
-  		puts "  Achievements:"
-  		achievement['problems'].each do |p|
-  			puts "     #{p}"
-  		end unless achievement['problems'].nil?
+  	json['achievements'].each do |achievement|
+      
+      puts "  #{achievement['description']}"
 
-      achievement['achievements'].each do |achiev|
-        puts "     #{achiev}" 
-      end unless achievement['achievements'].nil?
+      if not achievement['problems'].nil?    		
+    		puts "    Problems:"
+    		achievement['problems'].each do |p|
+    			puts "     #{p}"
+    		end 
+      end
+
+      if not achievement['prereqs'].nil?
+        puts "    Required achievements:"
+        achievement['prereqs'].each do |achiev|
+          puts "     #{achiev}" 
+        end unless achievement['prereqs'].nil?
+      end
 
       if not achievement['variable'].nil?
         linker = if ["equal", "=", "==", "equals"].include? achievement['comparison'] then "" else "than " end
-        puts "     #{achievement['variable']} #{achievement['comparison']} #{linker}#{achievement['value']}" 
+        puts "    #{achievement['variable']} #{achievement['comparison']} #{linker}#{achievement['value']}" 
       end
     end
 

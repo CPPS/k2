@@ -1,9 +1,9 @@
 class SubmissionsController < ApplicationController
-  include SubmissionGraphHelper
+  include SubmissionsGraphHelper
   
   def show
   		res = create_graph(current_user)
-
+      
 		@chart = res[:chart]
 		@chart_globals = res[:chart_globals]
 		@user_attempts = Submission.joins(:account)

@@ -1,4 +1,4 @@
-module SubmissionGraphHelper
+module SubmissionsGraphHelper
   def create_graph(user)
   		account = Account.find_by(user_id: user.id) # Assume user has only 1 domjudge acc
   		submissions = account.submissions.group('yearweek(created_at)').count 
@@ -14,7 +14,9 @@ module SubmissionGraphHelper
 		
 		data_achiev = []
 		achievements.each do |a|
-			data_achiev.push({x: a.date_of_completion.to_time.to_i*1000, text: "#{a.descr}", 
+			year = a.date_of_completion.year
+			week = a.date_of_completion.to_date.cweek
+			data_achiev.push({x: Date.commercial(year,week).to_time.to_i*1000, text: "#{a.descr}", 
 				title: "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIpKt_ZyFy7nRmZuKKFam6JkMwNX0vZgffBvBRHgXclVbbvLgz' width='20' height='20'>" })
 		end
 
@@ -26,7 +28,7 @@ module SubmissionGraphHelper
 		  f.legend(enabled: false)
 		  
 		  f.yAxis(title: {text: "Number of submissions"})
-		  f.chart({defaultSeriesType: "line"})
+		  f.chart({defaultSeriesType: "column"})
 		end		
 
 		@chart_globals = LazyHighCharts::HighChartGlobals.new do |f|

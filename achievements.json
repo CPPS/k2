@@ -1,30 +1,55 @@
 {
-  "achievement2": {
-    "description": "Good job",
-    "variable": "solvedProblems",
-    "comparison": "greater",
-    "value": 50
-  }, 
-  
-  "achievement2": {
-    "description": "Rule the world",
-    "variable": "ranking",
-    "comparison": "equals",
-    "value": 1
-  },
+  "default_img": "/trophies/gold.png",
 
-  "achievement6": {
-    "description": "Still pretty good",
-    "variable": "ranking",
-    "comparison": "smaller",
-    "value": 20
-  },
+  "achievements": [  
+    {
+      "id": "ach1",
+      "title": "PROBLEM DESTROYER",
+      "description": "You have completed more than 50 problems!",
+      "variable": "solvedProblems",
+      "comparison": "greater",
+      "value": 50,
+      "img": "/trophies/silver.png"
+    },
+    
+    {
+      "id": "ach2",
+      "title": "Rule the world",
+      "description": "You have successfully reached first place!",
+      "variable": "ranking",
+      "comparison": "equals",
+      "value": 1
+    },
 
-  "achievement8": {
-    "description": "You completed some nasty problems!",
-    "problems": [
-      "EAPC10C",
-      "BAPC16L"
-    ]
-  }
+    {
+      "id": "ach3",
+      "title": "Getting there",
+      "description": "You have reached rank 20",
+      "variable": "ranking",
+      "comparison": "smaller",
+      "value": 20,
+      "img": "/trophies/silver.png"
+    },
+
+    {
+      "id": "ach4",
+      "title": "So specific",
+      "description": "You completed some nasty problems!",
+      "problems": [
+        "EAPC10C",
+        "BAPC16L"
+      ],
+      "img": "/trophies/silver.png"
+    },
+
+    {
+      "id": "BAPC KING",
+      "title": "Test 123",
+      "description": "Required achievements are working",
+      "prereqs" : [
+        "ach3",
+        "ach4"
+      ]
+    }    
+  ]
 }
