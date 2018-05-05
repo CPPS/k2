@@ -2,12 +2,9 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.0'
-# Use postgresql as the database for Active Record
-group :postgres do
-	gem 'pg', '~> 0.18'
-end
-
-gem 'mysql2' # Required by thinking-sphinx, as Sphinx uses the MySQL protocol.
+# Use mysql as the database for Active Record. It is also required by
+# thinking-sphinx, as Sphinx uses the MySQL protocol
+gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
