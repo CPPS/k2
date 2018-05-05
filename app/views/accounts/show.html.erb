@@ -81,22 +81,24 @@
 		</div>
 	<% end %>
 
-	<div id="achievements" class="tab-pane" role="tabpanel">
-		<h2>Achievements</h2>
-		<% @achievements.each do |a| %>	
-			<div style="position: relative; float:left; margin: 15px;">
-				<img src="\assets\badge.png">				
-				<div style="position: absolute; top: 35px; width: 100%">
-					<div style= "width: 85%; margin: auto;">
-						<h3 style="text-align: center; font-weight: 900; font-size: 25px; height: 50px"><%= a.title %></h3>
-						<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a.descr %> </p>
-						<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a.date_of_completion.strftime("%B #{a.date_of_completion.day.ordinalize}, %Y")  %> </p>		
+	<% if not @achievements.nil? %>
+		<div id="achievements" class="tab-pane" role="tabpanel">
+			<h2>Achievements</h2>
+			<% @achievements.each do |a| %>	
+				<div style="position: relative; float:left; margin: 15px;">
+					<img src="\assets\badge.png">
+					<div style="position: absolute; top: 35px; width: 100%">
+						<div style= "width: 85%; margin: auto;">
+							<h3 style="text-align: center; font-weight: 900; font-size: 25px; height: 50px"><%= a.title %></h3>
+							<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a.descr %> </p>
+							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a.date_of_completion.strftime("%B #{a.date_of_completion.day.ordinalize}, %Y")  %> </p>		
+						</div>		
 					</div>		
-				</div>		
-			</div>
-		<% end %>
+				</div>
+			<% end %>
 
-		<%= high_chart_globals(@chart_globals) %>
-		<%= high_chart("some_id", @chart) %>
-	</div>
+			<%= high_chart_globals(@chart_globals) %>
+			<%= high_chart("some_id", @chart) %>
+		</div>
+	<% end %>
 </div>

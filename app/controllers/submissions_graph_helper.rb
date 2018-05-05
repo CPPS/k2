@@ -4,12 +4,17 @@ module SubmissionsGraphHelper
   		submissions = account.submissions.group('yearweek(created_at)').count 
   		achievements = user.achievements
 
+  		# data_subs[i][0] is time of datapoint, data_subs[i][1] is #submissions on that date
   		data_subs = []  	
-  		submissions.each do |s, k|
-  			year = s.to_s[0..3].to_i
-  			week =  [1, s.to_s[4..5].to_i, 52].sort[1]
-			data_subs.push([Date.commercial(year,week).to_time.to_i*1000, k])
-
+  		account.submissions.order(:judged_at).each_with_index do |s, k|
+  			year = s.judged_at.year
+  			week = s.judged_at.to_date.cweek
+  			time = Date.commercial(year,week).to_time.to_i*1000
+  			if (not data_subs.empty? and data_subs[-1][0] == time)
+				data_subs[-1][1] += 1
+			else 
+				data_subs.push([time,1])
+			end
 		end
 		
 		data_achiev = []

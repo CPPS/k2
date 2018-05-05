@@ -17,11 +17,14 @@ class AccountsController < ApplicationController
 		                   .includes(:submissions)
 		                   .where(submissions: { account: @account, status: [:correct, :first_correct] })
 		                   .order(short_name: :asc)
-		@achievements = @account.user.achievements
 
-		res = create_graph(@account.user)
-		@chart = res[:chart]
-		@chart_globals = res[:chart_globals]
+		if not @account.user.nil?
+			@achievements = @account.user.achievements
+
+			res = create_graph(@account.user)
+			@chart = res[:chart]
+			@chart_globals = res[:chart_globals]
+		end
 
 		# Only show the compare part if you are logged in
 		#   and not looking at your own page

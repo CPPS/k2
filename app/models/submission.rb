@@ -81,6 +81,17 @@ class Submission < ApplicationRecord
 			a.perform(user, judged_at)
 			b = RankChangeUpdateJob.new
 			b.perform()
+
+			if not user.nil? and not Submission.all.where(status: "correct").where(problem_id: problem_id).exists?
+				new_achievement = Achievement.new({
+					'descr' => "You were the first to solve #{problem.name}",
+					'user_id' => user.id, 
+					'date_of_completion' => judged_at,
+					'name' => submission_id, 
+					'filename' => "/trophies/silver.png",
+					'title' => "First to complete" } )
+				new_achievement.save!
+			end
 		end
 
 		case judging['outcome']
