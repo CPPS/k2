@@ -77,31 +77,35 @@ class Submission < ApplicationRecord
 		self.judged_at = Time.zone.at(judging['time'])
 
 		if judging['outcome'] == 'correct'
-			a = AchievementUpdateJob.new
-			a.perform(user, judged_at)
-			b = RankChangeUpdateJob.new
-			b.perform()
-
-			if not user.nil? and not Submission.all.where(status: "correct").where(problem_id: problem_id).exists?
-				new_achievement = Achievement.new({
-					'descr' => "You were the first to solve #{problem.name}",
-					'user_id' => user.id, 
-					'date_of_completion' => judged_at,
-					'name' => submission_id, 
-					'filename' => "/trophies/silver.png",
-					'title' => "First to complete" } )
-				new_achievement.save!
-			end
+			
 		end
 
 		case judging['outcome']
-		when 'correct' then correct!
+		when 'correct' then
+			correct!
+			on_correct_submission		
 		when 'timelimit' then timelimit!
 		when 'run-error' then run_error!
 		when 'wrong-answer' then wrong_answer!
 		when 'compiler-error' then compiler_error!
 		when 'no-output' then no_output!
 		else raise "Unknown outcome: #{judging['outcome']}"
+		end
+	end
+
+	def on_correct_submission()
+		AchievementUpdateJob.perform_now(user, judged_at)
+		RankChangeUpdateJob.perform_now
+
+		if not user.nil? and not Submission.all.where(status: "correct").where(problem_id: problem_id).exists?
+			new_achievement = Achievement.new({
+				'descr' => "You were the first to solve #{problem.name}",
+				'user_id' => user.id, 
+				'date_of_completion' => judged_at,
+				'name' => submission_id, 
+				'filename' => "/trophies/silver.png",
+				'title' => "First to complete" } )
+			new_achievement.save!
 		end
 	end
 end

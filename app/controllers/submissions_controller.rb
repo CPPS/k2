@@ -1,5 +1,5 @@
 class SubmissionsController < ApplicationController
-  include SubmissionsGraphHelper
+  include SubmissionGraphHelper
   
   def show
   		res = create_graph(current_user)
@@ -10,10 +10,6 @@ class SubmissionsController < ApplicationController
 				.where( accounts: {user_id: current_user })
 				.order(created_at: :desc)
 				.limit(10)
-  end
-
-  def test
-  	return "abc"
   end
 
   def process_submit

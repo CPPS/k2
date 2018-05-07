@@ -1,7 +1,7 @@
 # Show user pages and handle (un)linking to users
 class AccountsController < ApplicationController
 	before_action :enforce_login, only: %i[new create destroy]
-	include SubmissionsGraphHelper
+	include SubmissionGraphHelper
 
 	def index
 		@accounts = Account.all
