@@ -23,6 +23,13 @@ class AchievementReprocess < ApplicationJob
     		end 
       end
 
+      if not achievement['levels'].nil?
+        puts "    Levels:"
+        achievement['levels'].each do |level|
+          puts "     #{level}" 
+        end unless achievement['levels'].nil?
+      end
+
       if not achievement['prereqs'].nil?
         puts "    Required achievements:"
         achievement['prereqs'].each do |achiev|

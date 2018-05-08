@@ -43,6 +43,17 @@
     },
 
     {
+      "id": "levelAch1",
+      "title": "Category X",
+      "description": "Become the very best at X!",
+      "levels": [
+        "EAPC10C",
+        "BAPC16L"
+      ],
+      "img": "/trophies/gold.png"
+    },
+
+    {
       "id": "BAPC KING",
       "title": "Test 123",
       "description": "Required achievements are working",

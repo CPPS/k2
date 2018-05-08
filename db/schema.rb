@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180505134527) do
+ActiveRecord::Schema.define(version: 20180508192237) do
 
   create_table "accounts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -38,9 +38,12 @@ ActiveRecord::Schema.define(version: 20180505134527) do
     t.integer "user_id"
     t.datetime "date_of_completion"
     t.string "name"
+    t.integer "prev_rank", default: 2000000000
     t.string "filename", default: "/trophies/gold.png"
     t.string "title", default: "No title"
     t.integer "kind", default: 0
+    t.integer "level", default: 0
+    t.boolean "isActive", default: true
     t.index ["user_id"], name: "index_achievements_on_user_id"
   end
 

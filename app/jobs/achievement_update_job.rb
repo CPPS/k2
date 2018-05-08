@@ -12,6 +12,10 @@ class AchievementUpdateJob < ApplicationJob
   	
    	recheck_all = false
   	data['achievements'].each do |achievement|
+  		if not achievement['levels'].nil?
+  			check_and_update_level(achievement, account, user, data, judged_at)
+  			next
+  		end
   		next if user.achievements.where(name: achievement['id']).exists?
 
   		completed = true
@@ -21,7 +25,7 @@ class AchievementUpdateJob < ApplicationJob
 		completed = check_prereqs achievement, user unless not completed		
 
 		if completed			
-			create_achievement(user, judged_at, achievement, data)
+			create_achievement(user, judged_at, achievement, data, 0, 0)
 			recheck_all = true # Check for existing achievements that may depend on this one
 		end
 	end
@@ -44,7 +48,7 @@ class AchievementUpdateJob < ApplicationJob
   	variables
   end
 
-  def create_achievement(user, judged_at, achievement, data)
+  def create_achievement(user, judged_at, achievement, data, kind, level)
   	if achievement['img'].nil?
 		filename = data['default_img']
 	else 
@@ -57,6 +61,8 @@ class AchievementUpdateJob < ApplicationJob
 		 'date_of_completion' => judged_at,
 		 'name' => achievement['id'], 
 		 'filename' => filename,
+		 'level' => level,
+		 'kind' => kind,
 		 'title' => achievement['title']})
 	new_achievement.save!		
   end
@@ -69,6 +75,37 @@ class AchievementUpdateJob < ApplicationJob
 	end unless achievement['problems'].nil?
 
 	return true
+  end
+
+  def check_and_update_level(achievement, account, user, data, judged_at)
+  	# first evaluate what level the user would reach
+  	level = 0
+	achievement['levels'].each do |p|
+		if account.submissions.joins(:problem).where("problems.short_name" => p).exists?
+			level+=1 
+		else
+			break
+		end
+	end
+	# if no problems have been completed, no change has to be made
+	if level == 0
+		return # no change
+	end
+	# check existing achievements for highest level reached
+	maxLevelAch = user.achievements.where(name: achievement['id']).order("level DESC").first
+	if not maxLevelAch.nil?
+		# only record change if level has risen
+		level = if maxLevelAch.level < level then level else 0 end
+	end
+	# if level has changed, create new achievment and make previous invisible
+	if level == 0
+		return
+	end
+	if not maxLevelAch.nil?
+		maxLevelAch.isActive = false
+		maxLevelAch.save!
+	end
+	create_achievement(user, judged_at, achievement, data, 1, level)
   end
 
   def check_variables(achievement, variables)
