@@ -25,7 +25,7 @@ class AchievementUpdateJob < ApplicationJob
 		completed = check_prereqs achievement, user unless not completed		
 
 		if completed			
-			create_achievement(user, judged_at, achievement, data, 0, 0)
+			create_achievement(user, judged_at, achievement, data, :general, 0)
 			recheck_all = true # Check for existing achievements that may depend on this one
 		end
 	end
@@ -105,7 +105,7 @@ class AchievementUpdateJob < ApplicationJob
 		maxLevelAch.isActive = false
 		maxLevelAch.save!
 	end
-	create_achievement(user, judged_at, achievement, data, 1, level)
+	create_achievement(user, judged_at, achievement, data, :category, level)
   end
 
   def check_variables(achievement, variables)

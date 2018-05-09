@@ -83,6 +83,23 @@
 
 	<% if not @achievements.nil? %>
 		<div id="achievements" class="tab-pane" role="tabpanel">
+
+			<h2>Levels</h2>
+			<% @levels.each do |a| %>	
+				<div style="position: relative; float:left; margin: 15px;">
+					<img style="width:200px" src="\assets\medal.png">
+					<div style="position: absolute; top: 38px; width: 100%">
+						<div style= "width: 85%; margin: auto;">
+							<p style="margin: auto; width: 75%; font-size: 20px; text-align: center">Level <%= a[:level] %></p>
+							<p style="text-align: center; font-weight: 900; font-size: 25px;"><%= a[:name] %></p>
+						
+							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a[:date].strftime("%B #{a[:date].day.ordinalize}, %Y")  %> </p>		
+						</div>		
+					</div>		
+					<p style= "text-align: center; font-style: italic; font-size: 14px">Next problem: <a href="#"><%= a[:next_problem] %></a> </p>
+				</div>
+			<% end %>
+			<div style="clear:both;"></div>
 			<h2>Achievements</h2>
 			<% @achievements.each do |a| %>	
 				<div style="position: relative; float:left; margin: 15px;">

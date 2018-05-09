@@ -104,7 +104,8 @@ class Submission < ApplicationRecord
 				'date_of_completion' => judged_at,
 				'name' => submission_id, 
 				'filename' => "/trophies/silver.png",
-				'title' => "First to complete" } )
+				'title' => "First to complete",
+				'kind' => :first_to_solve, } )
 			new_achievement.save!
 		end
 	end

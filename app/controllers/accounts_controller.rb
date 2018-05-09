@@ -19,7 +19,29 @@ class AccountsController < ApplicationController
 		                   .order(short_name: :asc)
 
 		if not @account.user.nil?
-			@achievements = @account.user.achievements
+			@achievements = @account.user.achievements.where(kind: [:general, :first_to_solve])
+			#@levels = @account.user.achievements.where(kind: :category).where(isActive: true)
+
+			@levels = [
+				{
+					name: "Bruteforce",
+					level: "1",
+					date: Time.now,
+					next_problem: "EAPC06A"
+				},
+				{
+					name: "Graphs",
+					level: "3",
+					date: Time.now,
+					next_problem: "BAPC09B"
+				},
+				{
+					name: "DP",
+					level: "2",
+					date: Time.now,
+					next_problem: "EAPC07E"
+				}
+			]
 
 			res = create_graph(@account.user)
 			@chart = res[:chart]
