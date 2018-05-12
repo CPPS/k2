@@ -1,0 +1,54 @@
+<h1>Edit achievements</h1>
+
+<div class="container">
+  <%= form_tag({:controller => 'achievement_datum', :action => 'update'}, method: "post", :id => "edit_achv_form", remote:true) do %>
+
+    <table>
+      <tr>
+        <td> <%= label_tag(:id, "Id:") %> </td>
+        <td> <%= text_field_tag(:id, @ach["id"]) %> </td> 
+      </tr>
+
+      <tr>
+        <td> <%= label_tag(:title, "Title:") %> </td>
+        <td> <%= text_field_tag(:title, @ach["title"]) %> </td> 
+      </tr>
+
+      <tr>
+        <td> <%= label_tag(:description, "Description:") %> </td>
+        <td><%= text_area_tag(:description,   @ach["description"], size: "35x2") %></td>
+      </tr>
+
+      <tr>
+        <td> <%= label_tag(:problems, "Problems:") %> </td>
+        <td><%= text_area_tag(:problems,  @ach["levels_entries"].join(", "), size: "35x2") %></td>
+      </tr>
+
+      <tr><td><h5>Variable related</h5></td></tr>
+      <tr>
+        <td>  <%= label_tag(:q, "Enabled:") %> </td>
+        <td> <%=check_box_tag 'variable_enabled', 'yes', (not @ach["variable"].nil? ) %> </td>
+      </tr>
+      <tr>
+        <td>  <%= label_tag(:q, "Variable:") %> </td>
+        <td> <%= select_tag(:city_id,options_for_select([['ranking', 'ranking'], ['solvedProblems', 'solvedProblems']], @ach['variable']))%> </td>
+        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
+      </tr>
+
+      <tr>
+        <td><%= label_tag(:q, "Comparison:") %> </td>
+        <td> <%= select_tag(:city_id,options_for_select([['Greater or equal (?)', 1], ['Smaller or equal', 2]]))%> </td>
+        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
+      </tr>
+
+      <tr>
+        <td><%= label_tag(:q, "Value:") %> </td>
+        <td> <%= text_field_tag(:q) %> </td>
+        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
+      </tr>
+    </table>    
+
+    <%= submit_tag("Update") %>
+  <% end %>
+
+</div>

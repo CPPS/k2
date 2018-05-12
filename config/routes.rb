@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'edit_achievement/show'
+
+  get 'achievement_edit_controller/show'
+
   get 'changelog/index'
 
   get 'homepage/show'
@@ -30,6 +34,8 @@ Rails.application.routes.draw do
 	get	'/submissions',	to:'submission#show'
 	get	'/help',	to:'help#show'
 	get '/search', to:'submissions#show'
+	get '/edit_achievement', to: 'achievement_datum#show'
+	post '/update_achievement', to: 'achievement_datum#update'
 	post '/new_submission', to:'submissions#process_submit'
 
 	# Only way that works for some reason
