@@ -1,32 +1,48 @@
 class AchievementDatumController < ApplicationController
 
 	def show 	
-  	file = File.read('achievements.json')
-  	data = JSON.parse file  
-
-
-  	@ach = data['achievements'].find { |h| h['id'] == params[:id]}
-  	@ach = AchievementDatum.find(params[:id])
+  	@ach = AchievementDatum.find_by(id: params[:id])
   	if @ach.nil?
-  		raise "id wrong/unknown"
+  		@ach = AchievementDatum.new
   	end  	
   end
 
   def update()
-  	file = File.read('achievements.json')
-  	data = JSON.parse file  
-
-  	@ach = AchievementDatum.find(params[:id])
+    if params[:id].empty?
+      @ach = AchievementDatum.new
+      @ach.save!
+    else
+    	@ach = AchievementDatum.find(params[:id])
+    end
   	
   	@ach.title = params[:title]
   	@ach.description = params[:description]
-  	@ach.level_entries.destroy_all
+
+  	@ach.problem_entries.destroy_all
   	params[:problems].split(",").each do |p|
-  		@ach.level_entries.create(value: test)
+      @ach.problem_entries.create(value: p.strip)
   	end
-  	debugger
+
+    @ach.level_entries.destroy_all
+    params[:levels].split(",").each do |p|
+      @ach.level_entries.create(value: p.strip)
+    end
+
+    @ach.variable = nil
+    if params[:variable_enabled] == "yes"
+      @ach.variable = params[:variable]
+      @ach.comparison = params[:comparison]
+      @ach.value = params[:variable_value]
+    end
+    
+    if not params[:levels].empty?
+      @ach.category!
+    else
+      @ach.general!        
+    end
+
 		@ach.save!
 
-  	redirect_to action: :show, id: params[:id]
+  	redirect_to action: :show, id: @ach.id
   end
 end

@@ -51,6 +51,7 @@ class AchievementReprocess < ApplicationJob
 
     Submission.delete_all
     Achievement.delete_all
+    AchievementDatum.where(kind: :first_to_solve).delete_all
     Server.where(api_type: "domjudge").each do |s|
       s.last_judging = 0
       s.save!

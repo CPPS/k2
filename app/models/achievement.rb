@@ -1,4 +1,5 @@
 class Achievement < ApplicationRecord
 	belongs_to :user
-	enum kind: [:general, :category, :first_to_solve ]
+	belongs_to :achievement_datum
+	enum kind: [:general, :first_to_solve ]
 end

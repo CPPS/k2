@@ -19,7 +19,13 @@ class AccountsController < ApplicationController
 		                   .order(short_name: :asc)
 
 		if not @account.user.nil?
-			@achievements = @account.user.achievements.where(kind: [:general, :first_to_solve])
+			
+			#@achievements = @account.user.achievements.joins(:achievement_datum).where(kind: [:general])
+			@achievements = @account.user.achievements.where(kind: [:general, :first_to_solve]).map { |a|
+				r = a.achievement_datum.as_json
+				r['date_of_completion'] = Time.now
+				r
+			 }
 			#@levels = @account.user.achievements.where(kind: :category).where(isActive: true)
 
 			@levels = [

@@ -82,8 +82,8 @@ class Submission < ApplicationRecord
 
 		case judging['outcome']
 		when 'correct' then
-			correct!
-			on_correct_submission		
+			on_correct_submission
+			correct!					
 		when 'timelimit' then timelimit!
 		when 'run-error' then run_error!
 		when 'wrong-answer' then wrong_answer!
@@ -96,17 +96,19 @@ class Submission < ApplicationRecord
 	def on_correct_submission()
 		AchievementUpdateJob.perform_now(user, judged_at)
 		RankChangeUpdateJob.perform_now
+		is_solved_by_user = Submission.all.where(status: "correct").where(problem_id: problem_id).any? { |s| not Account.find(s.account_id).user.nil? }
 
-		if not user.nil? and not Submission.all.where(status: "correct").where(problem_id: problem_id).exists?
-			new_achievement = Achievement.new({
-				'descr' => "You were the first to solve #{problem.name}",
-				'user_id' => user.id, 
-				'date_of_completion' => judged_at,
-				'name' => submission_id, 
-				'filename' => "/trophies/silver.png",
+		#debugger
+		if not user.nil? and not is_solved_by_user
+			new_achievement = AchievementDatum.new({
+				'description' => "You were the first to solve #{problem.name}",
+				'img_small' => "/trophies/silver.png",
 				'title' => "First to complete",
-				'kind' => :first_to_solve, } )
+				'kind' => :first_to_solve })
 			new_achievement.save!
+
+			new_achievement.achievements.create(date_of_completion: judged_at, user_id: user.id)
+			#debugger
 		end
 	end
 end

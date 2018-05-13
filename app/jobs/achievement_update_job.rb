@@ -3,30 +3,30 @@ require 'json'
 class AchievementUpdateJob < ApplicationJob
  
   def perform(user, judged_at)
+  	
 	return unless not user.nil? and not user.accounts.nil?
-
-  	file = File.read('achievements.json')
-  	data = JSON.parse file  
+  	
   	account = user.accounts.first # Assume first account is domjudge account  	
   	variables = lookup_stats account
   	
    	recheck_all = false
-  	data['achievements'].each do |achievement|
-  		if not achievement['levels'].nil?
-  			check_and_update_level(achievement, account, user, data, judged_at)
+  	AchievementDatum.all.each do |achievement|
+
+  		if achievement.level_entries.count != 0
+  			#check_and_update_level(achievement, account, user, judged_at)
   			next
   		end
-  		next if user.achievements.where(name: achievement['id']).exists?
+  		next if user.achievements.where(achievement_datum_id: achievement.id).exists? or not achievement.general?
 
   		completed = true
 		
-		completed = check_problems achievement, account unless not completed
+		completed = check_problems achievement, account unless not completed		
 		completed = check_variables achievement, variables unless not completed
-		completed = check_prereqs achievement, user unless not completed		
+		#completed = check_prereqs achievement, user unless not completed		
 
 		if completed			
-			create_achievement(user, judged_at, achievement, data, :general, 0)
-			recheck_all = true # Check for existing achievements that may depend on this one
+			create_achievement(user, judged_at, achievement, :general, 0)
+			#recheck_all = true # Check for existing achievements that may depend on this one
 		end
 	end
 
@@ -48,40 +48,41 @@ class AchievementUpdateJob < ApplicationJob
   	variables
   end
 
-  def create_achievement(user, judged_at, achievement, data, kind, level)
-  	if achievement['img'].nil?
-		filename = data['default_img']
-	else 
-		filename = achievement['img']
-	end
+  def create_achievement(user, judged_at, achievement, kind, level)
+  	#if achievement['img'].nil?
+	#	filename = data['default_img']
+	#else 
+	#	filename = achievement['img']
+	#end
+	filename = "/trophies/silver.png"
 
 	new_achievement = Achievement.new({
-		'descr' => achievement['description'],
 		 'user_id' => user.id, 
 		 'date_of_completion' => judged_at,
-		 'name' => achievement['id'], 
 		 'filename' => filename,
 		 'level' => level,
 		 'kind' => kind,
-		 'title' => achievement['title']})
+		 'achievement_datum_id' => achievement.id,
+		 'title' => achievement.title
+		 })
 	new_achievement.save!		
   end
 
   def check_problems(achievement, account)
-	achievement['problems'].each do |p|
-		if not account.submissions.joins(:problem).where("problems.short_name" => p).exists?
+	achievement.problem_entries.each do |p|
+		if not account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
 			return false 
 		end
-	end unless achievement['problems'].nil?
+	end 
 
 	return true
   end
 
-  def check_and_update_level(achievement, account, user, data, judged_at)
+  def check_and_update_level(achievement, account, user, judged_at)
   	# first evaluate what level the user would reach
   	level = 0
-	achievement['levels'].each do |p|
-		if account.submissions.joins(:problem).where("problems.short_name" => p).exists?
+	achievement.level_entries.each do |p|
+		if account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
 			level+=1 
 		else
 			break
@@ -105,18 +106,18 @@ class AchievementUpdateJob < ApplicationJob
 		maxLevelAch.isActive = false
 		maxLevelAch.save!
 	end
-	create_achievement(user, judged_at, achievement, data, :category, level)
+	create_achievement(user, judged_at, achievement, :category, level)
   end
 
   def check_variables(achievement, variables)
-	if not achievement['variable'].nil?
+	if not achievement.variable.nil?
 		case achievement['comparison']
-		when "greater", "bigger", "larger", ">"
-			return eval("variables[achievement['variable']] > achievement['value']") 
+		when "greater", "bigger", "larger", ">="
+			return eval("variables[achievement.variable] >= achievement['value']") 
 		when "equal", "=", "==", "equals"
-			return eval("variables[achievement['variable']] == achievement['value']")			
-		when "less", "smaller", "fewer", ">"
-			return eval("variables[achievement['variable']] < achievement['value']") 
+			return eval("variables[achievement.variable] == achievement['value']")			
+		when "less", "smaller", "fewer", "<="
+			return eval("variables[achievement.variable] <= achievement['value']") 
 		end
 	end
 	return true

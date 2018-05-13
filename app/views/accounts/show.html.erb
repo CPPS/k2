@@ -106,9 +106,9 @@
 					<img src="\assets\badge.png">
 					<div style="position: absolute; top: 35px; width: 100%">
 						<div style= "width: 85%; margin: auto;">
-							<h3 style="text-align: center; font-weight: 900; font-size: 25px; height: 50px"><%= a.title %></h3>
-							<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a.descr %> </p>
-							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a.date_of_completion.strftime("%B #{a.date_of_completion.day.ordinalize}, %Y")  %> </p>		
+							<h3 style="text-align: center; font-weight: 900; font-size: 25px; height: 50px"><%= a["title"] %></h3>
+							<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a["description"] %> </p>
+							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a["date_of_completion"].strftime("%B #{a["date_of_completion"].day.ordinalize}, %Y")  %> </p>		
 						</div>		
 					</div>		
 				</div>
