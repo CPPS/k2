@@ -54,8 +54,11 @@
 
     <%= submit_tag("Update") %>
   <% end %>  
+  <%= button_to "Delete this achievement", { action: "delete", id: @ach["id"] },
+                                method: :delete, data: { confirm: "Are you sure?" } %>
+
   <%= button_to "Process achievements", { action: "reprocess", all: false },
-                                method: :post, data: { confirm: "Are you sure?" } %>
-  <%= button_to "Reprocess all achievements", { action: "reprocess", all: true },
                                 method: :post, data: { confirm: "Are you sure? This is going to take a while.." } %>
+  <%= button_to "Reprocess all achievements", { action: "reprocess", all: true },
+                                method: :post, data: { confirm: "Are you sure? This is going to take a long while.." } %>
 </div>

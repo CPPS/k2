@@ -49,4 +49,10 @@ class AchievementDatumController < ApplicationController
   def reprocess()
     AchievementReprocess.perform_now(params[:all] == "true")
   end
+
+  def delete()
+    AchievementDatum.find(params[:id]).destroy
+
+    redirect_to action: :show, id: AchievementDatum.first.id
+  end
 end
