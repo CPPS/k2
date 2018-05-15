@@ -45,4 +45,8 @@ class AchievementDatumController < ApplicationController
 
   	redirect_to action: :show, id: @ach.id
   end
+
+  def reprocess()
+    AchievementReprocess.perform_now(params[:all] == "true")
+  end
 end

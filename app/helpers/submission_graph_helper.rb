@@ -16,7 +16,7 @@ module SubmissionGraphHelper
 		achievements.each do |a|
 			year = a.date_of_completion.year
 			week = a.date_of_completion.to_date.cweek
-			data_achiev.push({x: Date.commercial(year,week).to_time.to_i*1000, text: "#{a.descr}", 
+			data_achiev.push({x: Date.commercial(year,week).to_time.to_i*1000, text: "#{a.achievement_datum.description}", 
 				title: "<img src='/trophies/gold.png' width='20' height='20'>" })
 		end
 

@@ -53,6 +53,9 @@
     </table>    
 
     <%= submit_tag("Update") %>
-  <% end %>
-
+  <% end %>  
+  <%= button_to "Process achievements", { action: "reprocess", all: false },
+                                method: :post, data: { confirm: "Are you sure?" } %>
+  <%= button_to "Reprocess all achievements", { action: "reprocess", all: true },
+                                method: :post, data: { confirm: "Are you sure? This is going to take a while.." } %>
 </div>

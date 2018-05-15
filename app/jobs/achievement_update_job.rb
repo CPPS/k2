@@ -2,20 +2,14 @@ require 'json'
 
 class AchievementUpdateJob < ApplicationJob
  
-  def perform(user, judged_at)
-  	
+  def perform(user, judged_at)  	
 	return unless not user.nil? and not user.accounts.nil?
   	
   	account = user.accounts.first # Assume first account is domjudge account  	
   	variables = lookup_stats account
   	
    	recheck_all = false
-  	AchievementDatum.all.each do |achievement|
-
-  		if achievement.level_entries.count != 0
-  			#check_and_update_level(achievement, account, user, judged_at)
-  			next
-  		end
+  	AchievementDatum.where(kind: :general).each do |achievement|
   		next if user.achievements.where(achievement_datum_id: achievement.id).exists? or not achievement.general?
 
   		completed = true
@@ -59,11 +53,7 @@ class AchievementUpdateJob < ApplicationJob
 	new_achievement = Achievement.new({
 		 'user_id' => user.id, 
 		 'date_of_completion' => judged_at,
-		 'filename' => filename,
-		 'level' => level,
-		 'kind' => kind,
-		 'achievement_datum_id' => achievement.id,
-		 'title' => achievement.title
+		 'achievement_datum_id' => achievement.id
 		 })
 	new_achievement.save!		
   end

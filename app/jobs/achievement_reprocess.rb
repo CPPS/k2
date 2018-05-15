@@ -2,59 +2,22 @@ require 'json'
 
 class AchievementReprocess < ApplicationJob
  
-  def perform()
-  	file = File.read('achievements.json');
-  	json = JSON.parse file;
+  def perform(delete_old = false)   
+    if delete_old 
+      Achievement.destroy_all
+      AchievementDatum.where(kind: :first_to_solve).destroy_all   
+    end
 
-    puts ""
-  	puts "There are #{json['achievements'].length} achievements with unique keys."
-    puts "Default image is stored at #{json['default_img']}"
-    puts ""
-
-  	puts "Parsed achievements:"
-  	json['achievements'].each do |achievement|
-      
-      puts "  #{achievement['description']}"
-
-      if not achievement['problems'].nil?    		
-    		puts "    Problems:"
-    		achievement['problems'].each do |p|
-    			puts "     #{p}"
-    		end 
-      end
-
-      if not achievement['levels'].nil?
-        puts "    Levels:"
-        achievement['levels'].each do |level|
-          puts "     #{level}" 
-        end unless achievement['levels'].nil?
-      end
-
-      if not achievement['prereqs'].nil?
-        puts "    Required achievements:"
-        achievement['prereqs'].each do |achiev|
-          puts "     #{achiev}" 
-        end unless achievement['prereqs'].nil?
-      end
-
-      if not achievement['variable'].nil?
-        linker = if ["equal", "=", "==", "equals"].include? achievement['comparison'] then "" else "than " end
-        puts "    #{achievement['variable']} #{achievement['comparison']} #{linker}#{achievement['value']}" 
+    if false
+      Submission.delete_all
+      Server.where(api_type: "domjudge").each do |s|
+        s.last_judging = 0
+        s.save!
       end
     end
 
-    puts "Do you want to reprocess all submissions? (y/n)"
-    answer = gets.chomp
-    if answer != "y"
-      return 
-    end
-
-    Submission.delete_all
-    Achievement.delete_all
-    AchievementDatum.where(kind: :first_to_solve).delete_all
-    Server.where(api_type: "domjudge").each do |s|
-      s.last_judging = 0
-      s.save!
+    Submission.order(:judged_at).where(status: :correct).each do |s|
+      s.on_correct_submission
     end    
 	end
 end

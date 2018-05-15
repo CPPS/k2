@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 	get '/search', to:'submissions#show'
 	get '/edit_achievement', to: 'achievement_datum#show'
 	post '/update_achievement', to: 'achievement_datum#update'
+	post '/reprocess_achievements', to: 'achievement_datum#reprocess'
 	post '/new_submission', to:'submissions#process_submit'
 
 	# Only way that works for some reason
