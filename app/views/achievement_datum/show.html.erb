@@ -21,7 +21,6 @@
       <tr>
         <td> <%= label_tag(:tier, "Tier:") %> </td>
         <td> <%= select_tag(:tier, options_for_select([['platinum', 1], ['gold', 2], ['silver', 3], ['bronze', 4]], @ach['tier']))%> </td>
-        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
       </tr>
 
       <tr>
@@ -37,34 +36,32 @@
       <tr><td><h5>Variable related</h5></td></tr>
       <tr>
         <td>  <%= label_tag(:variable_enabled, "Enabled:") %> </td>
-        <td> <%=check_box_tag :variable_enabled, 'yes', (not @ach["variable"].nil? ) %> </td>
+        <td> <%=check_box_tag :variable_enabled, 'yes', (not @ach["variable"].nil? ) %> </td>        
+        <td> <p style="font-style: italic; display:inline;">Check this if you want to use a variable for the achievement</p> </td>
       </tr>
       <tr>
         <td>  <%= label_tag(:variable, "Variable:") %> </td>
         <td> <%= select_tag(:variable, options_for_select([['ranking', 'ranking'], ['solvedProblems', 'solvedProblems']], @ach['variable']))%> </td>
-        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
       </tr>
 
       <tr>
         <td><%= label_tag(:comparison, "Comparison:") %> </td>
         <td> <%= select_tag(:comparison,options_for_select([['>=', ">="], ['<=', "<="], ["==", "=="]], @ach['comparison']))%> </td>
-        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
       </tr>
 
       <tr>
         <td><%= label_tag(:variable_value, "Value:") %> </td>
         <td> <%= text_field_tag(:variable_value, @ach['value']) %> </td>
-        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
       </tr>
     </table>    
 
     <%= submit_tag("Update") %>
   <% end %>  
   <%= button_to "Delete this achievement", { action: "delete", id: @ach["id"] },
-                                method: :delete, data: { confirm: "Are you sure?" } %>
+                                method: :delete, data: { confirm: "Are you sure? This will also remove this achievement from people who already received it" } %>
 
   <%= button_to "Process achievements", { action: "reprocess", all: false },
-                                method: :post, data: { confirm: "Are you sure? This is going to take a while.." } %>
+                                method: :post, data: { confirm: "Are you sure?" } %>
   <%= button_to "Reprocess all achievements", { action: "reprocess", all: true },
-                                method: :post, data: { confirm: "Are you sure? This is going to take a long while.." } %>
+                                method: :post, data: { confirm: "Are you sure? This is going to delete all submissions from K2. Only necessary if you want the correct dates for achievements which depend on a variable" } %>
 </div>

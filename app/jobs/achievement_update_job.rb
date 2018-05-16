@@ -43,14 +43,7 @@ class AchievementUpdateJob < ApplicationJob
   end
 
   def create_achievement(user, judged_at, achievement, kind, level)
-  	#if achievement['img'].nil?
-	#	filename = data['default_img']
-	#else 
-	#	filename = achievement['img']
-	#end
-	filename = "/trophies/silver.png"
-
-	new_achievement = Achievement.new({
+  	new_achievement = Achievement.new({
 		 'user_id' => user.id, 
 		 'date_of_completion' => judged_at,
 		 'achievement_datum_id' => achievement.id
