@@ -1,4 +1,11 @@
 class AchievementDatumController < ApplicationController
+  before_action :redirect_if_not_admin
+
+  def redirect_if_not_admin
+    if not logged_in? or not current_user.admin
+      redirect_to :root  
+    end
+  end
 
 	def show 	
   	@ach = AchievementDatum.find_by(id: params[:id])
