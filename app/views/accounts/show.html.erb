@@ -115,12 +115,12 @@
 			<% end %>
 			<div style="clear:both;"></div>
 			<% @achievements_small.each do |a| %>	
-				<div style="position: relative; float:left; margin: 15px;">
-					<img src= <%= a['filename'] %> style= "width: 50%">
-					<div style="position: absolute; top: 35px; width: 100%">
+				<div style="position: relative; float:left; margin: 15px; float:left; margin: 15px;">
+					<img src= <%= a['filename'] %> style="background-color: red; width: 150px; ">
+					<div style="position: absolute; top: 25px; width: 100%">
 						<div style= "width: 85%; margin: auto;">
-							<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a["description"] %> </p>
-							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a["date_of_completion"].strftime("%B #{a["date_of_completion"].day.ordinalize}, %Y")  %> </p>		
+							<p style="margin: auto; width: 75%; height: 70px; font-size: 13px; text-align: center"> <%= a["description"] %> </p>
+							<p style="margin: auto; width: 75%; font-size: 12px; font-style: italic; text-align: center"> <%= a["date_of_completion"].strftime("%B #{a["date_of_completion"].day.ordinalize}, %Y")  %> </p>		
 						</div>		
 					</div>		
 				</div>
