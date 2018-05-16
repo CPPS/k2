@@ -101,9 +101,9 @@ class Submission < ApplicationRecord
 		if not user.nil? and not is_solved_by_user
 			new_achievement = AchievementDatum.new({
 				'description' => "You were the first to solve #{problem.name}",
-				'img_small' => "/trophies/silver.png",
 				'title' => "First to complete",
-				'kind' => :first_to_solve })			
+				'kind' => :first_to_solve,
+				'tier' => 3})			
 			new_achievement.save!
 			
 			new_achievement.problem_entries.create(value: problem.short_name)

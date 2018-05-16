@@ -20,13 +20,25 @@ class AccountsController < ApplicationController
 
 		if not @account.user.nil?
 			
-			#@achievements = @account.user.achievements.joins(:achievement_datum).where(kind: [:general]):problem_entries => {value: problem.short_name})
-			@achievements = @account.user.achievements.joins(:achievement_datum).where(:achievement_data => { kind: [:general, :first_to_solve] }).map { |a|
-				r = a.achievement_datum.as_json
+			shield_files = ['\assets\shield_platinum', '\assets\shield_gold', '\assets\shield_silver', '\assets\shield_bronze']
+			user_achievs = @account.user.achievements.joins(:achievement_datum).where(:achievement_data => { kind: [:general, :first_to_solve] })
+			@achievements_large = user_achievs.where(:achievement_data => {tier: [1,2]}).map { |a|
+				r = {}
+				r['title'] = a.achievement_datum.title
+				r['description'] = a.achievement_datum.description
 				r['date_of_completion'] = a.date_of_completion
+				r['filename'] = shield_files[a.achievement_datum.tier - 1]
 				r
 			 }
-			 
+			 @achievements_small = user_achievs.where(:achievement_data => {tier: [3,4]}).map { |a|
+				r = {}
+				r['title'] = a.achievement_datum.title
+				r['description'] = a.achievement_datum.description
+				r['date_of_completion'] = a.date_of_completion
+				r['filename'] = shield_files[a.achievement_datum.tier - 1]
+				r
+			 }
+			 #debugger
 			#@levels = @account.user.achievements.where(kind: :category).where(isActive: true)
 
 			@levels = [

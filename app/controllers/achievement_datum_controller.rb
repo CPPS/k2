@@ -1,5 +1,5 @@
 class AchievementDatumController < ApplicationController
-  before_action :redirect_if_not_admin
+  #before_action :redirect_if_not_admin
 
   def redirect_if_not_admin
     if not logged_in? or not current_user.admin
@@ -24,6 +24,7 @@ class AchievementDatumController < ApplicationController
   	
   	@ach.title = params[:title]
   	@ach.description = params[:description]
+    @ach.tier = params[:tier]
 
   	@ach.problem_entries.destroy_all
   	params[:problems].split(",").each do |p|
@@ -42,10 +43,9 @@ class AchievementDatumController < ApplicationController
       @ach.value = params[:variable_value]
     end
     
+    @ach.general!
     if not params[:levels].empty?
-      @ach.category!
-    else
-      @ach.general!        
+      @ach.category!         
     end
 
 		@ach.save!

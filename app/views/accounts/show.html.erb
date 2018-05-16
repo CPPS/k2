@@ -81,7 +81,7 @@
 		</div>
 	<% end %>
 
-	<% if not @achievements.nil? %>
+	<% if not (@achievements_large.nil? and @achievements_small.nil?)%>
 		<div id="achievements" class="tab-pane" role="tabpanel">
 
 			<h2>Levels</h2>
@@ -101,12 +101,24 @@
 			<% end %>
 			<div style="clear:both;"></div>
 			<h2>Achievements</h2>
-			<% @achievements.each do |a| %>	
+			<% @achievements_large.each do |a| %>	
 				<div style="position: relative; float:left; margin: 15px;">
-					<img src="\assets\badge.png">
+					<img src= <%= a['filename'] %> >
 					<div style="position: absolute; top: 35px; width: 100%">
 						<div style= "width: 85%; margin: auto;">
 							<h3 style="text-align: center; font-weight: 900; font-size: 25px; height: 50px"><%= a["title"] %></h3>
+							<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a["description"] %> </p>
+							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a["date_of_completion"].strftime("%B #{a["date_of_completion"].day.ordinalize}, %Y")  %> </p>		
+						</div>		
+					</div>		
+				</div>
+			<% end %>
+			<div style="clear:both;"></div>
+			<% @achievements_small.each do |a| %>	
+				<div style="position: relative; float:left; margin: 15px;">
+					<img src= <%= a['filename'] %> style= "width: 50%">
+					<div style="position: absolute; top: 35px; width: 100%">
+						<div style= "width: 85%; margin: auto;">
 							<p style="margin: auto; width: 75%; height: 70px; font-size: 14px; text-align: center"> <%= a["description"] %> </p>
 							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a["date_of_completion"].strftime("%B #{a["date_of_completion"].day.ordinalize}, %Y")  %> </p>		
 						</div>		

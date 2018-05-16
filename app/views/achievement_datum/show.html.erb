@@ -19,6 +19,12 @@
       </tr>
 
       <tr>
+        <td> <%= label_tag(:tier, "Tier:") %> </td>
+        <td> <%= select_tag(:tier, options_for_select([['platinum', 1], ['gold', 2], ['silver', 3], ['bronze', 4]], @ach['tier']))%> </td>
+        <td> <p style="font-style: italic; display:inline;">This is a short test.</p> </td>
+      </tr>
+
+      <tr>
         <td> <%= label_tag(:problems, "Problems:") %> </td>
         <td><%= text_area_tag(:problems,  @ach.problem_entries.map {|p| p.value}.join(", ") , size: "35x2") %></td>
       </tr>
