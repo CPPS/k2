@@ -81,7 +81,7 @@ class AchievementUpdateJob < ApplicationJob
 		# only record change if level has risen
 		level = if maxLevelAch.level < level then level else 0 end
 	end
-	# if level has changed, create new achievment and make previous invisible
+	# if level has changed, create new achievement and make previous invisible
 	if level == 0
 		return
 	end

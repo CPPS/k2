@@ -1,0 +1,19 @@
+<h1 class="page-title-top">Available Achievements</h1>
+<div class="container">
+		<table id="targetTable" class="table" width="100%">
+			<thead>
+				<tr>
+					<th width="5%">Tier</th>
+					<th width="25%">Title</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<% @achievement_data.each do |a| -%>
+				<tr>
+					<td> <img src= <%= @shield_files[a.tier - 1]%> style="width: 80%; height: auto;"> </td>
+					<td><%= a.title -%></td>
+					<td><%= a.description -%></td>
+				</tr>
+			<% end -%>
+		</table>
+</div>

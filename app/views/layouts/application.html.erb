@@ -24,7 +24,7 @@
         <%= link_to "Leaderboard", {controller: "/leaderboard", action: "show"}, class: "nav-link" -%>
       </li>
       <li class="menuitem ">
-        <%= link_to "Feed", {controller: "/dashboard", action: "index"}, class:"nav-link" -%>
+        <%= link_to "Feed", {controller: "/dashboard", action: "index"}, class: "nav-link" -%>
       </li>
       <li class="menuitem ">
         <%= link_to "Problems", problems_path, class:"nav-link" -%>
@@ -34,9 +34,8 @@
         <%= link_to "Submissions", {controller: "/submissions", action: "show"}, class:"nav-link" -%>
       </li>
 	<%- end -%>
-      <!-- Temporary DOMJudge link -->
-      <li class="menuitem" data-turbolinks="false">
-        <%= link_to "DOMJudge", "/domjudge", class:"nav-link" -%>
+      <li class="menuitem ">
+        <%= link_to "Achievements", {controller: "/achievements", action: "show"}, class: "nav-link" -%>
       </li>
       <li class="menuitem">
         <%= link_to "Help", {controller: "/help", action: "show"}, class:"nav-link" -%>

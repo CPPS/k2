@@ -1,6 +1,10 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'achievements/show'
+
+  get 'achievements_controller/show'
+
   get 'edit_achievement/show'
 
   get 'achievement_edit_controller/show'
@@ -29,6 +33,7 @@ Rails.application.routes.draw do
 
 	# Navbar paths
 	get	'/leaderboard',	to: 'leaderboard#show'
+	get	'/achievements',	to: 'achievements#show'
 	get	'/dashboard',	to: 'dashboard#index'
 	get	'/changelog',	to: 'changelog#index'
 	get	'/submissions',	to:'submission#show'
