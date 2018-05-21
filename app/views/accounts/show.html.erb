@@ -81,7 +81,7 @@
 		</div>
 	<% end %>
 
-	<% if not (@achievements_large.nil? and @achievements_small.nil?)%>
+	<% if not (@achievements_large.nil? and @achievements_small.nil? and @levels.nil?)%>
 		<div id="achievements" class="tab-pane" role="tabpanel">
 
 			<h2>Levels</h2>
@@ -96,7 +96,7 @@
 							<p style="margin: auto; width: 75%; font-size: 14px; font-style: italic; text-align: center"> <%= a[:date].strftime("%B #{a[:date].day.ordinalize}, %Y")  %> </p>		
 						</div>		
 					</div>		
-					<p style= "text-align: center; font-style: italic; font-size: 14px">Next problem: <a href="#"><%= a[:next_problem] %></a> </p>
+					<p style= "text-align: center; font-style: italic; font-size: 14px">Next problem: <%= link_to a[:next_problem], {controller: "/problems", action: "show", server_id: 1, short_name: a[:next_problem]} %> </p>
 				</div>
 			<% end %>
 			<div style="clear:both;"></div>

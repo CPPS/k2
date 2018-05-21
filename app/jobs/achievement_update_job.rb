@@ -24,6 +24,10 @@ class AchievementUpdateJob < ApplicationJob
 		end
 	end
 
+	AchievementDatum.where(kind: :category).each do |achievement|
+		check_and_update_level(achievement, account, user, judged_at)
+	end
+
 	AchievementUpdateJob.perform_now(user, judged_at) unless not recheck_all
   end
 
@@ -46,7 +50,8 @@ class AchievementUpdateJob < ApplicationJob
   	new_achievement = Achievement.new({
 		 'user_id' => user.id, 
 		 'date_of_completion' => judged_at,
-		 'achievement_datum_id' => achievement.id
+		 'achievement_datum_id' => achievement.id,
+		 'level' => level
 		 })
 	new_achievement.save!		
   end
@@ -64,19 +69,19 @@ class AchievementUpdateJob < ApplicationJob
   def check_and_update_level(achievement, account, user, judged_at)
   	# first evaluate what level the user would reach
   	level = 0
-	achievement.level_entries.each do |p|
+	achievement.level_entries.order(:position).each do |p|
 		if account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
 			level+=1 
 		else
 			break
 		end
 	end
+	
 	# if no problems have been completed, no change has to be made
-	if level == 0
-		return # no change
-	end
+	return unless level != 0
+
 	# check existing achievements for highest level reached
-	maxLevelAch = user.achievements.where(name: achievement['id']).order("level DESC").first
+	maxLevelAch = user.achievements.where(achievement_datum_id: achievement.id).order("level DESC").first
 	if not maxLevelAch.nil?
 		# only record change if level has risen
 		level = if maxLevelAch.level < level then level else 0 end

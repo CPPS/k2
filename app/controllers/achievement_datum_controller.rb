@@ -32,8 +32,8 @@ class AchievementDatumController < ApplicationController
   	end
 
     @ach.level_entries.destroy_all
-    params[:levels].split(",").each do |p|
-      @ach.level_entries.create(value: p.strip)
+    params[:levels].split(",").each_with_index do |p, i|
+      @ach.level_entries.create(value: p.strip, position: i)
     end
 
     @ach.variable = nil

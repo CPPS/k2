@@ -39,28 +39,26 @@ class AccountsController < ApplicationController
 				r
 			 }
 			 #debugger
-			#@levels = @account.user.achievements.where(kind: :category).where(isActive: true)
+			@levels_data = @account.user.achievements.joins(:achievement_datum).where("achievement_data.kind" => :category).where(isActive: true)
+			@levels = []
+			@levels_data.each do |l|
 
-			@levels = [
-				{
-					name: "Bruteforce",
-					level: "1",
-					date: Time.now,
-					next_problem: "EAPC06A"
-				},
-				{
-					name: "Graphs",
-					level: "3",
-					date: Time.now,
-					next_problem: "BAPC09B"
-				},
-				{
-					name: "DP",
-					level: "2",
-					date: Time.now,
-					next_problem: "EAPC07E"
-				}
-			]
+				next_problem = 0
+				l.achievement_datum.level_entries.order(:position).each do |p|
+					if @account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
+						next_problem = p.value
+					else
+						break
+					end
+				end
+
+				@levels.push( {
+						name: l.achievement_datum.title,
+						level: l.level,
+						date: l.date_of_completion,
+						next_problem: next_problem
+					})
+			end			
 
 			res = create_graph(@account.user)
 			@chart = res[:chart]

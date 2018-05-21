@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 	delete '/delete_achievement', to: 'achievement_datum#delete'
 	post '/new_submission', to:'submissions#process_submit'
 
+	get '/problems', to: 'problems#show'
 	# Only way that works for some reason
 	get	'/problems/:server_id/:short_name',	to: 'problems#show', as: :kaas
 	get	'/scoreboard/:problem_names/:account_ids',	to: 'scoreboard#show'

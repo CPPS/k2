@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516085356) do
+ActiveRecord::Schema.define(version: 20180521091305) do
 
   create_table "accounts", id: :bigint, unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci" do |t|
     t.string "name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20180516085356) do
     t.integer "prev_rank", default: 2000000000
     t.boolean "isActive", default: true
     t.integer "achievement_datum_id"
+    t.integer "level"
     t.index ["achievement_datum_id"], name: "index_achievements_on_achievement_datum_id"
     t.index ["user_id"], name: "index_achievements_on_user_id"
   end
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180516085356) do
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "position"
     t.index ["achievement_datum_id"], name: "index_level_entries_on_achievement_datum_id"
   end
 
