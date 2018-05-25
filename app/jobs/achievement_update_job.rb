@@ -3,8 +3,8 @@ require 'json'
 class AchievementUpdateJob < ApplicationJob
  
   def perform(user, judged_at)  	
-	return unless not user.nil? and not user.accounts.nil?
-  	
+	return unless not user.nil? and not user.accounts.nil? and not user.accounts.empty?
+  	  	
   	account = user.accounts.first # Assume first account is domjudge account  	
   	variables = lookup_stats account
   	

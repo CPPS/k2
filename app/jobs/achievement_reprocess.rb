@@ -11,10 +11,15 @@ class AchievementReprocess < ApplicationJob
         s.last_judging = 0
         s.save!
       end
+    else
+      User.all.each do |u|
+        AchievementUpdateJob.perform_now(u, Time.now)
+      end
     end
 
-    Submission.order(:judged_at).where(status: :correct).each do |s|
-      s.on_correct_submission
-    end    
+
+    #Submission.order(:judged_at).where(status: :correct).each do |s|
+    #  s.on_correct_submission
+    #end    
 	end
 end
