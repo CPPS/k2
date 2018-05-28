@@ -57,12 +57,21 @@ class AchievementUpdateJob < ApplicationJob
   end
 
   def check_problems(achievement, account)
+  	solved_amount = 0
 	achievement.problem_entries.each do |p|
-		if not account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
-			return false 
+		if account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
+			solved_amount = solved_amount + 1
+		else
+			if achievement.minimum_solved_amount == 0 
+				return false
+			end
 		end
-	end 
+	end
 
+	if achievement.minimum_solved_amount != 0 and solved_amount < achievement.minimum_solved_amount
+		return false
+	end
+	
 	return true
   end
 

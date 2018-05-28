@@ -24,13 +24,21 @@
       </tr>
 
       <tr>
+        <td><%= label_tag(:minimum_solved_amount, "Min Solved Amount:") %> </td>
+        <td> <%= text_field_tag(:minimum_solved_amount, @ach['minimum_solved_amount']) %> </td>
+        <td> <p style="font-style: italic; display:inline;">Set to 0 to require that all problems are solved</p> </td>
+      </tr>
+
+      <tr>
         <td> <%= label_tag(:problems, "Problems:") %> </td>
         <td><%= text_area_tag(:problems,  @ach.problem_entries.map {|p| p.value}.join(", ") , size: "35x2") %></td>
+        <td> <p style="font-style: italic; display:inline;">Comma-seperated list of short names of required problems</p> </td>
       </tr>
 
       <tr>
         <td> <%= label_tag(:levels, "Levels:") %> </td>
         <td><%= text_area_tag(:levels,  @ach.level_entries.map {|p| p.value}.join(", ") , size: "35x2") %></td>
+        <td> <p style="font-style: italic; display:inline;">Comma-seperated list of short names of problems corresponding to levels</p> </td>
       </tr>
 
       <tr><td><h5>Variable related</h5></td></tr>

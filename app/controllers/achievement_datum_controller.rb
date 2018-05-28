@@ -31,6 +31,8 @@ class AchievementDatumController < ApplicationController
       @ach.problem_entries.create(value: p.strip)
   	end
 
+    @ach.minimum_solved_amount = params[:minimum_solved_amount]
+
     @ach.level_entries.destroy_all
     params[:levels].split(",").each_with_index do |p, i|
       @ach.level_entries.create(value: p.strip, position: i)
