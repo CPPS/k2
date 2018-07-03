@@ -43,13 +43,12 @@ class AccountsController < ApplicationController
 			@levels = []
 			@levels_data.each do |l|
 
-				next_problem = 0
+				next_problem = nil
 				l.achievement_datum.level_entries.order(:position).each do |p|
-					if @account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
+					if not @account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
 						next_problem = p.value
-					else
-						break
-					end
+						break	
+					end				
 				end
 
 				@levels.push( {

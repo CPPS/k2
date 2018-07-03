@@ -78,7 +78,11 @@ class AchievementUpdateJob < ApplicationJob
   def check_and_update_level(achievement, account, user, judged_at)
   	# first evaluate what level the user would reach
   	level = 0
+  	if user.username == "s157928"
+  		#debugger
+  	end
 	achievement.level_entries.order(:position).each do |p|
+		#debugger
 		if account.submissions.joins(:problem).where("problems.short_name" => p.value).exists?
 			level+=1 
 		else
