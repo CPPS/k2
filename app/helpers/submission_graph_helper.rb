@@ -21,7 +21,7 @@ module SubmissionGraphHelper
 			week = [52, a.date_of_completion.to_date.cweek].min
 			t = Date.commercial(year,week).to_time.to_i*1000 
 			data_achiev.push({x: t, text: "#{a.achievement_datum.description}", 
-				title: "<img src='/trophies/gold.png' width='20' height='20'>" })
+				title: "<img src='/assets/trophies/gold.png' width='20' height='20'>" })
 		end
 
 		@chart = LazyHighCharts::HighChart.new('graph') do |f|
