@@ -11,7 +11,7 @@
 			</thead>
 			<% @achievement_data.each do |a| -%>
 				<tr>
-					<td> <p style="display: none;"><%= a.tier %></p> <img src= <%= @shield_files[a.tier - 1]%> style="width: 80%; height: auto;"> </td>
+					<td> <p style="display: none;"><%= a.tier %></p> <%= image_tag @shield_files[a.tier - 1], style: "width: 80%" %> </td>
 					<td><%= a.title -%></td>
 					<td><%= a.description -%></td>
 					<% if not current_user.nil? and current_user.admin %> <td><%= link_to "Edit", {controller: "/achievement_datum", action: "show", id: a.id}, class:"nav-link tempitem" %></td> <% end %>

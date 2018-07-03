@@ -1,6 +1,6 @@
 class AchievementsController < ApplicationController
 	def show
-		@shield_files = ['\assets\shield_platinum', '\assets\shield_gold', '\assets\shield_silver', '\assets\shield_bronze']
+		@shield_files = ['shield_platinum', 'shield_gold', 'shield_silver', 'shield_bronze']
 		#@achievement_data = AchievementDatum.all.where.not(kind: :first_to_solve).order(
 		@achievement_data = AchievementDatum.all.where.not(kind: :first_to_solve).order(
 			tier: :desc, title: :asc
