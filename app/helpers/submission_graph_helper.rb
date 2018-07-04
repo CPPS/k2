@@ -22,7 +22,7 @@ module SubmissionGraphHelper
 			t = Date.commercial(year,week).to_time.to_i*1000 
 			image_path = ActionController::Base.helpers.asset_path("/trophies/gold.png")
 			data_achiev.push({x: t, text: "#{a.achievement_datum.description}", 
-				title: "<img src=/assets/#{image_path} width='20' height='20'>" })
+				title: "<i class='fas fa-trophy' style='color: #DBB600; font-size:1.5em'></i>" })
 		end
 
 		@chart = LazyHighCharts::HighChart.new('graph') do |f|
