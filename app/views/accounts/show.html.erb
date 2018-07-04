@@ -126,7 +126,9 @@
 			</div>
 		<% end %>
 
-		<%= high_chart_globals(@chart_globals) %>
-		<%= high_chart("some_id", @chart) %>
+		<% if @chart != nil %>
+			<%= high_chart_globals(@chart_globals) %>
+			<%= high_chart("some_id", @chart) %>
+		<% end %>
 	</div>
 </div>
