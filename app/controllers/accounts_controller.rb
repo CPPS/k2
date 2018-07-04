@@ -18,6 +18,9 @@ class AccountsController < ApplicationController
 		                   .where(submissions: { account: @account, status: [:correct, :first_correct] })
 		                   .order(short_name: :asc)
 
+		@achievements_large = []
+		@achievements_small = []
+		@levels = []
 		if not @account.user.nil?
 			
 			shield_files = ['shield_platinum.png', 'shield_gold.png', 'shield_silver.png', 'shield_bronze.png']
