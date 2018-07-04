@@ -20,7 +20,7 @@ class AccountsController < ApplicationController
 
 		if not @account.user.nil?
 			
-			shield_files = ['shield_platinum', 'shield_gold', 'shield_silver', 'shield_bronze']
+			shield_files = ['shield_platinum.png', 'shield_gold.png', 'shield_silver.png', 'shield_bronze.png']
 			user_achievs = @account.user.achievements.joins(:achievement_datum).where(:achievement_data => { kind: [:general, :first_to_solve] })
 			@achievements_large = user_achievs.where(:achievement_data => {tier: [1,2]}).map { |a|
 				r = {}

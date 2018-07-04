@@ -20,7 +20,7 @@ module SubmissionGraphHelper
 			year = a.date_of_completion.year
 			week = [52, a.date_of_completion.to_date.cweek].min
 			t = Date.commercial(year,week).to_time.to_i*1000 
-			image_path = ActionController::Base.helpers.asset_path("/trophies/gold")
+			image_path = ActionController::Base.helpers.asset_path("/trophies/gold.png")
 			data_achiev.push({x: t, text: "#{a.achievement_datum.description}", 
 				title: "<img src=/assets/#{image_path} width='20' height='20'>" })
 		end
