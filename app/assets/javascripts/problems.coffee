@@ -10,7 +10,7 @@ $(document).on 'turbolinks:load', ->
 	);
 
 	# store the currently selected tab in the hash value
-	$("ul.nav-tabs > li > a").on("shown.bs.tab", (e) -> 
+	$("#problem-tabs > li > a").on("shown.bs.tab", (e) -> 
 		id = $(e.target).attr("href").substr(1);
 		window.location.hash = id;
 	);
