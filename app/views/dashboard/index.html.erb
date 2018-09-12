@@ -12,6 +12,14 @@
 		<div id="recently-solved">
 			<h4>Your Attempts</h4>
 			<%= render partial: 'shared/submissions', object: @user_attempts %>
+			<% if @user_attempts.length == 0 &&
+					current_user.accounts.length == 0 %>
+				<div class="alert alert-danger">
+					Couldn't find associated account. If you
+					want to submit problems, contact the
+					administrator.
+				</div>
+			<% end %>
 		</div>
 		</div>
 	<%- else -%>
