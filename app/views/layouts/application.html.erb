@@ -7,7 +7,7 @@
 		<%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png' %>
 		<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 		<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-		
+
 	</head>
 
 	<body>
@@ -42,6 +42,10 @@
       </li>
       <li class="menuitem">
         <%= link_to "Changelog", {controller: "/changelog", action: "index"}, class:"nav-link tempitem" -%>
+      </li>
+      <%# DomJudge link. Turbolinks is disabled because we go outside the app %>
+      <li class="menuitem" data-turbolinks="false">
+	<%= link_to "DOMJudge", "/domjudge", class: "nav-link" %>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
