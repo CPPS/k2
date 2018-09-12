@@ -14,7 +14,8 @@ class ProblemsController < ApplicationController
 			@attempted = @problem.submissions.where(account: user_account(@server.id)).exists?
 			@solved = @attempted && @problem.submissions.accepted.where(account: user_account(@server.id)).exists?
 			
-			@user_attempts = current_user.accounts.first.submissions.where(problem_id: @problem.id)
+			@user_attempts = Submission.joins(:account)
+				.where( account_id: {user_id: current_user }, problem_id: @problem.id)				
 				.order(created_at: :desc)
 				.limit(10)
 		end
