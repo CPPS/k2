@@ -13,6 +13,7 @@ module Devise
 				ldap.host = cfg[:host]
 				ldap.port = cfg[:port] || 389
 				ldap.auth "#{cfg[:domain]}\\#{login}", password
+				ldap.encryption :simple_tls  if cfg[:encryption]
 				return pass unless ldap.bind
 				user = User.find_or_create_by(username: login)
 				if user.new_record?
