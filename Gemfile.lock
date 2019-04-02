@@ -65,10 +65,10 @@ GEM
     bcrypt (3.1.12)
     bcrypt_pbkdf (1.0.0)
     bindex (0.6.0)
-    bootstrap (4.0.0)
-      autoprefixer-rails (>= 6.0.3)
-      popper_js (>= 1.12.9, < 2)
-      sass (>= 3.5.2)
+    bootstrap (4.3.1)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 1.14.3, < 2)
+      sassc-rails (>= 2.0.0)
     bootstrap_form (4.2.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -235,6 +235,12 @@ GEM
     sassc (2.0.1)
       ffi (~> 1.9)
       rake
+    sassc-rails (2.1.0)
+      railties (>= 4.0.0)
+      sassc (>= 2.0)
+      sprockets (> 3.0)
+      sprockets-rails
+      tilt
     sentry-raven (2.9.0)
       faraday (>= 0.7.6, < 1.0)
     sidekiq (5.2.5)
@@ -297,7 +303,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt_pbkdf (>= 1.0, < 2.0)
-  bootstrap (~> 4.0.0)
+  bootstrap (~> 4)
   bootstrap_form
   byebug
   capistrano-rails
