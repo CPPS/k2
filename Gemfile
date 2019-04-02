@@ -52,6 +52,7 @@ group :development do
 	# net-ssh requires some gems for ed25519 keys support
 	# See https://github.com/net-ssh/net-ssh/issues/478
 	gem 'bcrypt_pbkdf', '>= 1.0', '< 2.0'
+	gem 'ed25519', '>= 1.2', '< 2.0'
 	gem 'rbnacl', '>= 3.2', '< 5.0'
 
 	gem 'listen', '~> 3.1'
@@ -115,3 +116,9 @@ gem 'jquery-datatables'
 ### SEARCH
 # Sphinx
 gem 'thinking-sphinx', '~> 3.4'
+
+### HACKS
+# Sassc
+# Sassc 2 does not support Ruby 2.3.1, which is the highest available system
+# ruby on Ubuntu 16.04, so specify an upper bound here.
+gem 'sassc', '<2'
