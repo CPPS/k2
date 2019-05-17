@@ -9,7 +9,16 @@ module Devise
 		# have never used K2 before.
 		class LdapAuthenticatable < Authenticatable
 			def authenticate!
-				ldap = Net::LDAP.new
+				ldap = Net::LDAP.new(
+					# Enable LDAP signature verification
+					encryption: {
+  						method:      :simple_tls,
+						tls_options: { 
+							ca_file:     cfg[:ldap_cert_path],
+               						ssl_version: 'TLSv1_1' 
+						}
+    					}
+				)
 				ldap.host = cfg[:host]
 				ldap.port = cfg[:port] || 389
 				ldap.auth "#{cfg[:domain]}\\#{login}", password
