@@ -14,7 +14,7 @@ module Devise
 					encryption: {
   						method:      :simple_tls,
 						tls_options: { 
-							ca_file:     '/opt/k2/shared/config/tuesmartca.pem',
+							ca_file:     cfg[:ldap_cert_path],
                						ssl_version: 'TLSv1_1' 
 						}
     					}
