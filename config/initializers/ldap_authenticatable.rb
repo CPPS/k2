@@ -9,6 +9,7 @@ module Devise
 		# have never used K2 before.
 		class LdapAuthenticatable < Authenticatable
 			def authenticate!
+				return fail!('No password supplied') if password == ''
 				ldap = Net::LDAP.new
 				ldap.host = cfg[:host]
 				ldap.port = cfg[:port] || 389
@@ -21,7 +22,8 @@ module Devise
 					# The elements are arrays, so we
 					# take the first element
 					user.name = entry.name.first
-					user.email = entry.mail.first
+					# TU/e LDAP server is weird
+					user.email = entry.userprincipalname.first
 					# We set a random long password because
 					# it is required by database
 					# validations. It should not be used for
